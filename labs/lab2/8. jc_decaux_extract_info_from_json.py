@@ -5,6 +5,7 @@ import time
 import os
 import dbinfo
 import json
+from sqlalchemy import create_engine
 
 def stations_to_db(text):
     # let us load the stations from the text received from jcdecaux
@@ -32,7 +33,7 @@ def stations_to_db(text):
 
 def main():
     USER = "root"
-    PASSWORD = "...."
+    PASSWORD = "as5071565"
     PORT = "3306"
     DB = "local_databasejcdecaux"
     URI = "127.0.0.1"
