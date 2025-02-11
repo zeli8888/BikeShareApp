@@ -70,12 +70,13 @@ engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_P
 # connection_string = "mysql+mysqldb://{}:{}@{}:{}/{}".format(USER, PASSWORD, URI, PORT, DB)
 # engine = create_engine(connection_string, echo = True)
 
+DB = "databasejc"
 sql = """
 CREATE DATABASE IF NOT EXISTS databasejc;
 """
 # engine.execute(sql)
 new_engine_connection(engine, sql)
-new_engine_connection(engine, "databasejc")
+new_engine_connection(engine, "USE {};".format(DB))
 
 #############Let us create the table############
 
