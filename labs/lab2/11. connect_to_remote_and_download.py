@@ -1,4 +1,3 @@
-import sqlalchemy as sqla
 from sqlalchemy import create_engine
 import traceback
 import glob
@@ -60,15 +59,16 @@ def stations_to_db(text, in_engine):
 
 ######################Let us connect to the DB
 
-USER = "..."
-PASSWORD = "..."
-PORT = "3306"
-DB = "...db name..."
-URI = "...remote uri..."
+DB_USER = "admin"
+DB_PASSWORD = "as5071565"
+DB_HOST = "127.0.0.1"
+DB_PORT = "3333"
+DB_NAME = "dbbikes"
+# URI = "database-download-jc-decaux.cdq06yk88d22.us-east-1.rds.amazonaws.com"
+engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
-connection_string = "mysql+mysqldb://{}:{}@{}:{}/{}".format(USER, PASSWORD, URI, PORT, DB)
-
-engine = create_engine(connection_string, echo = True)
+# connection_string = "mysql+mysqldb://{}:{}@{}:{}/{}".format(USER, PASSWORD, URI, PORT, DB)
+# engine = create_engine(connection_string, echo = True)
 
 sql = """
 CREATE DATABASE IF NOT EXISTS databasejc;
