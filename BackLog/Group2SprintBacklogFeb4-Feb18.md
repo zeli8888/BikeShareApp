@@ -1,7 +1,7 @@
 # Group2 Sprint Backlog
 # [Feb 4 - Feb 18]
 ---------
-### User Story: [User Stroy Definition]
+### User Story: [User Story Definition]
 - **As a:** [Developer]
 - **I want to:** [define our user stories clearly]
 - **So that I can:** [build the best application meet our expectation]
