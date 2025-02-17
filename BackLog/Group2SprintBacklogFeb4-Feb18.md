@@ -1,7 +1,7 @@
 # Group2 Sprint Backlog
 # [Feb 4 - Feb 18]
 ---------
-### User Story: [User Story Definition]
+### Application Discussion: [User Story Definition]
 - **As a:** [Developer]
 - **I want to:** [define our user stories clearly]
 - **So that I can:** [build the best application meet our expectation]
@@ -21,7 +21,7 @@
     - Finish Time: [4th Feb]
 --------
 
-### User Story: [Software Necessities]
+### Software Necessity: [Software Necessities Installation]
 - **As a:** [Developer]
 - **I want to:** [have all necessary software installed]
 - **So that I can:** [develop efficiently]
@@ -52,7 +52,7 @@
     - Finish Time: [11th Feb]
 ---------
 
-### User Story: [Preliminary data scraping]
+### Software Necessity: [Preliminary data scraping]
 - **As a:** [Developer]
 - **I want to:** [scrape data from websites or APIs efficiently]
 - **So that I can:** [extract and use the data for application development]

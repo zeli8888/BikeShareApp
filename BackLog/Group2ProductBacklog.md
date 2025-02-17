@@ -1,6 +1,6 @@
 # Group2 Product Backlog
 -------------
-### User Story: [User Story Definition]
+### Application Discussion: [User Story Definition]
 - **As a:** [Developer]
 - **I want to:** [define our user stories clearly]
 - **So that I can:** [build the best application meet our expectation]
@@ -77,7 +77,7 @@
 - [When users view the bikes with different colors, they can easily understand the meaning of each color and the corresponding bike condition]
 -------------------
 
-### User Story: [Software Necessities]
+### Software Necessity: [Software Necessities Installation]
 - **As a:** [Developer]
 - **I want to:** [have all necessary software installed]
 - **So that I can:** [develop efficiently]
@@ -90,7 +90,7 @@
 - [Have back-end development tools installed]
 
 -------------
-### User Story: [ML model]
+### Software Necessity: [ML model]
 - **As a:** [Developer]
 - **I want to:** [develop a ML model]
 - **So that I can:** [predict occupancy based on collected data]
@@ -102,7 +102,7 @@
 - [predictions are reliable and provide actionable information]
 
 ------------------------------
-### User Story: [Preliminary data scraping]
+### Software Necessity: [Preliminary data scraping]
 - **As a:** [Developer]
 - **I want to:** [scrape data from websites or APIs efficiently]
 - **So that I can:** [extract and use the data for application development]
