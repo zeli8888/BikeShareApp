@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # python weather_scraper.py --database 'REMOTE' --scraper_interval 3600 --no_echo --loop
     parser = argparse.ArgumentParser()
     parser.add_argument('--database', type=str, action='store', default='LOCAL')
-    parser.add_argument('--scraper_interval', type=int, action='store', default=5*60)
+    parser.add_argument('--scraper_interval', type=int, action='store', default=60*60)
     parser.add_argument('--no_echo', action='store_true')
     parser.add_argument('--loop', action='store_true')
     args = parser.parse_args()

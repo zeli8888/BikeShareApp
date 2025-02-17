@@ -1,16 +1,16 @@
 # Define remote database connection URL
 REMOTE_USER = "admin"  # Your RDS username
 REMOTE_PASSWORD = "as5071565"  # Your RDS password
-REMOTE_DB_URI = "127.0.0.1"  # Localhost because of SSH tunnel
+REMOTE_URI = "127.0.0.1"  # Localhost because of SSH tunnel
 REMOTE_PORT = "3333"  # Must match your tunnel port
-REMOTE_DB = "databasejcdecaux"  # Change to your database name
+REMOTE_DB = "dbbikes"  # Change to your database name
 
 # Define local database connection URL
 LOCAL_USER = "root"
 LOCAL_PASSWORD = "as5071565"
 LOCAL_URI = "127.0.0.1"
 LOCAL_PORT = "3306"
-LOCAL_DB = "local_databasejcdecaux"
+LOCAL_DB = "local_dbbikes"
 
 # Define jcdecaux URI
 JCKEY = "a2e6d3120f108a84141fc12b5ea5beedba83906a"
