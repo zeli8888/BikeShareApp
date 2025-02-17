@@ -23,6 +23,6 @@ STATIONS_URI = "https://api.jcdecaux.com/vls/v1/stations"
 OPEN_WEATHER_KEY = "80f2c5a407c58ec93a6034f3d54aaef7"
 # https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 OPEN_WEATHER_DUBLIN_LOC = ("53.3498006", "-6.2602964")
-OPEN_WEATHER_ = f"https://api.openweathermap.org/data/3.0/onecall?lat={OPEN_WEATHER_DUBLIN_LOC[0]}&lon={OPEN_WEATHER_DUBLIN_LOC[1]}&appid={OPEN_WEATHER_KEY}"
+OPEN_WEATHER_URI = f"https://api.openweathermap.org/data/3.0/onecall"
 # to check, just enter this in browser:
 # https://api.openweathermap.org/data/3.0/onecall?lat=53.3498006&lon=-6.2602964&appid=80f2c5a407c58ec93a6034f3d54aaef7
