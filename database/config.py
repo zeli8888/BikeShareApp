@@ -1,0 +1,24 @@
+# Define remote database connection URL
+REMOTE_USER = "admin"  # Your RDS username
+REMOTE_PASSWORD = "as5071565"  # Your RDS password
+REMOTE_DB_URI = "127.0.0.1"  # Localhost because of SSH tunnel
+REMOTE_PORT = "3333"  # Must match your tunnel port
+REMOTE_DB = "databasejcdecaux"  # Change to your database name
+
+# Define local database connection URL
+LOCAL_USER = "root"
+LOCAL_PASSWORD = "as5071565"
+LOCAL_PORT = "3306"
+LOCAL_DB = "local_databasejcdecaux"
+LOCAL_URI = "127.0.0.1"
+
+# Define jcdecaux URI
+JCKEY = "a2e6d3120f108a84141fc12b5ea5beedba83906a"
+NAME = "dublin"
+STATIONS_URI = "https://api.jcdecaux.com/vls/v1/stations"
+
+# Define OpenWeather URI
+OPEN_WEATHER_KEY = "80f2c5a407c58ec93a6034f3d54aaef7"
+# https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+OPEN_WEATHER_DUBLIN_LOC = ("53.3498006", "-6.2602964")
+OPEN_WEATHER_ = f"https://api.openweathermap.org/data/3.0/onecall?lat={OPEN_WEATHER_DUBLIN_LOC[0]}&lon={OPEN_WEATHER_DUBLIN_LOC[1]}&appid={OPEN_WEATHER_KEY}"

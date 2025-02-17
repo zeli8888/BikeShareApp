@@ -1,5 +1,5 @@
 # BikeShareApp-API
-BikeShareApp-API (Backend) from COMP30830 Software Engineering moudle
+BikeShareApp-API (Backend) from COMP30830 Software Engineering module
 # Installation
 
     python -m pip install -r lab2_requirements.txt
