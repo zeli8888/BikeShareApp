@@ -1,17 +1,25 @@
 from sqlalchemy import text
 from sqlalchemy import create_engine
 import traceback
+from config import *
 
-def get_mysql_engine(database="LOCAL", echo=True):
-    if database != "LOCAL" | database != "REMOTE":
+
+def get_mysql_engine(database="LOCAL", no_echo=False):
+    if database != "LOCAL" and database != "REMOTE":
         raise Exception("Invalid database choice, choose either LOCAL or REMOTE!")
-    if echo != True | echo != False:
+    if no_echo != True and no_echo != False:
         raise Exception("Invalid echo option, choose either True or False!")
     
     connection_string = "mysql+pymysql://{}:{}@{}:{}/{}".format(
-        database+"_USER", database+"_PASSWORD", database+"_URI", database+"_PORT", database+"_DB")
-    engine = create_engine(connection_string, echo = echo)
-    commit_sql(engine, "USE {};".format(database+"_DB"))
+        globals()[database+"_USER"], 
+        globals()[database+"_PASSWORD"], 
+        globals()[database+"_URI"], 
+        globals()[database+"_PORT"], 
+        globals()[database+"_DB"]
+    )
+    engine = create_engine(connection_string, echo = not no_echo)
+    commit_sql(engine, "CREATE DATABASE IF NOT EXISTS {};".format(globals()[database+"_DB"]))
+    commit_sql(engine, "USE {};".format(globals()[database+"_DB"]))
     return engine
 
 def commit_sql(engine, sql, val=None):
