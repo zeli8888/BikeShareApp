@@ -30,7 +30,7 @@
 - **So that I can:** [decide which bike to choose]
 
 **Priority:** [High]
-**Estimated Points:** [8]
+**Estimated Points:** [15]
 **Acceptance Criteria:**
 - [When the user access the web, the bikes' location should be displayed on the map]
 - [bikes' location should be accurate and up-to-date]
@@ -44,7 +44,7 @@
 - **So that I can:** [better choose trip options]
 
 **Priority:** [Medium]
-**Estimated Points:** [8]
+**Estimated Points:** [15]
 **Acceptance Criteria:**
 - [When the user access the web, weather information should be displayed on the map in suitable place]
 - [weather information should contain relevant details such as temperature, humidity, and wind speed]
