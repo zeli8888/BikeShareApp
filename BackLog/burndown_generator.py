@@ -26,32 +26,19 @@ def parse_markdown(file_path):
     return time_interval, subtasks
 
 # Function to generate burndown chart
-def generate_burndown_chart(time_interval, subtasks):
+def generate_burndown_chart(time_interval, subtasks, savefile):
 
     start_date = time_interval[0]
     total_points = subtasks["Points"].sum()
-    remaining_points = np.array([total_points for i in range(len(time_interval))])
+    remaining_points = np.array([total_points for i in range(len(time_interval)+1)])
     for task in range(len(subtasks)):
-        index = int(subtasks.iloc[task]["Finish Time"]-start_date)
-        remaining_points[index:] -= task["Points"]
+        index = (subtasks.iloc[task]["Finish Time"]-start_date.date()).days+1
+        remaining_points[index:] -= subtasks.iloc[task]["Points"]
         
-    remaining_points
-        
-    # current_date = start_date
-    # while current_date <= end_date:
-    #     # Simulate completion of tasks (for demonstration, let's assume tasks are completed evenly)
-    #     completed_points = 0
-    #     for points, _ in subtasks:
-    #         completed_points += points / len(date_range)
-    #     remaining_points.append(remaining_points[-1] - completed_points)
-    #     remaining_points_dates.append(current_date + timedelta(days=1))
-    #     current_date += timedelta(days=1)
-    # # Drop the last extra date and point
-    # remaining_points_dates.pop()
-    # remaining_points.pop()
-
+    day_interval = [time_interval[0]] + list(time_interval)
+    
     # Create a DataFrame for the burndown chart
-    burndown_df = pd.DataFrame({'Date': date_range, 'Remaining Points': remaining_points})
+    burndown_df = pd.DataFrame({'Date': day_interval, 'Remaining Points': remaining_points})
 
     # Plot the burndown chart
     plt.figure(figsize=(10, 5))
@@ -62,14 +49,14 @@ def generate_burndown_chart(time_interval, subtasks):
     plt.grid(True)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(savefile)
 
 # Main function to run the script
 def main():
     file_path = 'd:\\study_software\\GitHub\\BikeShareApp\\BackLog\\Group2SprintBacklogFeb4-Feb18.md'
 
     time_interval, subtasks = parse_markdown(file_path)
-    generate_burndown_chart(time_interval, subtasks)
+    generate_burndown_chart(time_interval, subtasks, ".\BackLog\BurnDownFeb4-Feb18.png")
 
 if __name__ == "__main__":
     main()
