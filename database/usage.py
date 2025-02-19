@@ -2,6 +2,7 @@ from sqlalchemy import text
 from sqlalchemy import create_engine
 import traceback
 from config import *
+from math import radians, sin, cos, sqrt, atan2
 
 
 def get_mysql_engine(database="LOCAL", no_echo=False):
@@ -43,3 +44,24 @@ def commit_sql(engine, sql, val=None):
             except Exception as e:
                 traceback.print_exc()
                 connection.rollback()
+                
+def get_distance(coord1, coord2):
+    # Radius of the Earth in kilometers
+    R = 6371.0
+    
+    # Convert latitude and longitude from degrees to radians
+    lat1, lon1 = map(radians, coord1)
+    lat2, lon2 = map(radians, coord2)
+    
+    # Difference between coordinates
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    
+    # Haversine formula
+    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    
+    # Distance in kilometers
+    distance = R * c
+    
+    return distance

@@ -86,14 +86,11 @@ def main(database="LOCAL", no_echo=True, loop=False, scraper_interval=5*60):
 
     try:
         bike_data_scraper(engine, non_static=False)
-    except:
-        print(traceback.format_exc())
-    while loop:
-        try:
+        while loop:
             time.sleep(scraper_interval)
             bike_data_scraper(engine)
-        except:
-            print(traceback.format_exc())
+    except:
+        print(traceback.format_exc())
         
 if __name__ == "__main__":
     # to run: 
