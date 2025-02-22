@@ -6,7 +6,7 @@ from usage import *
 def save_bike_data(engine, table):
     sql = f'''SELECT * FROM {table}'''
     df = pd.read_sql_query(sql, engine)
-    df.to_csv(f'./database/{table}.csv')
+    df.to_csv(f'./database/{table}.csv', index=False)
     
 def main(database="LOCAL"):
     engine = get_mysql_engine(database, True)
