@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="se.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Google Map</title>
+
+    <!-- Load Google Maps API with loading=async -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1TMvwEwtIbbrAtC8NwV2T5I3Hd7mbvxM&callback=initMap&loading=async" async defer></script>
+
+    
+    
+  </head>
+  <body>
+    
+    <ul>
+      <li><a class="active" href="se.html">Home</a></li>
+      <li><a href="map.html">Map</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <h3>Dublin Bikes map</h3>
+    <!-- The map container -->
+    <div id="map"></div>
+    
+    <script>
+      // Initialize and add the map
+      function initMap() {
+        // The location of Dublin (replace with your desired coordinates)
+        const location = { lat: 53.36128616333008, lng: -6.255364894866943 };
+
+        // Create a map centered at the given location
+        const map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: location
+        });
+
+        // Add an AdvancedMarkerElement at the given location
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+          map: map,
+          position: location,
+          title: 'My location'
+        });
+      }
+    </script>
+  </body>
+</html>
