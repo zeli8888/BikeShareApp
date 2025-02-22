@@ -7,12 +7,14 @@ BikeShareApp (Frontend) from COMP30830 Software Engineering Module
 #### (need to change the database setting to yours)
     python database/weather_scraper.py
     python database/bike_scraper.py
+    nohup python -u database/weather_scraper.py --no_echo --loop > database/weather_scraper.log 2>&1 &
+    nohup python -u database/bike_scraper.py --no_echo --loop > database/bike_scraper.log 2>&1 &
 ## Remotely 
 #### (the Public DNS of EC2 keeps changing, may need to modify in ssh-aws-database.sh)
 #### Need to remember the process pid and use kill -9 pid to shut it down
     ./database/ssh-aws-database.sh
-    nohup python -u database/weather_scraper.py --database 'REMOTE' --no_echo --loop >> database/scraper.log 2>&1 &
-    nohup python -u python database/bike_scraper.py --database 'REMOTE' --no_echo --loop >> database/scraper.log 2>&1 &
+    nohup python -u database/weather_scraper.py --database 'REMOTE' --no_echo --loop > database/weather_scraper.log 2>&1 &
+    nohup python -u database/bike_scraper.py --database 'REMOTE' --no_echo --loop > database/bike_scraper.log 2>&1 &
 # Docs
 ## BackLog
 product backlog and sprint backlog are defined in 

@@ -7,9 +7,9 @@ REMOTE_DB = "dbbikes"  # Change to your database name
 
 # Define local database connection URL
 LOCAL_USER = "root"
-LOCAL_PASSWORD = "as5071565"
+LOCAL_PASSWORD = "password"
 LOCAL_URI = "127.0.0.1"
-LOCAL_PORT = "3306"
+LOCAL_PORT = "6688"
 LOCAL_DB = "local_dbbikes"
 
 # Define jcdecaux URI
