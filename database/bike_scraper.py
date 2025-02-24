@@ -3,8 +3,8 @@ import sys
 # Append the project directory to the system path
 sys.path.append(os.path.abspath(''))
     
-from web.config import *
-from web.src.repository.usage import *
+from web.src.config import *
+from usage import *
 import requests
 import argparse
 import time
@@ -99,7 +99,7 @@ def main(database="LOCAL", no_echo=True, loop=False, scraper_interval=5*60):
         
 if __name__ == "__main__":
     # to run: 
-    # python bike_scraper.py --database 'REMOTE' --scraper_interval 300 --no_echo --loop
+    # python database/bike_scraper.py --database 'REMOTE' --scraper_interval 300 --no_echo --loop
     parser = argparse.ArgumentParser()
     parser.add_argument('--database', type=str, action='store', default='LOCAL')
     parser.add_argument('--scraper_interval', type=int, action='store', default=5*60)

@@ -5,8 +5,8 @@ sys.path.append(os.path.abspath(''))
 
 import pandas as pd
 import argparse
-from web.config import *
-from web.src.repository.usage import *
+from web.src.config import *
+from usage import *
 
 def save_table_data(engine, table):
     sql = f'''SELECT * FROM {table}'''
@@ -24,7 +24,7 @@ def main(database="LOCAL"):
         
 if __name__ == "__main__":
     # to run: 
-    # python save_data.py --database 'REMOTE'
+    # python database/save_data.py --database 'REMOTE'
     parser = argparse.ArgumentParser()
     parser.add_argument('--database', type=str, action='store', default='LOCAL')
     args = parser.parse_args()

@@ -2,7 +2,7 @@ from sqlalchemy import text
 from sqlalchemy import create_engine
 import traceback
 # This is import from project directory, so any file import this should have project directory in its system path
-from web.config import *
+from web.src.config import *
 from math import radians, sin, cos, sqrt, atan2
 
 
