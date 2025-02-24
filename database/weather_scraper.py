@@ -1,6 +1,11 @@
-from config import *
+import os
+import sys
+# Append the project directory to the system path
+sys.path.append(os.path.abspath(''))
+
+from web.config import *
+from web.src.repository.usage import *
 import requests
-from usage import *
 import argparse
 import time
 import simplejson as json

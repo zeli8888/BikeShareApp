@@ -4,14 +4,19 @@ BikeShareApp from COMP30830 Software Engineering Module
     python -m pip install -r requirements.txt
 # Database
 - ## Locally
-    #### need to change the database setting to yours in [config.py](database/config.py)
+    #### Need to change the database setting to yours in [config.py](web/config.py)
 - ## Remotely 
-    #### the Public DNS of EC2 keeps changing, may need to modify in [ssh-aws-database.sh](database/ssh-aws-database.sh)
+    #### Need EC2 pem file path as system variable: EC2_PEM
+        export EC2_PEM=path/to/file/comp30830.pem
+    #### The Public DNS of EC2 keeps changing, may need to modify in [ssh-aws-database.sh](database/ssh-aws-database.sh)
         ./database/ssh-aws-database.sh
     
 # Scrape Data
 
 #### Need to remember the process pid and use kill -9 pid to shut it down
+#### Need to set key as your system variable: JCKEY, OPEN_WEATHER_KEY
+    export JCKEY=your-jckey
+    export OPEN_WEATHER_KEY=your-open-weather-key
 
 - ## Locally
         nohup python -u database/weather_scraper.py --no_echo --loop > database/weather_scraper.log 2>&1 &
@@ -29,6 +34,13 @@ BikeShareApp from COMP30830 Software Engineering Module
         python database/load_data.py
 - ## Remotely
         python database/load_data.py --database 'REMOTE'
+
+# Web Application
+#### Need to set Database first: [Database](#database)
+#### Need to set Google Map key as your system variable: GOOGLE_MAP_KEY
+    export GOOGLE_MAP_KEY=your-google-map-key
+#### To start
+    python web/BikeShareApplication.py
 
 # Docs
 - ## BackLog
@@ -51,7 +63,7 @@ BikeShareApp from COMP30830 Software Engineering Module
 # Description
 - BackLog: files related to product backlog and sprint backlog including burn down chart
 - labs: files from course example
-- database: config and scraper files related to database
+- database: scraper files related to database
 - web: files related to the web application
     - src: files relate to backend
         - controller: files handle requests from frontend

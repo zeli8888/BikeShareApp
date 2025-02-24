@@ -1,7 +1,12 @@
+import os
+import sys
+# Append the project directory to the system path
+sys.path.append(os.path.abspath(''))
+
 import pandas as pd
 import argparse
-from config import *
-from usage import *
+from web.config import *
+from web.src.repository.usage import *
 
 def save_table_data(engine, table):
     sql = f'''SELECT * FROM {table}'''

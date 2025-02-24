@@ -1,0 +1,1 @@
+ssh -i $EC2_PEM ubuntu@ec2-52-209-42-203.eu-west-1.compute.amazonaws.com
