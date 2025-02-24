@@ -39,7 +39,9 @@ BikeShareApp from COMP30830 Software Engineering Module
 #### Need to set Database first: [Database](#database)
 #### Need to set Google Map key as your system variable: GOOGLE_MAP_KEY
     export GOOGLE_MAP_KEY=your-google-map-key
-#### To start
+#### To Start On EC2
+    python web/BikeShareApplication.py --database 'EC2' --no_debug
+#### To Start Locally
     python web/BikeShareApplication.py
 
 # Docs
