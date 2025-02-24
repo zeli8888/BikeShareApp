@@ -1,0 +1,6 @@
+1. key stored in environment variable
+2. start py file
+3. separate controller
+4. bike data flow
+
+AIzaSyAMN2HaXsVHxzFRHl0zvQdN532uN6F-mm4
