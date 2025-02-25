@@ -5,18 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Google Map</title>
-
-    <!-- Load Google Maps API with loading=async -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1TMvwEwtIbbrAtC8NwV2T5I3Hd7mbvxM&callback=initMap&loading=async" async defer></script>
-
-    
-    
   </head>
   <body>
     
     <ul>
-      <li><a class="active" href="se.html">Home</a></li>
-      <li><a href="map.html">Map</a></li>
+      <li><a class="active" href="/">Home</a></li>
+      <li><a href="/map">Map</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#about">About</a></li>
     </ul>
@@ -44,5 +38,8 @@
         });
       }
     </script>
+    <!-- Load Google Maps API with loading=async -->
+    <!--  Avoid the bug: Google Maps API is loaded before the initMap function is defined. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1TMvwEwtIbbrAtC8NwV2T5I3Hd7mbvxM&callback=initMap&loading=async" async defer></script>
   </body>
 </html>
