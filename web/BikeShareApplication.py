@@ -1,5 +1,5 @@
 import argparse
-from flask import Flask
+from flask import Flask, render_template
 from src.controller import *
 from src.config import *
 
@@ -21,8 +21,8 @@ def main(database='LOCAL'):
     app.register_blueprint(availability_blueprint, url_prefix='/api')
 
     @app.route("/")
-    def hello():
-        return f"Hello World~~~"
+    def index():
+        return render_template('se.html')
     
     return app
 
