@@ -4,7 +4,8 @@ BikeShareApp from COMP30830 Software Engineering Module
     python -m pip install -r requirements.txt
 # Database
 - ## Locally
-    #### Need to change the database setting to yours in [config.py](web/src/config.py)
+    #### Need to set the database connection url system variable, check [config.py](web/src/config.py)
+        export LOCAL_DB_BIKES_URL=your-local-database-url
 - ## Remotely 
     #### Need EC2 pem file path as system variable: EC2_PEM
         export EC2_PEM=path/to/file/comp30830.pem

@@ -8,11 +8,13 @@ GOOGLE_MAP_KEY = os.getenv('GOOGLE_MAP_KEY')
 OPEN_WEATHER_KEY = os.getenv('OPEN_WEATHER_KEY')
 
 # Define local database connection URL
-LOCAL_USER = "root"
-LOCAL_PASSWORD = "password"
-LOCAL_URI = "127.0.0.1"
-LOCAL_PORT = "6688"
-LOCAL_DB = "local_dbbikes"
+# LOCAL_USER = "root"
+# LOCAL_PASSWORD = "password"
+# LOCAL_URI = "127.0.0.1"
+# LOCAL_PORT = "6688"
+# LOCAL_DB = "local_dbbikes"
+# LOCAL_DB_BIKES_URL = 'mysql+pymysql://root:password@127.0.0.1:6688/local_dbbikes'
+LOCAL_DB_BIKES_URL = os.getenv('LOCAL_DB_BIKES_URL')
 
 # Define remote database connection URL
 REMOTE_USER = "admin"  # Your RDS username
@@ -20,6 +22,13 @@ REMOTE_PASSWORD = "as5071565"  # Your RDS password
 REMOTE_URI = "127.0.0.1"  # Localhost because of SSH tunnel
 REMOTE_PORT = "3333"  # Must match your tunnel port
 REMOTE_DB = "dbbikes"  # Change to your database name
+REMOTE_DB_BIKES_URL = "mysql+pymysql://{}:{}@{}:{}/{}".format(
+    REMOTE_USER, 
+    REMOTE_PASSWORD, 
+    REMOTE_URI, 
+    REMOTE_PORT, 
+    REMOTE_DB
+)
 
 # Define remote database connection URL, this is for running on EC2 connected to RDS directly (no SSH tunnel)
 EC2_USER = "admin"  # Your RDS username

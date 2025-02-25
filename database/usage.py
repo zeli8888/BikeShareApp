@@ -12,16 +12,18 @@ def get_mysql_engine(database="LOCAL", no_echo=False):
     if no_echo != True and no_echo != False:
         raise Exception("Invalid echo option, choose either True or False!")
     
-    connection_string = "mysql+pymysql://{}:{}@{}:{}/{}".format(
-        globals()[database+"_USER"], 
-        globals()[database+"_PASSWORD"], 
-        globals()[database+"_URI"], 
-        globals()[database+"_PORT"], 
-        globals()[database+"_DB"]
-    )
+    # connection_string = "mysql+pymysql://{}:{}@{}:{}/{}".format(
+    #     globals()[database+"_USER"], 
+    #     globals()[database+"_PASSWORD"], 
+    #     globals()[database+"_URI"], 
+    #     globals()[database+"_PORT"], 
+    #     globals()[database+"_DB"]
+    # )
+    connection_string = globals()[database+"_DB_BIKES_URL"]
+    
     engine = create_engine(connection_string, echo = not no_echo)
-    commit_sql(engine, "CREATE DATABASE IF NOT EXISTS {};".format(globals()[database+"_DB"]))
-    commit_sql(engine, "USE {};".format(globals()[database+"_DB"]))
+    # commit_sql(engine, "CREATE DATABASE IF NOT EXISTS {};".format(globals()[database+"_DB"]))
+    # commit_sql(engine, "USE {};".format(globals()[database+"_DB"]))
     return engine
 
 def commit_sql(engine, sql, val=None):
