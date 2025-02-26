@@ -28,10 +28,6 @@ def main(database='LOCAL'):
     def map():
         return render_template("map.html", GOOGLE_MAP_KEY=GOOGLE_MAP_KEY)
     
-    @app.route("/get-map-key")
-    def get_map_key():
-        return jsonify({"key": GOOGLE_MAP_KEY})
-    
     return app
 
 if __name__ == "__main__":
