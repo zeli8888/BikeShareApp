@@ -40,6 +40,21 @@
     </script>
     <!-- Load Google Maps API with loading=async -->
     <!--  Avoid the bug: Google Maps API is loaded before the initMap function is defined. -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1TMvwEwtIbbrAtC8NwV2T5I3Hd7mbvxM&callback=initMap&loading=async" async defer></script>
+    <!-- use render_template in Flask to pass a variable like GOOGLE_MAP_KEY to an HTML template, 
+     the variable is rendered directly into the HTML source code before it is sent to the browser. 
+     This means that the key becomes part of the HTML content, which can be viewed in the browser
+     so this way won't work -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&callback=initMap&loading=async" async defer></script> -->
+    <!-- send request to the backend to get the key from system variable. In this way, user won't be able to see the key in the browser -->
+    <script>
+      fetch('/get-map-key')
+      .then(response => response.json())
+      .then(data => {
+          const script = document.createElement('script');
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&callback=initMap&loading=async`;
+          script.async = true;
+          document.head.appendChild(script);
+        });
+    </script>
   </body>
 </html>
