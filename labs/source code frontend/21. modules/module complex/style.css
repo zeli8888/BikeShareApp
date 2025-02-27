@@ -1,0 +1,62 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+/* Main container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Flexbox input group */
+.input-group {
+    display: flex;
+    gap: 10px; /* Adds space between elements */
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Input field */
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex-grow: 1; /* Expands input */
+    min-width: 200px;
+}
+
+/* Button */
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Greeting message */
+#greetingMessage {
+    font-weight: bold;
+    margin-top: 20px;
+}

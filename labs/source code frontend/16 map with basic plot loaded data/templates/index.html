@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Map</title>
+    <!-- Polyfill for modern browser features: WARNING - older polyfill not working -->
+    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.js?version=4.8.0"></script>
+
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Link to the JavaScript file -->
+    <script type="module" src="{{ url_for('static', filename='index.js') }}"></script>
+
+    <!-- Link to Google Charts-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+<div id="map"></div> <!-- This ID is used by the .js and .css -->
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=......&callback=initMap"
+    async defer>
+</script>
+</body>
+</html>

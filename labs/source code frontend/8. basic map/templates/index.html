@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Map</title>
+<!--
+The <meta> tag provides metadata about the HTML document. 
+This metadata is not displayed on the page but is used by browsers and search engines.
+
+- name="viewport":
+This tells the browser that the metadata provided in the content attribute applies to the viewport. 
+The viewport is the visible area of a web page on a device's screen (such as a phone, tablet, or computer).
+
+- content="initial-scale=1.0":
+The content attribute specifies the settings for the viewport. In this case:
+
+- initial-scale=1.0: Sets the initial zoom level of the webpage to 1.0, meaning the page is displayed at its default scale (1 CSS pixel equals 1 device-independent pixel).
+A value of 1.0 means no zooming in or out when the page loads.
+-->
+
+<meta name="viewport" content="initial-scale=1.0">
+<meta charset="utf-8">
+<style>
+/* Always set the map height explicitly to define the size of
+the div element that contains the map. */
+    #map {
+    height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    }
+</style>
+</head>
+
+<body>
+<div id="map"></div>
+
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+        });
+    }
+</script>
+
+<!--
+The callback parameter specifies the name of a JavaScript function to be executed after the API is fully loaded. 
+In this case, the function initMap will run as soon as the Google Maps script has finished loading.
+
+When used together (async defer): The script will download asynchronously and then execute in order, 
+after the HTML is parsed.
+-->
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{ apikey }}&callback=initMap" defer>
+</script>
+</body>
+</html>
