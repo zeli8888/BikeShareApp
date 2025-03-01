@@ -26,7 +26,7 @@ def main(database='LOCAL'):
     
     @app.route("/map")
     def map():
-        return render_template("map.html", GOOGLE_MAP_KEY=GOOGLE_MAP_KEY)
+        return render_template("map.html", GOOGLE_MAP_ID=GOOGLE_MAP_ID, GOOGLE_MAP_KEY=GOOGLE_MAP_KEY)
     
     return app
 

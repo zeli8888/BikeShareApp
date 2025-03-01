@@ -3,89 +3,92 @@
 
 <head>
     <link rel="stylesheet" href="../static/css/se.css">
+    <!-- linking the css file -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bike Sharing Map</title>
     <!-- change of name -->
-    <link rel="stylesheet" href="../static/css/se.css" </head>
-    <!-- linking the css file -->
+</head>
 
-    <body>
+<body>
 
-        <ul>
-            <li><a class="active" href="/">Home</a></li>
-            <li><a href="/map">Map</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
-        <h3>Dublin Bikes map</h3>
-        <!-- The map container -->
-        <div id="map"></div>
+    <ul>
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="/map">Map</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <h3>Dublin Bikes map</h3>
+    <!-- The map container -->
+    <div id="map"></div>
 
-        <!-- Weather Information Container -->
-        <div class="weather-container" id="weather-info">
-            <img id="weather-icon" src="" alt="Weather Icon" />
-            <p id="weather-desc">Loading weather...</p>
-        </div>
+    <!-- Weather Information Container -->
+    <div class="weather-container" id="weather-info">
+        <img id="weather-icon" src="" alt="Weather Icon" />
+        <p id="weather-desc">Loading weather...</p>
+    </div>
 
-        <script>
-            // Initialize and add the map
-            function initMap() {
-                // The location of Dublin (replace with your desired coordinates)
-                // The location of Dublin
-                const location = {
-                    lat: 53.3498,
-                    lng: -6.2603
-                };
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Dublin (replace with your desired coordinates)
+            // The location of Dublin
+            const location = {
+                lat: 53.3498,
+                lng: -6.2603
+            };
 
-                // Create a map centered at the given location
-                const map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 14,
-                    center: location
-                });
+            // Create a map centered at the given location
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: location,
+                mapId: "{{GOOGLE_MAP_ID}}",
+            });
 
-                // Add an AdvancedMarkerElement at the given location
-                const marker = new google.maps.marker.AdvancedMarkerElement({
-                    map: map,
-                    position: location,
-                    title: 'Dublin'
-                });
-            }
-            // Load the Google Maps API asynchronously
-            const googleMapScript = document.createElement('script');
-            googleMapScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAMN2HaXsVHxzFRHl0zvQdN532uN6F-mm4&callback=initMap&libraries=marker&loading=async";
-            googleMapScript.async = true;
-            document.body.appendChild(googleMapScript);
+            // Add an AdvancedMarkerElement at the given location
+            const marker = new google.maps.marker.AdvancedMarkerElement({
+                map: map,
+                position: location,
+                title: 'Dublin'
+            });
+        }
+        // Load the Google Maps API asynchronously
+        const googleMapScript = document.createElement('script');
+        googleMapScript.src = "https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&callback=initMap&libraries=marker&loading=async";
+        googleMapScript.async = true;
+        document.body.appendChild(googleMapScript);
 
-            // Fetch the bike-sharing station data from your JSON file
-            fetch('stations.json')
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Loaded stations:", data.length); // Debugging
-                    // Implement your bike-sharing station markers here (adjust if necessary)
-                    // You can add markers using Google Maps API similarly.
-                })
-                .catch(error => console.error('Error loading station data:', error));
+        // Fetch the bike-sharing station data from your JSON file
+        fetch('/api/stations')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Loaded stations:", data.length); // Debugging
+                // Implement your bike-sharing station markers here (adjust if necessary)
+                // You can add markers using Google Maps API similarly.
+            })
+            .catch(error => console.error('Error loading station data:', error));
 
-            // Fetch the weather data from your JSON file
-            fetch('weather.json')
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Loaded weather data:", data);
+        // Fetch the weather data from your JSON file
+        /*
+        fetch('weather.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Loaded weather data:", data);
 
-                    const currentWeather = data.current;
-                    const weatherDescription = currentWeather.weather[0].description;
-                    const weatherIconCode = currentWeather.weather[0].icon;
-                    const temperatureK = currentWeather.temp;
-                    const temperatureC = (temperatureK - 273.15).toFixed(1); // Convert to Celsius
+                const currentWeather = data.current;
+                const weatherDescription = currentWeather.weather[0].description;
+                const weatherIconCode = currentWeather.weather[0].icon;
+                const temperatureK = currentWeather.temp;
+                const temperatureC = (temperatureK - 273.15).toFixed(1); // Convert to Celsius
 
-                    // Update weather icon and description
-                    document.getElementById('weather-icon').src = `http://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
-                    document.getElementById('weather-desc').innerHTML = `Current Weather: ${weatherDescription}<br>Temperature: ${temperatureC}°C`;
-                })
-                .catch(error => console.error('Error loading weather data:', error));
-        </script>
+                // Update weather icon and description
+                document.getElementById('weather-icon').src = `http://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+                document.getElementById('weather-desc').innerHTML = `Current Weather: ${weatherDescription}<br>Temperature: ${temperatureC}°C`;
+            })
+            .catch(error => console.error('Error loading weather data:', error));
+            */
+    </script>
 
-    </body>
+</body>
 
 </html>

@@ -6,6 +6,7 @@ JCKEY = os.getenv('JCKEY')
 GOOGLE_MAP_KEY = os.getenv('GOOGLE_MAP_KEY')
 # Define OpenWeather URI
 OPEN_WEATHER_KEY = os.getenv('OPEN_WEATHER_KEY')
+GOOGLE_MAP_ID = os.getenv('GOOGLE_MAP_ID')
 
 # Define local database connection URL
 # LOCAL_USER = "root"
