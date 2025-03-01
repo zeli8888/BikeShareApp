@@ -38,35 +38,112 @@
                 lng: -6.2603
             };
 
-            // Create a map centered at the given location
-            const map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: location,
-                mapId: "{{GOOGLE_MAP_ID}}",
-            });
+            
 
             // Add an AdvancedMarkerElement at the given location
             const marker = new google.maps.marker.AdvancedMarkerElement({
-                map: map,
-                position: location,
-                title: 'Dublin'
+                zoom: 13,
+                center: { lat: 53.3498, lng: -6.2603 },
+                mapId: "4eacd3c56477b5c5",
             });
         }
         // Load the Google Maps API asynchronously
         const googleMapScript = document.createElement('script');
-        googleMapScript.src = "https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_KEY}}&callback=initMap&libraries=marker&loading=async";
+        googleMapScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyA1TMvwEwtIbbrAtC8NwV2T5I3Hd7mbvxM&callback=initMap&libraries=marker&loading=async";
         googleMapScript.async = true;
         document.body.appendChild(googleMapScript);
+        let map;
+
+        function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 53.3498, lng: -6.2603 }, // Center on Dublin
+        zoom: 13,
+    });
+
+    fetch('stations.json')
+    .then(response => response.json())
+    .then(data => {
+        console.log("Bike Data Loaded:", data); // Debugging: Ensure data is loaded
+
+        data.forEach(station => {
+            const { lat, lng } = station.position;
+            const { name, address, available_bikes, available_bike_stands } = station;
+
+            // Debugging the data
+            console.log("Station:", name, address, available_bikes, available_bike_stands);
+
+            // Create AdvancedMarkerElement
+            const marker = new google.maps.marker.AdvancedMarkerElement({
+                position: { lat, lng },
+                map: map,
+                title: name,  // Tooltip for marker
+                ariaLabel: name // Accessible name for screen readers
+            });
+
+            // Create the InfoWindow content dynamically
+            const infoWindowContent = `
+                <div>
+                    <strong>${name}</strong><br>
+                    Address: ${address}<br>
+                    Available Bikes: ${available_bikes}<br>
+                    Available Stands: ${available_bike_stands}
+                </div>
+            `;
+            const infoWindow = new google.maps.InfoWindow({
+                content: infoWindowContent
+            });
+
+            // Show info window on mouseover
+            marker.addListener("mouseover", () => {
+                console.log("Mouseover on marker:", name); // Debugging: Ensure marker is hovered
+                infoWindow.open(map, marker); // Open the InfoWindow
+            });
+
+            // Close info window when mouse leaves
+            marker.addListener("mouseout", () => {
+                console.log("Mouseout from marker:", name); // Debugging: Ensure mouseout works
+                infoWindow.close();
+            });
+
+            // Optional: Add a click listener to open the InfoWindow
+            marker.addListener("click", () => {
+                console.log("Marker clicked:", name); // Debugging: Ensure marker click event works
+                infoWindow.open(map, marker);
+            });
+        });
+    })
+
+        .catch(error => console.error('Error loading station data:', error));
+}
+            fetch('weather.json') 
+               .then(response => response.json())
+               .then(data => {
+                   console.log("Loaded weather data:", data);
+                   const currentWeather = data.current;
+                   const weatherDescription = currentWeather.weather[0].description;
+                   const weatherIconCode = currentWeather.weather[0].icon;
+                   const temperatureC = (currentWeather.temp - 273.15).toFixed(1); // Convert Kelvin to Celsius
+                    // Update weather icon and description
+                   document.getElementById('weather-icon').src = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+                   document.getElementById('weather-desc').innerHTML = `Current Weather: ${weatherDescription}<br>Temperature: ${temperatureC}°C`;
+               })
+               .catch(error => {
+                   console.error('Error loading weather data:', error);
+                   document.getElementById('weather-desc').innerHTML = "Error fetching weather data.";
+               });
+        
+           
+
 
         // Fetch the bike-sharing station data from your JSON file
-        fetch('/api/stations')
-            .then(response => response.json())
-            .then(data => {
-                console.log("Loaded stations:", data.length); // Debugging
-                // Implement your bike-sharing station markers here (adjust if necessary)
-                // You can add markers using Google Maps API similarly.
-            })
-            .catch(error => console.error('Error loading station data:', error));
+        // fetch('/api/stations')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log("Loaded stations:", data.length); // Debugging
+        //         // Implement your bike-sharing station markers here (adjust if necessary)
+        //         // You can add markers using Google Maps API similarly.
+        //     })
+        //     .catch(error => console.error('Error loading station data:', error));
 
         // Fetch the weather data from your JSON file
         /*

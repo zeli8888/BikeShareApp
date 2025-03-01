@@ -87,3 +87,6 @@ li a:hover {
     font-size: 16px;
     line-height: 1.2;
 }
+.element {
+    transform: rotate(45deg); /* Standard syntax for modern browsers */
+}
