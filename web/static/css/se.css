@@ -1,46 +1,89 @@
 /* Set a background image for the entire body */
+
 body {
-  background-image: url('../resources/beste-e-bike-app-von-powunity-1536x864.webp');
-  /* Update the path */
-  background-size: cover;
-  /* Ensure the image covers the whole page */
-  background-position: center center;
-  /* Center the image */
-  background-attachment: fixed;
-  /* Optional: Fixed background while scrolling */
-  color: white;
-  /* Optional: Set text color to white for better contrast */
+    background-image: url('../resources/beste-e-bike-app-von-powunity-1536x864.webp');
+    /* Update the path */
+    background-size: cover;
+    /* Ensure the image covers the whole page */
+    background-position: center center;
+    /* Center the image */
+    background-attachment: fixed;
+    /* Optional: Fixed background while scrolling */
+    color: white;
+    /* Optional: Set text color to white for better contrast */
 }
 
+
 /* Styling for the navigation bar */
+
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
 }
 
 li {
-  float: left;
+    float: left;
 }
 
 li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
 li a:hover {
-  background-color: #111;
+    background-color: #111;
 }
 
-/* Styling for the map element */
 #map {
-  height: 650px;
-  width: 100%;
-  border: 1px solid red;
-  /* Debugging */
+    width: 80%;
+    height: 500px;
+    margin: 20px auto;
+    border: 2px solid black;
+    position: relative;
+    /* Ensure map is positioned, so weather is positioned relative to the map */
+}
+
+.info.legend {
+    background: white;
+    padding: 10px;
+    line-height: 18px;
+    color: #555;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.info.legend i {
+    width: 12px;
+    height: 12px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.weather-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+}
+
+.weather-container img {
+    width: 50px;
+    height: 50px;
+}
+
+.weather-container p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.2;
 }
