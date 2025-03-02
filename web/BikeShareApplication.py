@@ -19,6 +19,7 @@ def main(database='LOCAL'):
 
     app.register_blueprint(station_blueprint, url_prefix='/api')
     app.register_blueprint(availability_blueprint, url_prefix='/api')
+    app.register_blueprint(weather_blueprint, url_prefix='/api')
 
     @app.route("/")
     def index():

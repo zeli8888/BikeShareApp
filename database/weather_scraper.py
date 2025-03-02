@@ -111,13 +111,14 @@ def database_initialization(engine):
 
     sql = '''
     CREATE TABLE IF NOT EXISTS alerts (
+        district VARCHAR(32),
         sender_name VARCHAR(128),
         event VARCHAR(128),
         start_time DATETIME NOT NULL,
         end_time DATETIME NOT NULL,
         description TEXT,
         tags VARCHAR(128),
-        PRIMARY KEY (sender_name, event, start_time, end_time)
+        PRIMARY KEY (district, sender_name, event, start_time, end_time)
     );
     '''
     commit_sql(engine, sql)
@@ -140,6 +141,7 @@ def weather_data_scraper(engine):
         if alerts_info is not None:
             for alerts_data in alerts_info:
                 vals = {
+                    'district': district,
                     'sender_name': alerts_data.get('sender_name'),
                     'event': alerts_data.get('event'),
                     'start_time': datetime.datetime.fromtimestamp(alerts_data.get('start')),
@@ -149,6 +151,7 @@ def weather_data_scraper(engine):
                 }
                 sql = '''
                 INSERT INTO alerts (
+                    district,
                     sender_name,
                     event,
                     start_time,
@@ -156,6 +159,7 @@ def weather_data_scraper(engine):
                     description,
                     tags
                 ) VALUES (
+                    :district,
                     :sender_name,
                     :event,
                     :start_time,
@@ -166,7 +170,7 @@ def weather_data_scraper(engine):
                     description = VALUES(description),
                     tags = VALUES(tags);
                 '''
-                commit_sql(engine, sql)
+                commit_sql(engine, sql, vals)
                 
         
         vals = {
