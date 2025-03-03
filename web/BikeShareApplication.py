@@ -6,19 +6,13 @@ from src.config import *
 def main(database='LOCAL'):
     
     app = Flask(__name__)
-    # app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://{}:{}@{}:{}/{}".format(
-    #     globals()[database+"_USER"], 
-    #     globals()[database+"_PASSWORD"], 
-    #     globals()[database+"_URI"], 
-    #     globals()[database+"_PORT"], 
-    #     globals()[database+"_DB"]
-    # )
     app.config['SQLALCHEMY_DATABASE_URI'] = globals()[database+"_DB_BIKES_URL"]
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
     app.register_blueprint(station_blueprint, url_prefix='/api')
     app.register_blueprint(availability_blueprint, url_prefix='/api')
+    app.register_blueprint(weather_blueprint, url_prefix='/api')
 
     @app.route("/")
     def index():

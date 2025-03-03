@@ -4,48 +4,28 @@ import os
 JCKEY = os.getenv('JCKEY')
 # Google KEY
 GOOGLE_MAP_KEY = os.getenv('GOOGLE_MAP_KEY')
+GOOGLE_MAP_ID = os.getenv('GOOGLE_MAP_ID')
 # Define OpenWeather URI
 OPEN_WEATHER_KEY = os.getenv('OPEN_WEATHER_KEY')
-GOOGLE_MAP_ID = os.getenv('GOOGLE_MAP_ID')
 
 # Define local database connection URL
-# LOCAL_USER = "root"
-# LOCAL_PASSWORD = "password"
-# LOCAL_URI = "127.0.0.1"
-# LOCAL_PORT = "6688"
-# LOCAL_DB = "local_dbbikes"
-# LOCAL_DB_BIKES_URL = 'mysql+pymysql://root:password@127.0.0.1:6688/local_dbbikes'
 LOCAL_DB_BIKES_URL = os.getenv('LOCAL_DB_BIKES_URL')
 
-# Define remote database connection URL
-REMOTE_USER = "admin"  # Your RDS username
-REMOTE_PASSWORD = "as5071565"  # Your RDS password
-REMOTE_URI = "127.0.0.1"  # Localhost because of SSH tunnel
-REMOTE_PORT = "3333"  # Must match your tunnel port
-REMOTE_DB = "dbbikes"  # Change to your database name
-REMOTE_DB_BIKES_URL = "mysql+pymysql://{}:{}@{}:{}/{}".format(
-    REMOTE_USER, 
-    REMOTE_PASSWORD, 
-    REMOTE_URI, 
-    REMOTE_PORT, 
-    REMOTE_DB
-)
+# Define remote database connection URL, use SSH tunnel through EC2 to connect to RDS, so this environment variable should be set on local computer
+# make sure system variable EC2_PEM is added at first, and ssh-aws-database.sh is running.
+REMOTE_DB_BIKES_URL = os.getenv("REMOTE_DB_BIKES_URL")
 
-# Define remote database connection URL, this is for running on EC2 connected to RDS directly (no SSH tunnel)
-EC2_USER = "admin"  # Your RDS username
-EC2_PASSWORD = "as5071565"  # Your RDS password
-EC2_URI = "comp30830.cni206o6w92y.eu-west-1.rds.amazonaws.com"  # RDS URI
-EC2_PORT = "3306"  # RDS PORT
-EC2_DB = "dbbikes"  # Change to your database name
+# Define remote database connection URL, this is for running on EC2 connected to RDS directly (no SSH tunnel), so this environment variable should be set on EC2
+# make sure system variable EC2_PEM is added at first, and ssh-aws-ec2.sh is running.
+EC2_DB_BIKES_URL = os.getenv('EC2_DB_BIKES_URL')
 
 # Define jcdecaux URI
 NAME = "dublin"
 STATIONS_URI = "https://api.jcdecaux.com/vls/v1/stations"
-# to check, just enter this in browser:
-# https://api.jcdecaux.com/vls/v1/stations?JCKEY={KEY}?NAME=dublin
 
 # Define OpenWeather URI
 # https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+OPEN_WEATHER_URI = f"https://api.openweathermap.org/data/3.0/onecall"
 
 # BASED ON GOOGLE MAP
 OPEN_WEATHER_DUBLIN_LOC = {
@@ -72,6 +52,3 @@ OPEN_WEATHER_DUBLIN_LOC = {
     "Dublin 22" : (53.327317455022204, -6.400602324462271),
     "Dublin 24" : (53.28492603413517, -6.371306473267077),
 }
-OPEN_WEATHER_URI = f"https://api.openweathermap.org/data/3.0/onecall"
-# to check, just enter this in browser:
-# https://api.openweathermap.org/data/3.0/onecall?lat=53.3498006&lon=-6.2602964&appid={KEY}
