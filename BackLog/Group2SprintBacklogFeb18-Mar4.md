@@ -97,7 +97,7 @@
     - Estimated Points: [4]
     - Assigned To: [Ze Li]
     - Description: [Implement API requests for weather data and store data in database]
-    - Finish Time: [16th Feb]
+    - Finish Time: [18th Feb]
 
 - **Task 2:** 
     - Estimated Points: [4]
