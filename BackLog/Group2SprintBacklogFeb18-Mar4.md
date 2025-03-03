@@ -18,19 +18,19 @@
     - Estimated Points: [1]
     - Assigned To: [Anju]
     - Description: [Build a basic website]
-    - Finish Time: []
+    - Finish Time: [23th Feb]
 
 - **Task 2:** 
     - Estimated Points: [3]
-    - Assigned To: [Sabrina]
+    - Assigned To: [Anju]
     - Description: [Link the Google Map API into the website]
-    - Finish Time: []
+    - Finish Time: [23th Feb]
 
 - **Task 2:** 
     - Estimated Points: [1]
-    - Assigned To: [Anju]
+    - Assigned To: [Sabrina]
     - Description: [Test the Google Map API functionality]
-    - Finish Time: []
+    - Finish Time: [25th Feb]
 
 ------------
 ### User Story: [Bike Occupancy data]
@@ -58,25 +58,25 @@
     - Estimated Points: [3]
     - Assigned To: [Ze Li]
     - Description: [Create API to fetch bikes data from database]
-    - Finish Time: []
+    - Finish Time: [22th Feb]
 
 - **Task 3:** 
     - Estimated Points: [1]
     - Assigned To: [Sabrina]
     - Description: [front-end request from bikes data]
-    - Finish Time: []
+    - Finish Time: [22th Feb]
 
 - **Task 4:** 
     - Estimated Points: [7]
     - Assigned To: [Sabrina, Anju]
     - Description: [Show the bikes data using the Google Map API in website]
-    - Finish Time: []
+    - Finish Time: [22th Feb]
 
 - **Task 5:** 
     - Estimated Points: [1]
     - Assigned To: [Sabrina, Anju]
     - Description: [Test the bikes data functionality in website]
-    - Finish Time: []
+    - Finish Time: [23th Feb]
 
 -------------
 ### User Story: [Weather Information]
@@ -104,25 +104,25 @@
     - Estimated Points: [4]
     - Assigned To: [Ze Li]
     - Description: [Create API to fetch weather data from database]
-    - Finish Time: []
+    - Finish Time: [1th March]
 
 - **Task 3:** 
     - Estimated Points: [1]
     - Assigned To: [Sabrina]
     - Description: [front-end request from weather data]
-    - Finish Time: []
+    - Finish Time: [22th Feb]
 
 - **Task 4:** 
     - Estimated Points: [5]
     - Assigned To: [Anju]
     - Description: [Show the weather data in website]
-    - Finish Time: []
+    - Finish Time: [22th Feb]
 
 - **Task 5:** 
     - Estimated Points: [1]
     - Assigned To: [Sabrina]
     - Description: [Test the weather data functionality in website]
-    - Finish Time: []
+    - Finish Time: [23th Feb ]
 
 <!-- ------------- -->
 
