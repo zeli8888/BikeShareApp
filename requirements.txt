@@ -40,6 +40,7 @@ python-dateutil==2.9.0.post0
 pytz==2025.1
 redis==5.2.1
 requests==2.32.3
+seaborn==0.13.2
 setuptools==75.8.0
 simplejson==3.19.3
 six==1.17.0

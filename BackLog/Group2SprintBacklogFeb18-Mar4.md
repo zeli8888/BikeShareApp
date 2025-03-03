@@ -44,7 +44,6 @@
 - [When the user access the web, the bikes' location should be displayed on the map]
 - [bikes' location should be accurate and up-to-date]
 - [Collects info every 5 mins]
-- [Aim to have several weeks of continuous data]
 
 **SubTasks:**
 
@@ -104,25 +103,25 @@
     - Estimated Points: [4]
     - Assigned To: [Ze Li]
     - Description: [Create API to fetch weather data from database]
-    - Finish Time: [1th March]
+    - Finish Time: [1th Mar]
 
 - **Task 3:** 
     - Estimated Points: [1]
     - Assigned To: [Sabrina]
     - Description: [front-end request from weather data]
-    - Finish Time: [22th Feb]
+    - Finish Time: [1th Mar]
 
 - **Task 4:** 
     - Estimated Points: [5]
     - Assigned To: [Anju]
     - Description: [Show the weather data in website]
-    - Finish Time: [22th Feb]
+    - Finish Time: [1th Mar]
 
 - **Task 5:** 
     - Estimated Points: [1]
     - Assigned To: [Sabrina]
     - Description: [Test the weather data functionality in website]
-    - Finish Time: [23th Feb ]
+    - Finish Time: [2th Mar]
 
 <!-- ------------- -->
 

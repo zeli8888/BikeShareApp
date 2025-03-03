@@ -47,7 +47,6 @@ async function addStationMarker() {
     availabilities.forEach(availability => {
         const { available_bike_stands, available_bikes, last_update, number, status } = availability;
         const infoWindow = window.markers[number].infoWindow;
-        console.log(infoWindow);
         infoWindow.setContent(infoWindow.content + `
             <div style="font-family: Arial, sans-serif; font-size: 14px; color: #000;">
                 Available Bikes: ${available_bikes}<br>
