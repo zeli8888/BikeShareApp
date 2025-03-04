@@ -1,5 +1,5 @@
 // Wait until the page fully loads
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Initialize the map centered on Dublin
     var map = L.map('map').setView([53.3498, -6.2603], 13);
 
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add a legend
     const legend = L.control({ position: "bottomright" });
 
-    legend.onAdd = function(map) {
+    legend.onAdd = function (map) {
         const div = L.DomUtil.create("div", "info legend");
         div.innerHTML += "<h4>Bike Availability</h4>";
         div.innerHTML += '<i style="background: green"></i> 10+ Bikes<br>';
@@ -55,11 +55,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Create a custom marker using Leaflet circle marker
                 let marker = L.circleMarker([station.position.lat, station.position.lng], {
-                        radius: 8,
-                        color: color,
-                        fillColor: color,
-                        fillOpacity: 0.7
-                    })
+                    radius: 8,
+                    color: color,
+                    fillColor: color,
+                    fillOpacity: 0.7
+                })
                     .bindPopup(` 
                     <b>${station.name}</b><br>
                     🚲 Bikes Available: ${station.available_bikes}<br>
