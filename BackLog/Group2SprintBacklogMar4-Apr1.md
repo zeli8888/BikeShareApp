@@ -1,5 +1,5 @@
 # Group2 Sprint Backlog
-# [Feb 18 - Mar 4]
+# [Mar 4 - Apr 1]
 ---------
 ### User Story: [Visualize current information]
 - **As a:** [User]
