@@ -1,5 +1,5 @@
 import argparse
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, url_for
 from src.controller import *
 from src.config import *
 
@@ -19,7 +19,12 @@ def main(database='LOCAL'):
     
     @app.route("/map")
     def map():
-        return render_template("map.html", GOOGLE_MAP_ID=GOOGLE_MAP_ID, GOOGLE_MAP_KEY=GOOGLE_MAP_KEY)
+        return render_template("map.html",
+                               GOOGLE_MAP_ID=GOOGLE_MAP_ID, 
+                               GOOGLE_MAP_KEY=GOOGLE_MAP_KEY,
+                               BIKES_URL=url_for('bikes.get_all_bikes', _external=True),
+                               WEATHER_URL=url_for('weather.get_weather_by_district', _external=True)
+                               )
     
     return app
 

@@ -12,7 +12,7 @@ class BikesService:
         return bikes
 
     @staticmethod
-    def get_bikes(number):
+    def get_bikes_for_station(number):
         """
         Retrieve one station's bikes condition.
         """

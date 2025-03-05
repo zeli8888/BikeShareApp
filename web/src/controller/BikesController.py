@@ -12,9 +12,9 @@ def get_all_bikes():
     return jsonify(BikesService.get_all_bikes())
 
 @bikes_blueprint.route('/bikes/<int:number>', methods=['GET'])
-def get_bikes(number):
+def get_bikes_for_station(number):
     """
     Retrieve one station's bikes condition.
     """
     
-    return jsonify(BikesService.get_bikes(number))
+    return jsonify(BikesService.get_bikes_for_station(number))

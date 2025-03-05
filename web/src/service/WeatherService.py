@@ -40,7 +40,7 @@ def find_nearest_district(coord1):
 class WeatherService:
 
     @staticmethod
-    def get_by_coordinate(latitude, longitude):
+    def get_weather_by_coordinate(latitude, longitude):
         if latitude is None or longitude is None:
             district = 'Dublin 1'
         else:
