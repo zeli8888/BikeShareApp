@@ -1,19 +1,6 @@
-async function fetchStation() {
-    try {
-        const [stations, availabilities] = await Promise.all([
-            fetch('api/stations').then(response => response.json()),
-            fetch('api/availabilities/latest').then(response => response.json())
-        ]);
-
-        return { stations, availabilities };
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-async function addStationMarker() {
-    map = window.map;
-    const { stations, availabilities } = await fetchStation();
+async function addStationMarker(bikesUrl) {
+    const map = window.googleMap;
+    const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
     window.markers = {};
 
     stations.forEach(station => {
@@ -32,6 +19,8 @@ async function addStationMarker() {
                         <div style="font-family: Arial, sans-serif; font-size: 14px; color: #000;">
                             <strong>${name}</strong><br>
                             Address: ${address}<br>
+                            Banking: ${banking}<br>
+                            Bike Stands: ${bike_stands}<br>
                         </div>
                               `
         });
@@ -58,4 +47,4 @@ async function addStationMarker() {
     });
 }
 
-addStationMarker()
+export { addStationMarker }

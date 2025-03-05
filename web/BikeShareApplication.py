@@ -10,8 +10,7 @@ def main(database='LOCAL'):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
-    app.register_blueprint(station_blueprint, url_prefix='/api')
-    app.register_blueprint(availability_blueprint, url_prefix='/api')
+    app.register_blueprint(bikes_blueprint, url_prefix='/api')
     app.register_blueprint(weather_blueprint, url_prefix='/api')
 
     @app.route("/")
