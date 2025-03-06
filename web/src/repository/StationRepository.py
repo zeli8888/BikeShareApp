@@ -1,13 +1,6 @@
-from ..model import Station
+from ..model import Station, db
 
 class StationRepository:
-
-    @staticmethod
-    def get_station_by_number(number):
-        """
-        Retrieve a station by its number.
-        """
-        return Station.query.get(number)
 
     @staticmethod
     def get_all_stations():
@@ -15,3 +8,12 @@ class StationRepository:
         Retrieve all stations from the database.
         """
         return Station.query.all()
+    
+    @staticmethod
+    def update_station(station):
+        """
+        Update a station in the database.
+        """
+        db.session.merge(station)
+        db.session.commit()
+        

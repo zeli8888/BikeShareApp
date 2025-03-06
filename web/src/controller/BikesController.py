@@ -7,14 +7,15 @@ bikes_blueprint = Blueprint('bikes', __name__)
 def get_all_bikes():
     """
     Retrieve all stations' bikes condition.
+    If data from database is older than time interval in config.py, then it will fetch data from website API calls.
     """
     
     return jsonify(BikesService.get_all_bikes())
 
-@bikes_blueprint.route('/bikes/<int:number>', methods=['GET'])
-def get_bikes_for_station(number):
+@bikes_blueprint.route('/bikes/current', methods=['GET'])
+def get_all_current_bikes():
     """
-    Retrieve one station's bikes condition.
+    Retrieve all stations' bikes current condition, this method will be guaranteed to fetch data from website API calls.
     """
     
-    return jsonify(BikesService.get_bikes_for_station(number))
+    return jsonify(BikesService.get_all_current_bikes())

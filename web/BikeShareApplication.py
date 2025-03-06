@@ -9,6 +9,8 @@ def main(database='LOCAL'):
     app.config['SQLALCHEMY_DATABASE_URI'] = globals()[database+"_DB_BIKES_URL"]
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
     app.register_blueprint(bikes_blueprint, url_prefix='/api')
     app.register_blueprint(weather_blueprint, url_prefix='/api')
@@ -23,7 +25,8 @@ def main(database='LOCAL'):
                                GOOGLE_MAP_ID=GOOGLE_MAP_ID, 
                                GOOGLE_MAP_KEY=GOOGLE_MAP_KEY,
                                BIKES_URL=url_for('bikes.get_all_bikes', _external=True),
-                               WEATHER_URL=url_for('weather.get_weather_by_district', _external=True)
+                               WEATHER_URL=url_for('weather.get_weather_by_district', _external=True),
+                               CURRENT_BIKES_URL=url_for('bikes.get_all_current_bikes', _external=True),
                                )
     
     return app

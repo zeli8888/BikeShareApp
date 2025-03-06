@@ -1,5 +1,9 @@
 import os
+from datetime import datetime
 
+AUTO_WEATHER_UPDATE_INTERVAL = 45 # in minutes, update weather if latest data is older than 45 minutes
+AUTO_BIKES_UPDATE_INTERVAL = 5 # in minutes, update bikes if latest data is older than 5 minutes
+DAILY_DATA_DATE = datetime(2025, 2, 22)
 # Jcdecaux KEY
 JCKEY = os.getenv('JCKEY')
 # Google KEY
