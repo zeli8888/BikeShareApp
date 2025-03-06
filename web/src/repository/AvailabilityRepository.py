@@ -36,3 +36,7 @@ class AvailabilityRepository:
         ).delete(synchronize_session=False)
 
         db.session.commit()
+        
+    @staticmethod
+    def get_one_day_availability(keep_date):
+        return Availability.query.filter(Availability.last_update.cast(Date) == keep_date).all()

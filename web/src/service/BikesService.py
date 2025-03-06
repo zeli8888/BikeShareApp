@@ -74,3 +74,7 @@ class BikesService:
         Thread(target=update_database).start()
 
         return bikes
+    
+    @staticmethod
+    def get_one_day_availability():
+        return [availability.as_dict() for availability in AvailabilityRepository.get_one_day_availability(DAILY_DATA_DATE)]

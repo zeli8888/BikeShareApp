@@ -9,7 +9,7 @@
     <!-- linking the css file -->
     <link rel="stylesheet" href="../static/css/index.css">
 
-    <!-- linking the javascript file -->
+    <!-- declare keys and backend urls -->
     <script>
         window.GOOGLE_MAP_KEY = "{{ GOOGLE_MAP_KEY }}";
         window.GOOGLE_MAP_ID = "{{ GOOGLE_MAP_ID }}";
@@ -17,8 +17,10 @@
         window.BIKES_URL = "{{ BIKES_URL }}";
         window.CURRENT_BIKES_URL = "{{ CURRENT_BIKES_URL }}";
         window.CURRENT_WEATHER_URL = "{{ CURRENT_WEATHER_URL }}";
+        window.BIKES_ONE_DAY_URL = "{{ BIKES_ONE_DAY_URL }}";
     </script>
 
+    <!-- linking the javascript file -->
     <script type="module">
         import { } from "../static/js/map.js";
     </script>

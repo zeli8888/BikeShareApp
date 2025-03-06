@@ -19,3 +19,10 @@ def get_all_current_bikes():
     """
     
     return jsonify(BikesService.get_all_current_bikes())
+
+@bikes_blueprint.route('/bikes/oneday', methods=['GET'])
+def get_one_day_availability():
+    """
+    Retrieve one day's availability of bikes for each station.
+    """
+    return jsonify(BikesService.get_one_day_availability())

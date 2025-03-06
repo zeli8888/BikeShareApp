@@ -9,8 +9,10 @@
 **Priority:** [High]
 **Estimated Points:** [12]
 **Acceptance Criteria:**
-- [visualise current information]
-- [visualise the status of each station]
+- [Be able to fetch current station and weather information]
+- [Need to store current information into database]
+- [Visualise the status of each station and weather information]
+- [The current information should be able to show in 1 second]
 
 **SubTasks:**
 
@@ -23,19 +25,19 @@
 - **Task 2:** 
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
-    - Description: [Fetch the latest data from API and save it into database]
-    - Finish Time: []
+    - Description: [Fetch current data through API calls and store it into database]
+    - Finish Time: [6th Mar]
 
 - **Task 3:** 
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
-    - Description: [Create API for fetching latest data from database]
-    - Finish Time: []
+    - Description: [Create backend API for fetching current data from database]
+    - Finish Time: [6th Mar]
 
 - **Task 4:** 
     - Estimated Points: [6]
     - Assigned To: [Sabrina]
-    - Description: [Create a link to fetch the latest data from backend in the button]
+    - Description: [Create a link to fetch the current data from backend on buttons]
     - Finish Time: []
 ------------
 
@@ -55,8 +57,8 @@
 - **Task 1:** 
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
-    - Description: [Create API for fetching daily data from database]
-    - Finish Time: []
+    - Description: [Create backend API for fetching daily data from database]
+    - Finish Time: [6th Mar]
 
 - **Task 2:** 
     - Estimated Points: [3]
@@ -90,7 +92,7 @@
     - Estimated Points: [5]
     - Assigned To: [Ze Li]
     - Description: [modularize javascript files]
-    - Finish Time: []
+    - Finish Time: [5th Mar]
 
 - **Task 2:** 
     - Estimated Points: [3]
