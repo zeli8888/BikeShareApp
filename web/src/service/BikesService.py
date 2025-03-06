@@ -38,13 +38,13 @@ class BikesService:
 
         for station in stations:
             station_obj = Station(
-                number=station['number'],
-                address=station['address'],
-                banking=int(station['banking']),
-                bike_stands=int(station['bike_stands']),
-                name=station['name'],
-                position_lat=station['position']['lat'],
-                position_lng=station['position']['lng']
+                number=station.get('number'),
+                address=station.get('address'),
+                banking=int(station.get('banking', 0)),
+                bike_stands=int(station.get('bike_stands', 0)),
+                name=station.get('name'),
+                position_lat=station.get('position', {}).get('lat'),
+                position_lng=station.get('position', {}).get('lng')
             )
             
             availability_obj = Availability(
