@@ -9,3 +9,10 @@ def get_weather_by_district():
     longitude = request.args.get('longitude')
     weather = WeatherService.get_weather_by_coordinate(latitude, longitude)
     return jsonify(weather), 200
+
+@weather_blueprint.route('/weather/current', methods=['GET'])
+def get_current_weather_by_district():
+    latitude = request.args.get('latitude')
+    longitude = request.args.get('longitude')
+    weather = WeatherService.get_current_weather_by_coordinate(latitude, longitude)
+    return jsonify(weather), 200

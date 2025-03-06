@@ -1,4 +1,4 @@
-from ..model import Alerts
+from ..model import Alerts, db
 from datetime import datetime, timedelta
 class AlertsRepository:
     
@@ -15,3 +15,8 @@ class AlertsRepository:
         current_time = datetime.now()
         one_day_later = current_time + timedelta(days=1)
         return Alerts.query.filter_by(district=district).filter(Alerts.start_time < one_day_later, Alerts.end_time > current_time).all()
+    
+    @staticmethod
+    def update_alerts(alerts):
+        db.session.merge(alerts)
+        db.session.commit()

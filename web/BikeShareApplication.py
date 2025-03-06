@@ -27,6 +27,7 @@ def main(database='LOCAL'):
                                BIKES_URL=url_for('bikes.get_all_bikes', _external=True),
                                WEATHER_URL=url_for('weather.get_weather_by_district', _external=True),
                                CURRENT_BIKES_URL=url_for('bikes.get_all_current_bikes', _external=True),
+                               CURRENT_WEATHER_URL=url_for('weather.get_current_weather_by_district', _external=True),
                                )
     
     return app
