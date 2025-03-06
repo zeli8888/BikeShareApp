@@ -2,43 +2,11 @@ from ..repository import CurrentRepository, HourlyRepository, DailyRepository, A
 from ..model import Current, Hourly, Daily, Alerts
 from ..config import OPEN_WEATHER_DUBLIN_LOC, OPEN_WEATHER_KEY, OPEN_WEATHER_URI, AUTO_WEATHER_UPDATE_INTERVAL
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import simplejson as json
 from threading import Thread
 from flask import current_app
 from math import radians, sin, cos, sqrt, atan2
-def get_distance(coord1, coord2):
-    # Radius of the Earth in kilometers
-    R = 6371.0
-    
-    # Convert latitude and longitude from degrees to radians
-    lat1, lon1 = map(radians, coord1)
-    lat2, lon2 = map(radians, coord2)
-    
-    # Difference between coordinates
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    
-    # Haversine formula
-    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
-    
-    # Distance in kilometers
-    distance = R * c
-    
-    return distance
-
-def find_nearest_district(coord1):
-    min_distance = float('inf')
-    nearest_district = None
-
-    for district, coord2 in OPEN_WEATHER_DUBLIN_LOC.items():
-        distance = get_distance(coord1, coord2)
-        if distance < min_distance:
-            min_distance = distance
-            nearest_district = district
-
-    return nearest_district
 
 class WeatherService:
 
@@ -48,12 +16,17 @@ class WeatherService:
             district = 'Dublin 1'
         else:
             district = find_nearest_district((float(latitude), float(longitude)))
-        weather = {}
-        weather['current'] = CurrentRepository.get_by_district(district).as_dict()
-        weather['hourly'] = [hourly.as_dict() for hourly in HourlyRepository.get_by_district(district)]
-        weather['daily'] = [daily.as_dict() for daily in DailyRepository.get_by_district(district)]
-        weather['alerts'] = [alerts.as_dict() for alerts in AlertsRepository.get_by_district(district)]
-        return weather
+            
+        current = CurrentRepository.get_by_district(district)
+        if current and current.dt > (datetime.now() - timedelta(minutes=AUTO_WEATHER_UPDATE_INTERVAL)):
+            weather = {}
+            weather['current'] = current.as_dict()
+            weather['hourly'] = [hourly.as_dict() for hourly in HourlyRepository.get_by_district(district)]
+            weather['daily'] = [daily.as_dict() for daily in DailyRepository.get_by_district(district)]
+            weather['alerts'] = [alerts.as_dict() for alerts in AlertsRepository.get_by_district(district)]
+            return weather
+        else:
+            return WeatherService.get_current_weather_by_coordinate(latitude, longitude, district)
     
     @staticmethod
     def get_current_weather_by_coordinate(latitude, longitude, district=None):
@@ -123,7 +96,6 @@ class WeatherService:
             weather_icon=current_info.get('weather')[0].get('icon') if current_info.get('weather') else None
         )
         weather['current'] = current_obj.as_dict()
-        current_data = current_obj
         
         for hourly_info_data in hourly_info:
             hourly_obj = Hourly(
@@ -205,12 +177,45 @@ class WeatherService:
                     HourlyRepository.update_hourly(hourly_obj)
                 for daily_obj in daily_data:
                     DailyRepository.update_daily(daily_obj)
-                # CurrentRepository.delete_old_current()
-                # AlertsRepository.delete_old_current()
-                # HourlyRepository.delete_old_current()
-                # DailyRepository.delete_old_current()
+                CurrentRepository.delete_old_current()
+                AlertsRepository.delete_old_alerts()
+                HourlyRepository.delete_old_hourly()
+                DailyRepository.delete_old_daily()
 
         # Start the background thread
         Thread(target=update_database).start()
 
         return weather
+    
+def get_distance(coord1, coord2):
+    # Radius of the Earth in kilometers
+    R = 6371.0
+    
+    # Convert latitude and longitude from degrees to radians
+    lat1, lon1 = map(radians, coord1)
+    lat2, lon2 = map(radians, coord2)
+    
+    # Difference between coordinates
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    
+    # Haversine formula
+    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    
+    # Distance in kilometers
+    distance = R * c
+    
+    return distance
+
+def find_nearest_district(coord1):
+    min_distance = float('inf')
+    nearest_district = None
+
+    for district, coord2 in OPEN_WEATHER_DUBLIN_LOC.items():
+        distance = get_distance(coord1, coord2)
+        if distance < min_distance:
+            min_distance = distance
+            nearest_district = district
+
+    return nearest_district

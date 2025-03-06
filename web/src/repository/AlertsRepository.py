@@ -20,3 +20,8 @@ class AlertsRepository:
     def update_alerts(alerts):
         db.session.merge(alerts)
         db.session.commit()
+        
+    @staticmethod
+    def delete_old_alerts():
+        db.session.query(Alerts).filter(Alerts.end_time < datetime.now()).delete(synchronize_session=False)
+        db.session.commit()

@@ -7,9 +7,12 @@ function getWeather(weatherUrl) {
                 const weatherDescription = currentWeather.weather_description;
                 const weatherIconCode = currentWeather.weather_icon;
                 const temperatureC = (currentWeather.temp - 273.15).toFixed(1); // Convert Kelvin to Celsius
+                const lastUpdated = currentWeather.dt;
                 // Update weather icon and description
                 document.getElementById('weather-icon').src = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
-                document.getElementById('weather-desc').innerHTML = `Current Weather: ${weatherDescription}<br>Temperature: ${temperatureC}°C`;
+                document.getElementById('weather-desc').innerHTML = `
+                Current Weather: ${weatherDescription}<br>Temperature: ${temperatureC}°C<br>LastUpdated: <br>${lastUpdated}
+                `;
             }).catch(error => {
                 console.error('Error loading weather data:', error);
                 document.getElementById('weather-desc').innerHTML = "Error fetching weather data.";
