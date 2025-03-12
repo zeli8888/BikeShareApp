@@ -8,6 +8,8 @@
 
     <!-- linking the css file -->
     <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/weather.css">
+    <link rel="stylesheet" href="../static/css/stations.css">
 
     <!-- declare keys and backend urls -->
     <script>
@@ -23,38 +25,9 @@
     <!-- linking the javascript file -->
     <script type="module">
         import { } from "../static/js/map.js";
-    </script>
-
-    <script>
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
-        }
-
-        function showPosition(position) {
-            alert("Latitude: " + position.coords.latitude +
-                "\nLongitude: " + position.coords.longitude);
-        }
-
-        function showError(error) {
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    alert("User denied the request for Geolocation.");
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    alert("Location information is unavailable.");
-                    break;
-                case error.TIMEOUT:
-                    alert("The request to get user location timed out.");
-                    break;
-                case error.UNKNOWN_ERROR:
-                    alert("An unknown error occurred.");
-                    break;
-            }
-        }
+        import { getLocation } from "../static/js/user_location.js";
+        const button = document.getElementById("share-location-button");
+        button.addEventListener("click", getLocation);
     </script>
 
 </head>
@@ -78,7 +51,7 @@
         <p id="weather-desc">Loading weather...</p>
     </div>
 
-    <button onclick="getLocation()">Share Location</button>
+    <button id="share-location-button">Share Location</button>
 
 </body>
 

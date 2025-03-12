@@ -1,11 +1,16 @@
 import { addStationMarker } from "./stations.js";
 import { getWeather } from "./weather.js";
 function initMap() {
-    // The location of Dublin
-    const location = {
-        lat: 53.3498,
-        lng: -6.2603
-    };
+    const location = window.coords ? {
+        lat: window.coords.latitude,
+        lng: window.coords.longitude
+    } :
+        {
+            // The location of Dublin City Center
+            lat: 53.3498,
+            lng: -6.2603
+        }
+        ;
     let map = new google.maps.Map(document.getElementById("map"), {
         mapId: window.GOOGLE_MAP_ID,
         center: location,
@@ -23,7 +28,17 @@ function loadGoogleMapsApi() {
     document.body.appendChild(googleMapScript);
 }
 
-getWeather(window.WEATHER_URL);
+const storedLocation = sessionStorage.getItem('userLocation');
+if (storedLocation && storedLocation !== 'undefined') {
+    window.coords = JSON.parse(storedLocation);
+}
+
+if (window.coords) {
+    getWeather(window.WEATHER_URL + `?latitude=${window.coords.latitude}&longitude=${window.coords.longitude}`);
+} else {
+    getWeather(window.WEATHER_URL);
+}
+
 window.initMap = initMap;
 loadGoogleMapsApi();
 

@@ -3,6 +3,16 @@ async function addStationMarker(bikesUrl) {
     const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
     window.markers = {};
 
+    // Create AdvancedMarkerElement For User Location
+    const user_location_marker_img = document.createElement('img');
+    user_location_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
+    window.user_location_marker = new google.maps.marker.AdvancedMarkerElement({
+        position: window.coords ? new google.maps.LatLng(window.coords.latitude, window.coords.longitude) : new google.maps.LatLng(53.3498, -6.2603),
+        map: map,
+        content: user_location_marker_img,
+        title: 'YOUR LOCATION'
+    });
+
     stations.forEach(station => {
         const { address, banking, bike_stands, name, number, position_lat, position_lng } = station;
 
@@ -16,7 +26,7 @@ async function addStationMarker(bikesUrl) {
 
         const infoWindow = new google.maps.InfoWindow({
             content: `
-                        <div style="font-family: Arial, sans-serif; font-size: 14px; color: #000;">
+                        <div class="info-window-content">
                             <strong>${name}</strong><br>
                             Address: ${address}<br>
                             Banking: ${banking}<br>
@@ -37,7 +47,7 @@ async function addStationMarker(bikesUrl) {
         const { available_bike_stands, available_bikes, last_update, number, status } = availability;
         const infoWindow = window.markers[number].infoWindow;
         infoWindow.setContent(infoWindow.content + `
-            <div style="font-family: Arial, sans-serif; font-size: 14px; color: #000;">
+            <div class="info-window-content">
                 Available Bikes: ${available_bikes}<br>
                 Available Stands: ${available_bike_stands}<br>
                 Status: ${status}<br>

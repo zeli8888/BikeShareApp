@@ -1,0 +1,8 @@
+#weather-desc {
+    font: 14px Arial, sans-serif;
+    color: #000;
+}
+
+#weather-icon {
+    float: right;
+}
