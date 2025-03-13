@@ -2,6 +2,11 @@ import { getWeather } from "./weather.js";
 function getLocation() {
     return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
+            const options = {
+                enableHighAccuracy: false,
+                timeout: 5000,
+                maximumAge: Infinity,
+            };
             navigator.geolocation.getCurrentPosition(position => {
                 window.coords = position.coords;
                 sessionStorage.setItem('userLocation', JSON.stringify(window.coords));
@@ -13,7 +18,7 @@ function getLocation() {
             }, error => {
                 showError(error);
                 resolve();
-            });
+            }, options);
         } else {
             reject(new Error('Geolocation is not supported by this browser.'));
         }
