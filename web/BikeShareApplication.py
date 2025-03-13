@@ -41,4 +41,7 @@ if __name__ == "__main__":
     parser.add_argument('--no_debug', action='store_true')
     args = parser.parse_args()
     app = main(args.database)
-    app.run(debug=not args.no_debug)
+    if args.database == 'EC2':
+        app.run(host='0.0.0.0', port=5000, debug=not args.no_debug)
+    else:
+        app.run(debug=not args.no_debug)
