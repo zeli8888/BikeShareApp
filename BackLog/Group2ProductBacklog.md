@@ -247,6 +247,21 @@
 - [When users view the bikes with different colors, they can easily understand the meaning of each color and the corresponding bike numbers]
 
 -------------------
+### User Story: [Route For current location to chosen station]
+- **As a:** [User]
+- **I want to:** [get the route for my current location to chosen station]
+- **So that I can:** [organize my trip easily]
+
+**Priority:** [Medium]
+**Estimated Points:** [15]
+**Acceptance Criteria:**
+- [The user can select a station on the map] 
+- [The web can show the most efficient route from the user's current location to the selected station] 
+- [The system displays the calculated route on a map, including the starting point (current location), destination (selected station), and any intermediate stops or directions] 
+- [The system provides additional route details, such as distance, estimated travel time, mode of transportation, and any relevant traffic or road conditions] 
+- [The system provides a user-friendly interface for selecting the station and viewing the route, including clear and concise instructions, intuitive navigation, and accessible design]
+
+-------------------
 <!-- -------------
 ### User Story: [Bike Occupancy data from JCDecaux]
 - **As a:** [Developer]

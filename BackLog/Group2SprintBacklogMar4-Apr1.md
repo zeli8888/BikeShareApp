@@ -118,7 +118,7 @@
     - Estimated Points: [5]
     - Assigned To: [Ze Li]
     - Description: [Deploy the website on EC2 server]
-    - Finish Time: []
+    - Finish Time: [13th Mar]
 
 ------------
 
@@ -138,22 +138,103 @@
     - Estimated Points: [10]
     - Assigned To: [Ze Li]
     - Description: [Prompt a check window for asking user to share location]
-    - Finish Time: []
+    - Finish Time: [9th Mar]
 
 - **Task 2:** 
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
     - Description: [Create a user marker based on the shared location]
-    - Finish Time: []
+    - Finish Time: [12th Mar]
 
 - **Task 3:** 
     - Estimated Points: [4]
     - Assigned To: [Ze Li]
     - Description: [Implement the weather data service for shared location]
-    - Finish Time: []
+    - Finish Time: [12th Mar]
 
 ------------
 
+### User Story: [Different Color For Different Bikes number in a Station]
+- **As a:** [User]
+- **I want to:** [see different colors for different number of bikes in a station]
+- **So that I can:** [better choose whether to go]
+
+**Priority:** [Medium]
+**Estimated Points:** [13]
+**Acceptance Criteria:**
+- [When displaying the station on the map, each station should have a color representing the number of available bikes]
+- [A color legend is displayed on the page]
+- [When users view the bikes with different colors, they can easily understand the meaning of each color and the corresponding bike numbers]
+
+**SubTasks:**
+
+- **Task 1:** 
+    - Estimated Points: [5]
+    - Assigned To: [Ze Li]
+    - Description: [Design a color scheme to represent different bike numbers]
+    - Finish Time: []
+
+- **Task 2:** 
+    - Estimated Points: [3]
+    - Assigned To: [Ze Li]
+    - Description: [Implement the color legend on the page]
+    - Finish Time: []
+
+- **Task 3:** 
+    - Estimated Points: [3]
+    - Assigned To: [Ze Li]
+    - Description: [Update the station marker on the map to display the corresponding color]
+    - Finish Time: []
+
+- **Task 4:** 
+    - Estimated Points: [2]
+    - Assigned To: [Ze Li]
+    - Description: [Add tooltip or hover text to explain the meaning of each color]
+    - Finish Time: []
+------------
+
+### Software Necessity: [Readme Document]
+- **As a:** [developer]
+- **I want to:** [have a clear and consistent readme document]
+- **So that I can:** [have a clear guidance across all team members]
+
+**Priority:** [High]
+**Estimated Points:** [8]
+**Acceptance Criteria:**
+- [The README document is located in the root directory of the project.]
+- [The README document is written in clear and concise language.]
+- [The README document includes the following sections: project overview, installation instructions, and usage instructions]
+- [The README document is consistent in formatting and style throughout.]
+- [The README document is up-to-date and reflects the current state of the project.]
+- [The README document is easily readable and understandable by all team members.]
+
+**SubTasks:**
+
+- **Task 1:** 
+    - Estimated Points: [2]
+    - Assigned To: [Ze Li]
+    - Description: [Create a new README document in the root directory of the project]
+    - Finish Time: []
+
+- **Task 2:** 
+    - Estimated Points: [2]
+    - Assigned To: [Ze Li]
+    - Description: [Write the project overview section of the README document]
+    - Finish Time: []
+
+- **Task 3:** 
+    - Estimated Points: [2]
+    - Assigned To: [Ze Li]
+    - Description: [Write the installation instructions section of the README document]
+    - Finish Time: []
+
+- **Task 4:** 
+    - Estimated Points: [2]
+    - Assigned To: [Ze Li]
+    - Description: [Write the usage instructions section of the README document]
+    - Finish Time: []
+
+-------------------------------------------------
 <!-- ### User Story: [Story Title]
 - **As a:** [Type of user]
 - **I want to:** [Action or capability]
