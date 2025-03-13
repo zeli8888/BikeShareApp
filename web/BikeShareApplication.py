@@ -1,3 +1,4 @@
+import os
 import argparse
 from flask import Flask, render_template, url_for
 from src.controller import *
@@ -6,7 +7,9 @@ from src.config import *
 def main(database='LOCAL'):
     
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = globals()[database+"_DB_BIKES_URL"]
+    if os.getenv(f'{database}_DB_BIKES_URL') is None:
+        raise Exception(f"Invalid database choice, check your system variable for {database}_DB_BIKES_URL!")
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(f'{database}_DB_BIKES_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     with app.app_context():

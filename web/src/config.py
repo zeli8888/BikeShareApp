@@ -12,16 +12,13 @@ GOOGLE_MAP_ID = os.getenv('GOOGLE_MAP_ID')
 # Define OpenWeather URI
 OPEN_WEATHER_KEY = os.getenv('OPEN_WEATHER_KEY')
 
-# Define local database connection URL
-LOCAL_DB_BIKES_URL = os.getenv('LOCAL_DB_BIKES_URL')
+# local database connection URL: os.getenv('LOCAL_DB_BIKES_URL')
 
-# Define remote database connection URL, use SSH tunnel through EC2 to connect to RDS, so this environment variable should be set on local computer
-# make sure system variable EC2_PEM is added at first, and ssh-aws-database.sh is running.
-REMOTE_DB_BIKES_URL = os.getenv("REMOTE_DB_BIKES_URL")
+# remote database connection URL, use SSH tunnel through EC2 to connect to RDS, so this environment variable should be set on local computer
+# make sure system variable EC2_PEM is added at first, and ssh-aws-database.sh is running: os.getenv("REMOTE_DB_BIKES_URL")
 
-# Define remote database connection URL, this is for running on EC2 connected to RDS directly (no SSH tunnel), so this environment variable should be set on EC2
-# make sure system variable EC2_PEM is added at first, and ssh-aws-ec2.sh is running.
-EC2_DB_BIKES_URL = os.getenv('EC2_DB_BIKES_URL')
+# remote database connection URL, this is for running on EC2 connected to RDS directly (no SSH tunnel), so this environment variable should be set on EC2
+# make sure system variable EC2_PEM is added at first, and ssh-aws-ec2.sh is running: os.getenv('EC2_DB_BIKES_URL')
 
 # Define jcdecaux URI
 NAME = "dublin"
