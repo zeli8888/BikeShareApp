@@ -214,25 +214,25 @@
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
     - Description: [Create a new README document in the root directory of the project]
-    - Finish Time: []
+    - Finish Time: [13th Mar]
 
 - **Task 2:** 
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
     - Description: [Write the project overview section of the README document]
-    - Finish Time: []
+    - Finish Time: [14th Mar]
 
 - **Task 3:** 
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
     - Description: [Write the installation instructions section of the README document]
-    - Finish Time: []
+    - Finish Time: [14th Mar]
 
 - **Task 4:** 
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
     - Description: [Write the usage instructions section of the README document]
-    - Finish Time: []
+    - Finish Time: [14th Mar]
 
 -------------------------------------------------
 <!-- ### User Story: [Story Title]
