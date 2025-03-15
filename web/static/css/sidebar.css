@@ -5,10 +5,11 @@
     margin-top: 1%;
     margin-left: 1%;
     padding: 1rem;
-    max-width: 30rem;
+    max-width: 32rem;
     height: 95%;
     box-sizing: border-box;
     overflow: auto;
     background: #C1CDD2;
+    background: linear-gradient(to bottom, #b2dfdb, #C1CDD2);
     color: black;
 }

@@ -1,5 +1,12 @@
-#route {
+#route-container {
     display: none;
+}
+
+#route {
+    background: #f5f5f5;
+    border: 0.1em solid #ccc;
+    padding: 5%;
+    border-radius: 2%;
 }
 
 #travel-mode-container {

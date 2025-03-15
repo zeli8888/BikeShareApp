@@ -255,19 +255,19 @@
     - Estimated Points: [6]
     - Assigned To: [Ze Li]
     - Description: [Integrate Google Maps API to calculate the most efficient route from the user's current location to the selected station]
-    - Finish Time: []
+    - Finish Time: [15th Mar]
 
 - **Task 2:** 
     - Estimated Points: [6]
     - Assigned To: [Ze Li]
     - Description: [Display the calculated route on the map along with panel showing the starting point, destination, and any intermediate stops or direction]
-    - Finish Time: []
+    - Finish Time: [15th Mar]
 
 - **Task 3:** 
     - Estimated Points: [3]
     - Assigned To: [Ze Li]
     - Description: [Modify the map interface to make sure the route and panel are suitably displayed on it]
-    - Finish Time: []
+    - Finish Time: [15th Mar]
 
 -------------------------------------------------
 

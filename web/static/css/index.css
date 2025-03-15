@@ -9,18 +9,6 @@ html {
     height: 80%;
 }
 
-.header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: x-large;
-}
-
-.header button {
-    margin-top: -0.75%;
-    font-size: large;
-}
-
 body {
     background-image: url('../resources/beste-e-bike-app-von-powunity-1536x864.webp');
     /* Update the path */
@@ -44,6 +32,7 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    border-radius: 0.5rem;
 }
 
 li {
@@ -56,6 +45,7 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    border-radius: 0.5rem;
 }
 
 li a:hover {
@@ -83,6 +73,32 @@ li a:hover {
 .element {
     transform: rotate(45deg);
     /* Standard syntax for modern browsers */
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: x-large;
+}
+
+.header h3 {
+    transition: transform 0.1s ease-in-out;
+}
+
+.header h3:hover {
+    transform: scale(1.05);
+}
+
+#share-location-button {
+    margin-top: -0.75%;
+    font-size: large;
+    border-radius: 0.5rem;
+    transition: transform 0.1s ease-in-out;
+}
+
+#share-location-button:hover {
+    transform: scale(1.02);
 }
 
 #container {

@@ -41,34 +41,46 @@
     <div id="container">
         <div id="map"></div>
         <div id="sidebar">
-            <!-- The weather container -->
-            <div id="weather-info">
-                <p id="weather-desc">Loading weather...</p>
-            </div>
             <!-- The station info container-->
             <div id="station-info-container">
-                <a href="#" onclick="show_weather_info()">Return</a>
+                <a href="#" onclick="show_weather_info_container()">Return</a>
                 <div id="station-info"></div>
-                <div id="station-weather">
-                    <br>
-                    To do: add station weather info
-                </div>
                 <div id="station-daily-trend">
-                    <br>
-                    To do: add daily trend info
+                    <h1>To do: add daily trend info</h1>
                 </div>
             </div>
-            <div id="route">
+            <div id="weather-info-container">
+                <!-- Current Weather -->
+                <div id="current-weather" class="weather-card">
+                    <h2>Current Weather</h2>
+                    <div id="current-details"></div>
+                </div>
+
+                <!-- Daily Forecast -->
+                <div class="weather-card">
+                    <h2>7-Day Forecast</h2>
+                    <div id="daily-forecast" class="forecast-container"></div>
+                </div>
+
+                <!-- Hourly Forecast -->
+                <div class="weather-card">
+                    <h2>24-Hour Forecast</h2>
+                    <div id="hourly-forecast" class="forecast-container"></div>
+                </div>
+            </div>
+            <div id="route-container">
                 <a href="#" onclick="show_station_info_container()">Return</a>
                 <span id="google-map-link"></span>
-                <div id="travel-mode-container">
-                    <b>Mode of Travel: </b>
-                    <select id="travel-mode">
-                        <option value="DRIVING">Driving</option>
-                        <option value="WALKING">Walking</option>
-                        <option value="BICYCLING">Bicycling</option>
-                        <option value="TRANSIT" selected>Transit</option>
-                    </select>
+                <div id="route">
+                    <div id="travel-mode-container">
+                        <b>Mode of Travel: </b>
+                        <select id="travel-mode">
+                            <option value="DRIVING">Driving</option>
+                            <option value="WALKING">Walking</option>
+                            <option value="BICYCLING">Bicycling</option>
+                            <option value="TRANSIT" selected>Transit</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

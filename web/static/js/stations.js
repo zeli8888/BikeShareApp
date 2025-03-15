@@ -1,4 +1,5 @@
 import { show_station_info_container } from "./sidebar.js";
+import { getWeather } from "./weather.js";
 async function addStationMarker(bikesUrl) {
     const map = window.googleMap;
     const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
@@ -31,18 +32,19 @@ async function addStationMarker(bikesUrl) {
         const infoWindow = new google.maps.InfoWindow({
             content: `
               <div class="info-window-content">
-                <strong>${name}</strong>
+                <span class="info-window-title"><strong>${name}</strong></span><br>
                 <a href="#" onclick="calculateAndDisplayRoute(${position_lat}, ${position_lng}, 'TRANSIT')">➡️Directions<br></a>
-                Banking: ${banking}<br>
-                Bike Stands: ${bike_stands}<br>
+                <!-- Banking: ${banking}<br> -->
+                <!-- Bike Stands: ${bike_stands}<br> -->
               </div>
             `
         });
 
         marker.addListener("gmp-click", () => {
-            show_station_info_container();
-            document.getElementById('station-info').innerHTML = infoWindow.content;
             infoWindow.open(map, marker);
+            document.getElementById('station-info').innerHTML = infoWindow.content;
+            getWeather(window.WEATHER_URL, position_lat, position_lng);
+            show_station_info_container();
         });
 
         marker.infoWindow = infoWindow;
@@ -54,9 +56,9 @@ async function addStationMarker(bikesUrl) {
         const infoWindow = window.markers[number].infoWindow;
         infoWindow.setContent(infoWindow.content + `
             <div class="info-window-content">
+                Status: ${status}<br>
                 Available Bikes: ${available_bikes}<br>
                 Available Stands: ${available_bike_stands}<br>
-                Status: ${status}<br>
                 Last Update: ${last_update}
             </div>
           `);

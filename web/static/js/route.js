@@ -1,4 +1,4 @@
-import { show_route } from "./sidebar.js";
+import { show_route_container } from "./sidebar.js";
 function initDirectionsService() {
     window.directionsRenderer = new google.maps.DirectionsRenderer();
     window.directionsService = new google.maps.DirectionsService();
@@ -15,7 +15,7 @@ function calculateAndDisplayRoute(end_lat, end_lng, selectedMode) {
         `<br>
     <a href="https://www.google.com/maps/dir/?api=1&destination=${end_lat},${end_lng}&mode=${selectedMode}" target="_blank">Open Google Map</a>
     `
-    show_route();
+    show_route_container();
 
     window.directionsService
         .route({

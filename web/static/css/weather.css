@@ -1,4 +1,4 @@
-#weather-info {
+#weather-info-container {
     top: 1%;
     right: 1%;
     padding: 1%;
@@ -7,9 +7,10 @@
     box-sizing: border-box;
     font-size: large;
     display: block;
+    margin: 0 auto;
 }
 
-#weather-info p {
+#weather-info-container p {
     margin: 0;
     text-align: center;
 }
@@ -24,5 +25,83 @@
 }
 
 #last-updated {
-    font-size: small;
+    font-size: 80%;
+}
+
+.weather-card {
+    border: 0.1em solid #ccc;
+    background: #f5f5f5;
+    border-radius: 2%;
+    padding: 5%;
+    margin: 5% 0;
+    margin-top: 0%;
+    padding-top: 1%;
+    box-shadow: 0 0.2% 0.5% rgba(0, 0, 0, 0.1);
+}
+
+.forecast-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 2%;
+    padding: 5% 0;
+}
+
+.forecast-item {
+    border: 0.1em solid #ccc;
+    background: white;
+    padding: 5%;
+    /* Updated from fixed to relative */
+    border-radius: 2%;
+    /* Rounded corners */
+    min-width: 20%;
+    /* Ensures consistency with responsiveness */
+    text-align: center;
+    box-shadow: 0 0.2% 0.5% rgba(0, 0, 0, 0.1);
+}
+
+.current-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5%;
+}
+
+.weather-icon {
+    background: linear-gradient(to bottom, lightblue, #b2dfdb);
+    border-radius: 50%;
+    /* Circular background */
+    width: 25%;
+    /* Adjusted width for responsiveness */
+    height: 25%;
+}
+
+#weather-info-container h2 {
+    color: #333;
+    margin-bottom: 2%;
+}
+
+.temp-info {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.forecast-description {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#current-weather-button {
+    background: none;
+    /* Removes default button styling */
+    border: none;
+    color: #333;
+    font-size: 100%;
+    cursor: pointer;
+    margin-left: 2%;
+    vertical-align: middle;
+    transition: transform 0.1s ease-in-out;
+}
+
+#current-weather-button:hover {
+    color: #007bff;
+    transform: scale(1.02);
 }

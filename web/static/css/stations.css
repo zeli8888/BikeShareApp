@@ -15,4 +15,12 @@
 #station-info {
     text-align: center;
     line-height: 150%;
+    background: #f5f5f5;
+    border: 0.1em solid #ccc;
+    padding: 5%;
+    border-radius: 2%;
+}
+
+#station-info .info-window-title {
+    font-size: 150%;
 }
