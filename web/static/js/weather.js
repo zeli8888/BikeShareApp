@@ -10,16 +10,16 @@ function getWeather(weatherUrl) {
             const lastUpdated = currentWeather.dt;
             const district = currentWeather.district;
             // Update weather icon and description
-            document.getElementById('weather-icon').src = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
             document.getElementById('weather-desc').innerHTML = `
                 ${district}
                 <br>
-                ${weatherDescription}
+                ${weatherDescription}<img id="weather-icon" src="" alt="Weather Icon" />
                 <br>Temperature: ${temperatureC}°C
                 <br>Feels Like: ${feels_like}°C
-                <br>
-                <br>Last Update: <br>${lastUpdated}
+                <br><br>
+                <p id="last-updated">Last Update: ${lastUpdated}</p>
                 `;
+            document.getElementById('weather-icon').src = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
         }).catch(error => {
             console.error('Error loading weather data:', error);
             document.getElementById('weather-desc').innerHTML = "Error fetching weather data.";

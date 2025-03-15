@@ -1,6 +1,6 @@
 # 🚲 BikeShareApp
 
-**BikeShareApp** is a web application designed to help you get the shared bikes information in dublin. You can get real-time updates on bike station availability and current weather conditions, see visualized availability trends for each bike station, and plan your route based on your location with ease using this app. 🎉
+**BikeShareApp** is a web application designed to help you get the shared bikes information in dublin. You can get real-time updates on bike station availability and current weather conditions, see visualized availability trends for each bike station, and choose routes to bike station based on your location with ease using this app. 🎉
 
 ---
 
@@ -22,7 +22,7 @@
 - **Feature 2**: Real-time Bikes Information. 🚲
 - **Feature 3**: Real-time Weather Information Based on Your Location. ☀️
 - **Feature 4**: Visualized Availability Trends for Each Bike Station. 📈
-- **Feature 5**: Route Plan With Google Map Based on Your Location. 🗺️
+- **Feature 5**: Route Service to Bike Station With Google Map Based on Your Location. 🗺️
 
 ---
 

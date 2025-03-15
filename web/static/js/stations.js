@@ -1,3 +1,4 @@
+import { show_station_info_container } from "./sidebar.js";
 async function addStationMarker(bikesUrl) {
     const map = window.googleMap;
     const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
@@ -31,8 +32,7 @@ async function addStationMarker(bikesUrl) {
             content: `
               <div class="info-window-content">
                 <strong>${name}</strong>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=${position_lat},${position_lng}" target="_blank">➡️Directions</a>
-                <a href="#" onclick="calculateAndDisplayRoute(${position_lat}, ${position_lng}, 'DRIVING')">➡️Directions<br></a>
+                <a href="#" onclick="calculateAndDisplayRoute(${position_lat}, ${position_lng}, 'TRANSIT')">➡️Directions<br></a>
                 Banking: ${banking}<br>
                 Bike Stands: ${bike_stands}<br>
               </div>
@@ -40,7 +40,8 @@ async function addStationMarker(bikesUrl) {
         });
 
         marker.addListener("gmp-click", () => {
-            window.chosen_station = station;
+            show_station_info_container();
+            document.getElementById('station-info').innerHTML = infoWindow.content;
             infoWindow.open(map, marker);
         });
 

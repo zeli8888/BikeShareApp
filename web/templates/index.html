@@ -8,10 +8,6 @@
 
     <!-- linking the css file -->
     <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="stylesheet" href="../static/css/map.css">
-    <link rel="stylesheet" href="../static/css/sidebar.css">
-    <link rel="stylesheet" href="../static/css/weather.css">
-    <link rel="stylesheet" href="../static/css/stations.css">
 
     <!-- declare keys and backend urls -->
     <script>
@@ -24,6 +20,7 @@
         window.BIKES_ONE_DAY_URL = "{{ BIKES_ONE_DAY_URL }}";
     </script>
 
+    <!-- linking the js file -->
     <script type="module" src="../static/js/index.js"></script>
 
 </head>
@@ -40,18 +37,41 @@
         <button id="share-location-button">Share Location</button>
     </div>
 
-    <!-- The map container -->
-    <div id="map-container">
+    <!-- The main container -->
+    <div id="container">
         <div id="map"></div>
         <div id="sidebar">
-            To do: add weather info, add daily trend page with station weather and info, add two
-            directions link and return link on trend page.
+            <!-- The weather container -->
+            <div id="weather-info">
+                <p id="weather-desc">Loading weather...</p>
+            </div>
+            <!-- The station info container-->
+            <div id="station-info-container">
+                <a href="#" onclick="show_weather_info()">Return</a>
+                <div id="station-info"></div>
+                <div id="station-weather">
+                    <br>
+                    To do: add station weather info
+                </div>
+                <div id="station-daily-trend">
+                    <br>
+                    To do: add daily trend info
+                </div>
+            </div>
+            <div id="route">
+                <a href="#" onclick="show_station_info_container()">Return</a>
+                <span id="google-map-link"></span>
+                <div id="travel-mode-container">
+                    <b>Mode of Travel: </b>
+                    <select id="travel-mode">
+                        <option value="DRIVING">Driving</option>
+                        <option value="WALKING">Walking</option>
+                        <option value="BICYCLING">Bicycling</option>
+                        <option value="TRANSIT" selected>Transit</option>
+                    </select>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- Weather Information Container -->
-    <div class="weather-container" id="weather-info">
-        <img id="weather-icon" src="" alt="Weather Icon" />
-        <p id="weather-desc">Loading weather...</p>
     </div>
 
 </body>

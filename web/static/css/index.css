@@ -1,3 +1,9 @@
+@import url('./map.css');
+@import url('./sidebar.css');
+@import url('./weather.css');
+@import url('./stations.css');
+@import url('./route.css');
+
 /* Set a background image for the entire body */
 html {
     height: 80%;
@@ -77,4 +83,11 @@ li a:hover {
 .element {
     transform: rotate(45deg);
     /* Standard syntax for modern browsers */
+}
+
+#container {
+    height: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    display: flex;
 }
