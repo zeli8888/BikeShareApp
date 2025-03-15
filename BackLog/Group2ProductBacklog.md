@@ -238,19 +238,6 @@
 - [predictions are reliable and provide actionable information]
 
 -------------------
-### User Story: [Weather Information For Station]
-- **As a:** [User]
-- **I want to:** [get weather information for each bike station]
-- **So that I can:** [make better informed decision]
-
-**Priority:** [Medium]
-**Estimated Points:** [10]
-**Acceptance Criteria:**
-- [The system displays current weather conditions for each bike station]
-- [The system displays weather information using visual indicators such as icons or colors to represent different weather conditions]
-- [The system updates the weather information for each bike station in real-time, so that the user has the most up-to-date information]
-
--------------------
 ### User Story: [Weather Alerts]
 - **As a:** [User]
 - **I want to:** [be warned if there are weather alerts]
