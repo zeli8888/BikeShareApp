@@ -13,29 +13,34 @@ async function addStationMarker(bikesUrl) {
         title: 'YOUR LOCATION'
     });
 
+    const station_marker_img = document.createElement('img');
+    station_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
     stations.forEach(station => {
         const { address, banking, bike_stands, name, number, position_lat, position_lng } = station;
-
+        const marker_img = station_marker_img.cloneNode(true);
         // Create AdvancedMarkerElement
         const marker = new google.maps.marker.AdvancedMarkerElement({
             position: new google.maps.LatLng(position_lat, position_lng),
             map: map,
+            content: marker_img,
             title: name,  // Tooltip for marker
             ariaLabel: name // Accessible name for screen readers
         });
 
         const infoWindow = new google.maps.InfoWindow({
             content: `
-                        <div class="info-window-content">
-                            <strong>${name}</strong><br>
-                            Address: ${address}<br>
-                            Banking: ${banking}<br>
-                            Bike Stands: ${bike_stands}<br>
-                        </div>
-                              `
+              <div class="info-window-content">
+                <strong>${name}</strong>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=${position_lat},${position_lng}" target="_blank">➡️Directions</a>
+                <a href="#" onclick="calculateAndDisplayRoute(${position_lat}, ${position_lng}, 'DRIVING')">➡️Directions<br></a>
+                Banking: ${banking}<br>
+                Bike Stands: ${bike_stands}<br>
+              </div>
+            `
         });
 
         marker.addListener("gmp-click", () => {
+            window.chosen_station = station;
             infoWindow.open(map, marker);
         });
 

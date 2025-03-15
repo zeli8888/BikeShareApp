@@ -1,0 +1,17 @@
+#map-container {
+    height: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    display: flex;
+    position: relative;
+    /* Ensure map is positioned, so weather is positioned relative to the map */
+}
+
+#map {
+    flex-basis: 0;
+    flex-grow: 4;
+    height: 95%;
+    margin-top: 1%;
+    max-width: 60%;
+    border: 1px solid black;
+}

@@ -51,30 +51,6 @@
 - [collect data about weather from OpenWeather every hour]
 
 -------------
-### User Story: [Bikes number in a Station]
-- **As a:** [User]
-- **I want to:** [get the number of bikes in a station]
-- **So that I can:** [better choose whether to go]
-
-**Priority:** [Medium]
-**Estimated Points:** [13]
-**Acceptance Criteria:**
-- [When user click a station on map, the number of bikes in that station should be displayed in suitable place]
-- [the number should be up-to-date]
-
--------------
-### User Story: [Different Color For Different Conditions of Bikes]
-- **As a:** [User]
-- **I want to:** [see different conditions of bikes with different colors]
-- **So that I can:** [easily choose the bike with better condition]
-
-**Priority:** [Low]
-**Estimated Points:** [21]
-**Acceptance Criteria:**
-- [When displaying the bikes on the map, each bike should have a color representing its condition]
-- [A color legend is displayed on the page]
-- [When users view the bikes with different colors, they can easily understand the meaning of each color and the corresponding bike condition]
--------------------
 
 ### Software Necessity: [Software Necessities Installation]
 - **As a:** [Developer]
@@ -87,18 +63,6 @@
 - [All softwares are correctly installed]
 - [Have front-end development tools installed]
 - [Have back-end development tools installed]
-
--------------
-### Software Necessity: [ML model]
-- **As a:** [Developer]
-- **I want to:** [develop a ML model]
-- **So that I can:** [predict occupancy based on collected data]
-
-**Priority:** [High]
-**Estimated Points:** [8]
-**Acceptance Criteria:**
-- [predictions are regularly updated as new occupancy data is collected]
-- [predictions are reliable and provide actionable information]
 
 ------------------------------
 ### Software Necessity: [Preliminary data scraping]
@@ -180,24 +144,6 @@
 **Acceptance Criteria:**
 - [The user should get the weather data in the nearest district based on the location he/she shared]
 
-------------
-
-### User Story: [Beautiful Web Interface]
-- **As a:** [User]
-- **I want to:** [see a beautiful clear web page]
-- **So that I can:** [interact with the web easily and enjoy the experience]
-
-**Priority:** [High]
-**Estimated Points:** [8]
-**Acceptance Criteria:**
-- [The web page has a clear and consistent layout.]
-- [The font is readable and visually appealing.]
-- [The color scheme is aesthetically pleasing and accessible (e.g. sufficient contrast for users with visual impairments).]
-- [All interactive elements (e.g. buttons, forms, links) are easily identifiable and usable.]
-- [The page is optimized for various screen sizes and devices (e.g. desktop, tablet, mobile).]
-- [The page loads quickly (e.g. within 3 seconds) and is responsive.]
-- [The page is free of clutter and unnecessary elements.]
-
 -------------------------------------------------
 
 ### Software Necessity: [Readme Document]
@@ -214,23 +160,6 @@
 - [The README document is consistent in formatting and style throughout.]
 - [The README document is up-to-date and reflects the current state of the project.]
 - [The README document is easily readable and understandable by all team members.]
-
--------------------------------------------------
-### Software Necessity: [Annotation For Each Function]
-- **As a:** [developer]
-- **I want to:** [have a clear and consistent annotations for each function in the program]
-- **So that I can:** [understand the functionality of each function easily and maintain the program easily]
-
-**Priority:** [Medium]
-**Estimated Points:** [8]
-**Acceptance Criteria:**
-- [Each function has a clear and concise annotation that describes its purpose and behavior.]
-- [Annotations are written in a consistent format throughout the program.]
-- [Annotations include information about the function's parameters, return values, and any exceptions it may throw.]
-- [Annotations are accurate and up-to-date, reflecting the current implementation of the function.]
-- [Annotations are written in a way that is easy for other developers to understand.]
-- [Annotations include any relevant details about the function's dependencies or interactions with other parts of the program.]
-- [Annotations are properly formatted and follow the established coding standards.]
 
 -------------------------------------------------
 
@@ -260,6 +189,80 @@
 - [The system displays the calculated route on a map, including the starting point (current location), destination (selected station), and any intermediate stops or directions] 
 - [The system provides additional route details, such as distance, estimated travel time, mode of transportation, and any relevant traffic or road conditions] 
 - [The system provides a user-friendly interface for selecting the station and viewing the route, including clear and concise instructions, intuitive navigation, and accessible design]
+
+------------
+
+### User Story: [Beautiful Web Interface]
+- **As a:** [User]
+- **I want to:** [see a beautiful clear web page]
+- **So that I can:** [interact with the web easily and enjoy the experience]
+
+**Priority:** [High]
+**Estimated Points:** [12]
+**Acceptance Criteria:**
+- [The web page has a clear and consistent layout.]
+- [The font is readable and visually appealing.]
+- [The color scheme is aesthetically pleasing and accessible (e.g. sufficient contrast for users with visual impairments).]
+- [All interactive elements (e.g. buttons, forms, links) are easily identifiable and usable.]
+- [The page is optimized for various screen sizes and devices (e.g. desktop, tablet, mobile).]
+- [The page loads quickly (e.g. within 3 seconds) and is responsive.]
+- [The page is free of clutter and unnecessary elements.]
+
+-------------------------------------------------
+### Software Necessity: [Annotation For Each Function]
+- **As a:** [developer]
+- **I want to:** [have a clear and consistent annotations for each function in the program]
+- **So that I can:** [understand the functionality of each function easily and maintain the program easily]
+
+**Priority:** [Medium]
+**Estimated Points:** [8]
+**Acceptance Criteria:**
+- [Each function has a clear and concise annotation that describes its purpose and behavior.]
+- [Annotations are written in a consistent format throughout the program.]
+- [Annotations include information about the function's parameters, return values, and any exceptions it may throw.]
+- [Annotations are accurate and up-to-date, reflecting the current implementation of the function.]
+- [Annotations are written in a way that is easy for other developers to understand.]
+- [Annotations include any relevant details about the function's dependencies or interactions with other parts of the program.]
+- [Annotations are properly formatted and follow the established coding standards.]
+
+-------------
+### Software Necessity: [ML model]
+- **As a:** [Developer]
+- **I want to:** [develop a ML model]
+- **So that I can:** [predict occupancy based on collected data]
+
+**Priority:** [High]
+**Estimated Points:** [8]
+**Acceptance Criteria:**
+- [predictions are regularly updated as new occupancy data is collected]
+- [predictions are reliable and provide actionable information]
+
+-------------------
+### User Story: [Weather Information For Station]
+- **As a:** [User]
+- **I want to:** [get weather information for each bike station]
+- **So that I can:** [make better informed decision]
+
+**Priority:** [Medium]
+**Estimated Points:** [10]
+**Acceptance Criteria:**
+- [The system displays current weather conditions for each bike station]
+- [The system displays weather information using visual indicators such as icons or colors to represent different weather conditions]
+- [The system updates the weather information for each bike station in real-time, so that the user has the most up-to-date information]
+
+-------------------
+### User Story: [Weather Alerts]
+- **As a:** [User]
+- **I want to:** [be warned if there are weather alerts]
+- **So that I can:** [prepare before the trip]
+
+**Priority:** [Medium]
+**Estimated Points:** [10]
+**Acceptance Criteria:**
+- [The system checks for weather alerts for the user's current location and destination]
+- [The system updates the weather alerts in real-time, so that the user has the most up-to-date information before the trip]
+- [The system allows the user to dismiss or acknowledge the weather alerts, so that they are not repeatedly notified of the same alert]
+- [The system displays weather alerts in a clear and concise manner, using visual indicators such as icons or colors to draw attention to the alert]
 
 -------------------
 <!-- -------------

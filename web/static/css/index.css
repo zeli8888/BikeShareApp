@@ -1,4 +1,19 @@
 /* Set a background image for the entire body */
+html {
+    height: 80%;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: x-large;
+}
+
+.header button {
+    margin-top: -0.75%;
+    font-size: large;
+}
 
 body {
     background-image: url('../resources/beste-e-bike-app-von-powunity-1536x864.webp');
@@ -11,6 +26,7 @@ body {
     /* Optional: Fixed background while scrolling */
     color: white;
     /* Optional: Set text color to white for better contrast */
+    height: 100%;
 }
 
 
@@ -40,14 +56,6 @@ li a:hover {
     background-color: #111;
 }
 
-#map {
-    width: 80%;
-    height: 500px;
-    margin: 20px auto;
-    border: 2px solid black;
-    position: relative;
-    /* Ensure map is positioned, so weather is positioned relative to the map */
-}
 
 .info.legend {
     background: white;
@@ -66,27 +74,7 @@ li a:hover {
     opacity: 0.7;
 }
 
-.weather-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-    z-index: 1000;
-}
-
-.weather-container img {
-    width: 50px;
-    height: 50px;
-}
-
-.weather-container p {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.2;
-}
 .element {
-    transform: rotate(45deg); /* Standard syntax for modern browsers */
+    transform: rotate(45deg);
+    /* Standard syntax for modern browsers */
 }

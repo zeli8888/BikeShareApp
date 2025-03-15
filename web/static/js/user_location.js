@@ -34,13 +34,19 @@ function showError(error) {
 
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            alert("You have denied the request for Geolocation.");
+            alert(
+                "Geolocation Request Denied\r\r" +
+                "Don't worry, it's an easy fix! If your browser is treating this site as unsecure, you can add an exception for this url to allow geolocation access.\r\r" +
+                "Here's how:\r" +
+                "  • For Edge: Go to edge://flags/#unsafely-treat-insecure-origin-as-secure\r" +
+                "  • For Chrome: Go to chrome://flags/#unsafely-treat-insecure-origin-as-secure"
+            );
             break;
         case error.POSITION_UNAVAILABLE:
             alert("Location information is unavailable.");
             break;
         case error.TIMEOUT:
-            alert("The request to get user location timed out.");
+            alert("The request to get user location timed out.\r\rPlease try again.");
             break;
         case error.UNKNOWN_ERROR:
             alert("An unknown error occurred.");

@@ -1,5 +1,4 @@
 import { addStationMarker } from "./stations.js";
-import { getWeather } from "./weather.js";
 function initMap() {
     const location = window.coords ? {
         lat: window.coords.latitude,
@@ -27,19 +26,5 @@ function loadGoogleMapsApi() {
     googleMapScript.async = true;
     document.body.appendChild(googleMapScript);
 }
-
-const storedLocation = sessionStorage.getItem('userLocation');
-if (storedLocation && storedLocation !== 'undefined') {
-    window.coords = JSON.parse(storedLocation);
-}
-
-if (window.coords) {
-    getWeather(window.WEATHER_URL + `?latitude=${window.coords.latitude}&longitude=${window.coords.longitude}`);
-} else {
-    getWeather(window.WEATHER_URL);
-}
-
-window.initMap = initMap;
-loadGoogleMapsApi();
 
 export { loadGoogleMapsApi, initMap }

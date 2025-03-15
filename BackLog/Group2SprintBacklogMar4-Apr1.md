@@ -235,6 +235,42 @@
     - Finish Time: [14th Mar]
 
 -------------------------------------------------
+### User Story: [Route For current location to chosen station]
+- **As a:** [User]
+- **I want to:** [get the route for my current location to chosen station]
+- **So that I can:** [organize my trip easily]
+
+**Priority:** [Medium]
+**Estimated Points:** [15]
+**Acceptance Criteria:**
+- [The user can select a station on the map] 
+- [The web can show the most efficient route from the user's current location to the selected station] 
+- [The system displays the calculated route on a map, including the starting point (current location), destination (selected station), and any intermediate stops or directions] 
+- [The system provides additional route details, such as distance, estimated travel time, mode of transportation, and any relevant traffic or road conditions] 
+- [The system provides a user-friendly interface for selecting the station and viewing the route, including clear and concise instructions, intuitive navigation, and accessible design]
+
+**SubTasks:**
+
+- **Task 1:** 
+    - Estimated Points: [6]
+    - Assigned To: [Ze Li]
+    - Description: [Integrate Google Maps API to calculate the most efficient route from the user's current location to the selected station]
+    - Finish Time: []
+
+- **Task 2:** 
+    - Estimated Points: [6]
+    - Assigned To: [Ze Li]
+    - Description: [Display the calculated route on the map along with panel showing the starting point, destination, and any intermediate stops or direction]
+    - Finish Time: []
+
+- **Task 3:** 
+    - Estimated Points: [3]
+    - Assigned To: [Ze Li]
+    - Description: [Modify the map interface to make sure the route and panel are suitably displayed on it]
+    - Finish Time: []
+
+-------------------------------------------------
+
 <!-- ### User Story: [Story Title]
 - **As a:** [Type of user]
 - **I want to:** [Action or capability]

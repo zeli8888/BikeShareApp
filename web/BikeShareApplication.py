@@ -17,14 +17,10 @@ def main(database='LOCAL'):
 
     app.register_blueprint(bikes_blueprint, url_prefix='/api')
     app.register_blueprint(weather_blueprint, url_prefix='/api')
-
+    
     @app.route("/")
     def index():
-        return render_template('index.html')
-    
-    @app.route("/map")
-    def map():
-        return render_template("map.html",
+        return render_template("index.html",
                                GOOGLE_MAP_ID=GOOGLE_MAP_ID, 
                                GOOGLE_MAP_KEY=GOOGLE_MAP_KEY,
                                BIKES_URL=url_for('bikes.get_all_bikes', _external=True),
