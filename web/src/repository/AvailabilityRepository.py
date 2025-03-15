@@ -40,3 +40,7 @@ class AvailabilityRepository:
     @staticmethod
     def get_one_day_availability(keep_date):
         return Availability.query.filter(Availability.last_update.cast(Date) == keep_date).all()
+    
+    @staticmethod
+    def get_one_day_availability_for_station(keep_date, station_number):
+        return Availability.query.filter(and_(Availability.last_update.cast(Date) == keep_date, Availability.number == station_number)).all()

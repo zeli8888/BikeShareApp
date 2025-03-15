@@ -1,4 +1,4 @@
-import { getWeather } from "./weather.js";
+import { show_weather_info_container } from "./sidebar.js";
 function getLocation() {
     return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
@@ -12,7 +12,7 @@ function getLocation() {
             navigator.geolocation.getCurrentPosition(position => {
                 window.coords = position.coords;
                 sessionStorage.setItem('userLocation', JSON.stringify(window.coords));
-                getWeather(window.WEATHER_URL + `?latitude=${window.coords.latitude}&longitude=${window.coords.longitude}`);
+                show_weather_info_container();
                 showPosition(position);
                 window.user_location_marker.position = new google.maps.LatLng(window.coords.latitude, window.coords.longitude);
                 window.googleMap.setCenter({ lat: window.coords.latitude, lng: window.coords.longitude });

@@ -26,3 +26,10 @@ def get_one_day_availability():
     Retrieve one day's availability of bikes for each station.
     """
     return jsonify(BikesService.get_one_day_availability())
+
+@bikes_blueprint.route('/bikes/oneday/<int:station_id>', methods=['GET'])
+def get_one_day_availability_for_station(station_id):
+    """
+    Retrieve one day's availability of bikes for a specific station.
+    """
+    return jsonify(BikesService.get_one_day_availability_for_station(station_id))
