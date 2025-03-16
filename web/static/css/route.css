@@ -43,7 +43,7 @@
 .place-controls {
     background-color: #fff;
     border-radius: 0.2em;
-    border: 1px solid transparent;
+    border: 0.1em solid transparent;
     box-shadow: 0 0.2em 0.6em rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
     font-family: Roboto;

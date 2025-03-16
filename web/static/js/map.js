@@ -20,7 +20,7 @@ function initMap() {
 
 function loadGoogleMapsApi() {
     const googleMapScript = document.createElement('script');
-    googleMapScript.src = "https://maps.googleapis.com/maps/api/js?key=" + window.GOOGLE_MAP_KEY + "&callback=initMap&libraries=marker,places&loading=async";
+    googleMapScript.src = "https://maps.googleapis.com/maps/api/js?key=" + window.GOOGLE_MAP_KEY + "&callback=initMap&libraries=marker,places,visualization&loading=async";
     googleMapScript.async = true;
     document.body.appendChild(googleMapScript);
 }

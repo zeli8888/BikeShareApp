@@ -15,7 +15,7 @@ function calculateAndDisplayRoute(end_lat, end_lng, selectedMode, start_lat = nu
         start_lng = window.coords.longitude;
     }
     document.getElementById('google-map-link').innerHTML = `<br>
-    <a href="https://www.google.com/maps/dir/?api=1&origin=${start_lat},${start_lng}&destination=${end_lat},${end_lng}&mode=${selectedMode}" target="_blank">Open Google Map</a>
+    <a href="https://www.google.com/maps/dir/?api=1&origin=${start_lat},${start_lng}&destination=${end_lat},${end_lng}&mode=${selectedMode}" target="_blank">🗺️ Open Google Map</a>
     `
     show_route_container();
 
