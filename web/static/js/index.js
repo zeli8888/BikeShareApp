@@ -1,22 +1,27 @@
 import { loadGoogleMapsApi, initMap } from "./map.js";
 import { getLocation } from "./user_location.js";
-import { calculateAndDisplayRoute } from "./route.js"
-import { show_weather_info_container, show_station_info_container } from "./sidebar.js";
+import { calculateAndDisplayRoute, getStationRoute } from "./route.js"
+import { show_weather_info_container } from "./sidebar.js";
 
 const button = document.getElementById("share-location-button");
 button.addEventListener("click", getLocation);
 
 window.show_weather_info_container = show_weather_info_container;
-window.show_station_info_container = show_station_info_container;
 window.calculateAndDisplayRoute = calculateAndDisplayRoute;
+window.getStationRoute = getStationRoute;
 
 document.getElementById("travel-mode").addEventListener("change", () => {
-    calculateAndDisplayRoute(window.target.lat, window.target.lng, document.getElementById("travel-mode").value);
+    calculateAndDisplayRoute(window.target_lat, window.target_lng, document.getElementById("travel-mode").value, window.start_lat, window.start_lng);
 });
 
 const storedLocation = sessionStorage.getItem('userLocation');
 if (storedLocation && storedLocation !== 'undefined') {
     window.coords = JSON.parse(storedLocation);
+} else {
+    window.coords = {
+        latitude: 53.3498,
+        longitude: -6.2603
+    }
 }
 show_weather_info_container();
 

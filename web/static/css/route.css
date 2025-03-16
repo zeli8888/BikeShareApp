@@ -13,3 +13,39 @@
     text-align: center;
     font-family: "Roboto", "sans-serif";
 }
+
+#des-input {
+    display: none;
+}
+
+.place-controls {
+    background-color: #fff;
+    border-radius: 0.2em;
+    border: 1px solid transparent;
+    box-shadow: 0 0.2em 0.6em rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    font-family: Roboto;
+    font-size: 0.9rem;
+    font-weight: 300;
+    height: 1.5em;
+    outline: none;
+    padding: 0 0.8em 0 1em;
+    text-overflow: ellipsis;
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+}
+
+.place-controls:focus {
+    border-color: #4d90fe;
+}
+
+#map .place-controls {
+    margin-left: 1.5em;
+    margin-bottom: 0;
+    display: block;
+    height: 2.5em;
+    width: 30%;
+}

@@ -37,6 +37,7 @@
         <h3>Dublin Bike Share APP</h3>
         <button id="share-location-button">Share Location</button>
     </div>
+    <input id="des-input" class="place-controls" type="text" placeholder="Enter your destination" />
 
     <!-- The main container -->
     <div id="container">
@@ -70,7 +71,7 @@
                 </div>
             </div>
             <div id="route-container">
-                <a href="#" onclick="show_station_info_container()">Return</a>
+                <a href="#" onclick="show_weather_info_container()">Return</a>
                 <span id="google-map-link"></span>
                 <div id="route">
                     <div id="travel-mode-container">
@@ -82,6 +83,7 @@
                             <option value="TRANSIT" selected>Transit</option>
                         </select>
                     </div>
+                    <input id="start-input" class="place-controls" type="text" placeholder="Change Start Location" />
                 </div>
             </div>
         </div>

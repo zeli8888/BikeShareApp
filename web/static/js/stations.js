@@ -9,7 +9,7 @@ async function addStationMarker(bikesUrl) {
     const user_location_marker_img = document.createElement('img');
     user_location_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
     window.user_location_marker = new google.maps.marker.AdvancedMarkerElement({
-        position: window.coords ? new google.maps.LatLng(window.coords.latitude, window.coords.longitude) : new google.maps.LatLng(53.3498, -6.2603),
+        position: new google.maps.LatLng(window.coords.latitude, window.coords.longitude),
         map: map,
         content: user_location_marker_img,
         title: 'YOUR LOCATION'
@@ -33,7 +33,7 @@ async function addStationMarker(bikesUrl) {
             content: `
               <div class="info-window-content">
                 <span class="info-window-title"><strong>${name}</strong></span><br>
-                <a href="#" onclick="calculateAndDisplayRoute(${position_lat}, ${position_lng}, 'TRANSIT')">➡️Directions<br></a>
+                <a href="#" onclick="getStationRoute(${position_lat}, ${position_lng})">➡️Directions<br></a>
                 <!-- Banking: ${banking}<br> -->
                 <!-- Bike Stands: ${bike_stands}<br> -->
               </div>

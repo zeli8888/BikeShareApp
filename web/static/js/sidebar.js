@@ -1,10 +1,6 @@
 import { getWeather } from './weather.js';
 function show_weather_info_container() {
-    if (window.coords) {
-        getWeather(window.WEATHER_URL, window.coords.latitude, window.coords.longitude);
-    } else {
-        getWeather(window.WEATHER_URL);
-    }
+    getWeather(window.WEATHER_URL, window.coords.latitude, window.coords.longitude);
     document.getElementById('station-info-container').style.display = 'none';
     document.getElementById('weather-info-container').style.display = 'block';
     document.getElementById('route-container').style.display = 'none';

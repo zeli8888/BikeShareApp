@@ -1,5 +1,5 @@
 function getWeather(weatherUrl, latitude = null, longitude = null) {
-    if (latitude !== null && longitude !== null) {
+    if (latitude != null && longitude != null) {
         weatherUrl += `?latitude=${latitude}&longitude=${longitude}`;
     }
     fetch(weatherUrl)
