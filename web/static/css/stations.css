@@ -8,19 +8,46 @@
     text-decoration: none;
 }
 
+.info-window-content a:hover {
+    color: #4d90fe;
+}
+
 #station-info-container {
     display: none;
+    top: 1%;
+    right: 1%;
+    padding: 1%;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.station-card {
+    border: 0.1em solid #ccc;
+    background: #f5f5f5;
+    border-radius: 2%;
+    padding: 5%;
+    margin: 2.5% 0;
+    margin-top: 0%;
+    padding-top: 1%;
+    box-shadow: 0 0.2% 0.5% rgba(0, 0, 0, 0.1);
 }
 
 #station-info {
-    text-align: center;
-    line-height: 150%;
-    background: #f5f5f5;
-    border: 0.1em solid #ccc;
-    padding: 5%;
-    border-radius: 2%;
+    padding-top: 5%;
 }
 
 #station-info .info-window-title {
-    font-size: 150%;
+    font-size: 130%;
+}
+
+#station-info .info-window-content {
+    text-align: center;
+    line-height: 150%;
+    font-size: large;
+}
+
+#station-daily-trend {
+    padding-left: 5%;
 }

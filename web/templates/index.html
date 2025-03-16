@@ -27,12 +27,14 @@
 </head>
 
 <body>
+    <div id="menu" class="navigation">
+        <ul>
+            <li><a href="/">Map</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </div>
 
-    <ul>
-        <li><a href="/">Map</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
-    </ul>
     <div class="header">
         <h3>Dublin Bike Share APP</h3>
         <button id="share-location-button">Share Location</button>
@@ -43,47 +45,54 @@
     <div id="container">
         <div id="map"></div>
         <div id="sidebar">
-            <!-- The station info container-->
-            <div id="station-info-container">
-                <a href="#" onclick="show_weather_info_container()">Return</a>
-                <div id="station-info"></div>
-                <div id="station-daily-trend">
-                    <h1>To do: add daily trend info</h1>
-                </div>
+            <div id="sidebar-navigation" class="navigation">
+                <ul>
+                    <li><a id="sidebar-toggle" href="#" onclick="toggle_sidebar_content()">Hide</a></li>
+                    <li id="sidebar-return"><a href="#" onclick="show_weather_info_container()">Return</a></li>
+                </ul>
             </div>
-            <div id="weather-info-container">
-                <!-- Current Weather -->
-                <div id="current-weather" class="weather-card">
-                    <h2>Current Weather</h2>
-                    <div id="current-details"></div>
-                </div>
-
-                <!-- Daily Forecast -->
-                <div class="weather-card">
-                    <h2>7-Day Forecast</h2>
-                    <div id="daily-forecast" class="forecast-container"></div>
-                </div>
-
-                <!-- Hourly Forecast -->
-                <div class="weather-card">
-                    <h2>24-Hour Forecast</h2>
-                    <div id="hourly-forecast" class="forecast-container"></div>
-                </div>
-            </div>
-            <div id="route-container">
-                <a href="#" onclick="show_weather_info_container()">Return</a>
-                <span id="google-map-link"></span>
-                <div id="route">
-                    <div id="travel-mode-container">
-                        <b>Mode of Travel: </b>
-                        <select id="travel-mode">
-                            <option value="DRIVING">Driving</option>
-                            <option value="WALKING">Walking</option>
-                            <option value="BICYCLING">Bicycling</option>
-                            <option value="TRANSIT" selected>Transit</option>
-                        </select>
+            <div id="sidebar-content">
+                <!-- The station info container-->
+                <div id="station-info-container">
+                    <div id="station-info" class="station-card"></div>
+                    <div id="station-daily-trend" class="station-card">
+                        <h1>To do: add daily trend info</h1>
                     </div>
-                    <input id="start-input" class="place-controls" type="text" placeholder="Change Start Location" />
+                </div>
+                <div id="weather-info-container">
+                    <!-- Current Weather -->
+                    <div id="current-weather" class="weather-card">
+                        <h2>Current Weather</h2>
+                        <div id="current-details"></div>
+                    </div>
+
+                    <!-- Daily Forecast -->
+                    <div class="weather-card">
+                        <h2>7-Day Forecast</h2>
+                        <div id="daily-forecast" class="forecast-container"></div>
+                    </div>
+
+                    <!-- Hourly Forecast -->
+                    <div class="weather-card">
+                        <h2>24-Hour Forecast</h2>
+                        <div id="hourly-forecast" class="forecast-container"></div>
+                    </div>
+                </div>
+                <div id="route-container">
+                    <div id="route">
+                        <div id="google-map-link"></div>
+                        <div id="travel-mode-container">
+                            <b>Mode of Travel: </b>
+                            <select id="travel-mode">
+                                <option value="DRIVING">Driving</option>
+                                <option value="WALKING">Walking</option>
+                                <option value="BICYCLING">Bicycling</option>
+                                <option value="TRANSIT" selected>Transit</option>
+                            </select>
+                        </div>
+                        <input id="start-input" class="place-controls" type="text"
+                            placeholder="Change Start Location" />
+                    </div>
                 </div>
             </div>
         </div>

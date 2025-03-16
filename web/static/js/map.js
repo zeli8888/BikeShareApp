@@ -14,6 +14,8 @@ function initMap() {
     window.googleMap = map;
     addPlaceControls();
     addStationMarker(window.BIKES_URL);
+
+    window.googleMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById("sidebar"));
 }
 
 function loadGoogleMapsApi() {

@@ -26,53 +26,37 @@ body {
 
 /* Styling for the navigation bar */
 
-ul {
+.navigation ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
     border-radius: 0.5rem;
 }
 
-li {
+.navigation li {
     float: left;
 }
 
-li a {
+.navigation li a {
+    font-weight: bold;
     display: block;
-    color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 0.875em 1em;
     text-decoration: none;
     border-radius: 0.5rem;
 }
 
-li a:hover {
+#menu ul {
+    background-color: #333;
+}
+
+#menu li a {
+    color: white;
+}
+
+#menu li a:hover {
     background-color: #111;
-}
-
-
-.info.legend {
-    background: white;
-    padding: 10px;
-    line-height: 18px;
-    color: #555;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.info.legend i {
-    width: 12px;
-    height: 12px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
-}
-
-.element {
-    transform: rotate(45deg);
-    /* Standard syntax for modern browsers */
 }
 
 .header {

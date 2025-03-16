@@ -56,12 +56,12 @@ async function addStationMarker(bikesUrl) {
         const infoWindow = window.markers[number].infoWindow;
         infoWindow.setContent(infoWindow.content + `
             <div class="info-window-content">
+                Available Bikes 🚲: ${available_bikes}<br>
+                Available Stands 🅿️: ${available_bike_stands}<br>
                 Status: ${status}<br>
-                Available Bikes: ${available_bikes}<br>
-                Available Stands: ${available_bike_stands}<br>
-                Last Update: ${last_update}
-            </div>
-          `);
+                Last Update: ${new Date(last_update).toLocaleTimeString()}
+            </div >
+        `);
     });
 }
 

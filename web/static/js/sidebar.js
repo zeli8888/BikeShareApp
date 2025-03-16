@@ -18,4 +18,17 @@ function show_route_container() {
     document.getElementById('route-container').style.display = 'block';
 }
 
-export { show_weather_info_container, show_station_info_container, show_route_container };
+function toggle_sidebar_content() {
+    const toggle_button = document.getElementById('sidebar-toggle');
+    if (toggle_button.textContent === 'Hide') {
+        toggle_button.textContent = 'Show';
+        document.getElementById('sidebar-content').style.display = 'none';
+        document.getElementById('sidebar-return').style.display = 'none';
+    } else {
+        toggle_button.textContent = 'Hide';
+        document.getElementById('sidebar-content').style.display = 'block';
+        document.getElementById('sidebar-return').style.display = 'block';
+    }
+}
+
+export { show_weather_info_container, show_station_info_container, show_route_container, toggle_sidebar_content };
