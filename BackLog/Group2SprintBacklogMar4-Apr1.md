@@ -18,9 +18,9 @@
 
 - **Task 1:** 
     - Estimated Points: [2]
-    - Assigned To: [Sabrina]
+    - Assigned To: [Ze Li]
     - Description: [Create a refresh button]
-    - Finish Time: []
+    - Finish Time: [16th Mar]
 
 - **Task 2:** 
     - Estimated Points: [2]
@@ -36,9 +36,9 @@
 
 - **Task 4:** 
     - Estimated Points: [6]
-    - Assigned To: [Sabrina]
+    - Assigned To: [Ze Li]
     - Description: [Create a link to fetch the current data from backend on buttons]
-    - Finish Time: []
+    - Finish Time: [16th Mar]
 ------------
 
 ### User Story: [Visualize trends for station]
@@ -172,25 +172,25 @@
     - Estimated Points: [5]
     - Assigned To: [Ze Li]
     - Description: [Design a color scheme to represent different bike numbers]
-    - Finish Time: []
+    - Finish Time: [16th Mar]
 
 - **Task 2:** 
     - Estimated Points: [3]
     - Assigned To: [Ze Li]
     - Description: [Implement the color legend on the page]
-    - Finish Time: []
+    - Finish Time: [16th Mar]
 
 - **Task 3:** 
     - Estimated Points: [3]
     - Assigned To: [Ze Li]
     - Description: [Update the station marker on the map to display the corresponding color]
-    - Finish Time: []
+    - Finish Time: [16th Mar]
 
 - **Task 4:** 
     - Estimated Points: [2]
     - Assigned To: [Ze Li]
     - Description: [Add tooltip or hover text to explain the meaning of each color]
-    - Finish Time: []
+    - Finish Time: [16th Mar]
 ------------
 
 ### Software Necessity: [Readme Document]
