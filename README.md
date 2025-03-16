@@ -1,6 +1,6 @@
 # 🚲 BikeShareApp
 
-**BikeShareApp** is a web application designed to help you get the shared bikes information in dublin. You can get real-time updates on bike station availability and current weather conditions, see visualized availability trends for each bike station, and plan your routes with ease using this app. 🎉
+**BikeShareApp** is a web application designed to help you get the shared bikes information in dublin. You can get real-time updates on bike station availability and current weather conditions based on your location, see visualized availability trends and heat map for each bike station, and plan your routes easily using this app with minimal external API calls. 🎉
 
 ---
 
@@ -22,7 +22,10 @@
 - **Feature 2**: Real-time Bikes Information. 🚲
 - **Feature 3**: Real-time Weather Information Based on Your Location. ☀️
 - **Feature 4**: Visualized Availability Trends for Each Bike Station. 📈
-- **Feature 5**: Route Suggestions With Google Map Interface. 🗺️
+- **Feature 5**: Visualized Availability Heat Map for Each Bike Station. 📌
+- **Feature 6**: Route Suggestions With Google Map Interface. 🛞
+- **Feature 7**: Every Fetched Bikes and Weather Data Stored in Database, Minimal External API Calls. 📦
+- **Feature 8**: Automatically Update and Remove Old Database Data with Customizable Time Interval and Asynchronous Service. 🔃
 
 ---
 
@@ -72,6 +75,8 @@ To get started with **BikeShareApp**, follow these steps:
     - **LOCAL_DB_BIKES_URL**: For local database connection.
     - **REMOTE_DB_BIKES_URL**: For local RDS database connection using SSH tunnel through EC2 using AWS service.
     - **EC2_DB_BIKES_URL**: For EC2 with RDS database connection using AWS service.
+
+- Optional: Customize settings in [config.py](web/src/config.py) to suit your preferences
 ---
 
 ## 💻 Usage
@@ -84,7 +89,7 @@ Here’s how to use **BikeShareApp**:
     - your_database_connection is LOCAL, REMOTE, EC2 based on your DB_BIKES_URL configuration, default is LOCAL
     - For REMOTE and EC2 database connection, make sure the RDS and EC2 instance is running and SSH tunnel is established.
 
-2. Load data for availability trends analysis (one-time job, after run the project for the first time):
+2. Initial Data Load: Run the following command to populate the database with availability trends data (only required once, after the first project run):
    ```bash
    python database/load_data.py --database {your_database_connection}
    ```
