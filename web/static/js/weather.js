@@ -1,4 +1,4 @@
-function getWeather(weatherUrl, latitude = null, longitude = null) {
+async function getWeather(weatherUrl, latitude = null, longitude = null) {
     if (latitude != null && longitude != null) {
         weatherUrl += `?latitude=${latitude}&longitude=${longitude}`;
     }
@@ -44,7 +44,10 @@ function getWeather(weatherUrl, latitude = null, longitude = null) {
             // Add event listener for update button
             document
                 .getElementById('current-weather-button')
-                .addEventListener('click', () => getWeather(window.CURRENT_WEATHER_URL, latitude, longitude));
+                .addEventListener('click', async () => {
+                    await getWeather(window.CURRENT_WEATHER_URL, latitude, longitude);
+                    window.alert(`Current Weather Data for ${current.district} has been updated.`);
+                });
 
             // Display daily forecast
             data.daily.forEach(day => {
