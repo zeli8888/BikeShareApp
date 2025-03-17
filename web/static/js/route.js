@@ -28,7 +28,7 @@ function calculateAndDisplayRoute(end_lat, end_lng, selectedMode, start_lat = nu
         .then((response) => {
             window.directionsRenderer.setDirections(response);
         })
-        .catch((e) => window.alert("Directions request failed due to " + e.status));
+        .catch((e) => window.alert("Directions request failed, Please try again"));
     window.target_lat = end_lat;
     window.target_lng = end_lng;
     window.start_lat = start_lat;
