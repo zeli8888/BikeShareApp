@@ -131,8 +131,11 @@ async function getCurrentBikes() {
         console.error('Error updating current bikes data:', error);
         window.alert('Error updating current bikes data. Please try again later.');
     } finally {
-        for (const button of buttons) {
-            button.classList.remove('rotate-icon');
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i];
+            if (button) {
+                button.classList.remove('rotate-icon');
+            }
         }
         // infoWindow will be re-rendered with new content, so no need to remove old buttons.
         // This is to stop rotating buttons that have no current data to update.

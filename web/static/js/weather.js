@@ -67,9 +67,9 @@ async function getWeather(weatherUrl, latitude = null, longitude = null) {
                 <div  class="forecast-description">${hour.weather_main}</div>
             `;
             document.getElementById('hourly-forecast').appendChild(hourElement);
-
-            return Promise.resolve(); // Return a resolved promise after all updates are complete
         });
+
+        return Promise.resolve(); // Return a resolved promise after all updates are complete
 
     } catch (error) {
         console.error('Error loading weather data:', error);
