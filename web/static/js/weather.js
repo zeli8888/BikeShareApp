@@ -10,11 +10,6 @@ async function getWeather(weatherUrl, latitude = null, longitude = null) {
         document.getElementById('current-details').innerHTML = '';
         document.getElementById('daily-forecast').innerHTML = '';
         document.getElementById('hourly-forecast').innerHTML = '';
-        // Remove the old button, avoid memory leak.
-        const button = document.getElementById('current-weather-button');
-        if (button) {
-            button.remove();
-        }
 
         // Display current weather
         const current = data.current;
@@ -23,7 +18,7 @@ async function getWeather(weatherUrl, latitude = null, longitude = null) {
                 <div>
                     <h3>
                         ${current.district}                            
-                        <button id="current-weather-button" title="update">
+                        <button id="current-weather-button" title="update" onclick="getCurrentWeather(${latitude}, ${longitude}, '${current.district}')">
                             &#x21bb;
                         </button>
                     </h3>
@@ -46,19 +41,6 @@ async function getWeather(weatherUrl, latitude = null, longitude = null) {
             </div>
         `;
         document.getElementById('current-details').innerHTML = currentDetails;
-
-        // Add event listener for update button
-        document.getElementById('current-weather-button').addEventListener('click', async () => {
-            const button = document.getElementById('current-weather-button');
-            button.classList.add('rotate-icon');
-            try {
-                await getWeather(window.CURRENT_WEATHER_URL, latitude, longitude);
-                window.alert(`Current Weather Data for ${current.district} has been updated.`);
-            } catch (error) {
-                console.error('Error updating weather data:', error);
-                window.alert('Failed to update weather data. Please try again later.');
-            }
-        });
 
         // Display daily forecast
         data.daily.forEach(day => {
@@ -90,15 +72,25 @@ async function getWeather(weatherUrl, latitude = null, longitude = null) {
         });
 
     } catch (error) {
-        // Remove the old button, avoid memory leak.
-        const button = document.getElementById('current-weather-button');
-        if (button) {
-            button.remove();
-        }
         console.error('Error loading weather data:', error);
         document.getElementById('weather-info-container').innerHTML = "Error fetching weather data.";
         return Promise.reject(error); // Reject the promise to handle error situation
     }
 }
 
-export { getWeather };
+// Define the function outside of the event listener
+async function getCurrentWeather(latitude, longitude, district) {
+    const button = document.getElementById('current-weather-button');
+    button.classList.add('rotate-icon');
+    try {
+        await getWeather(window.CURRENT_WEATHER_URL, latitude, longitude);
+        window.alert(`Current Weather Data for ${district} has been updated.`);
+    } catch (error) {
+        const button = document.getElementById('current-weather-button');
+        button.classList.remove('rotate-icon');
+        console.error('Error updating weather data:', error);
+        window.alert('Failed to update weather data. Please try again later.');
+    }
+}
+
+export { getWeather, getCurrentWeather };
