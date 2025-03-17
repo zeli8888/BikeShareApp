@@ -1,39 +1,44 @@
 import { show_station_info_container } from "./sidebar.js";
 import { getWeather } from "./weather.js";
 async function addStationMarker(bikesUrl) {
-    const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
-    window.markers = {};
+    try {
+        const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
+        window.markers = {};
 
-    // Create AdvancedMarkerElement For User Location
-    const user_location_marker_img = document.createElement('img');
-    user_location_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
-    window.user_location_marker = new google.maps.marker.AdvancedMarkerElement({
-        position: new google.maps.LatLng(window.coords.latitude, window.coords.longitude),
-        map: window.googleMap,
-        content: user_location_marker_img,
-        title: 'YOUR LOCATION'
-    });
+        // Create AdvancedMarkerElement For User Location
+        const user_location_marker_img = document.createElement('img');
+        user_location_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
+        window.user_location_marker = new google.maps.marker.AdvancedMarkerElement({
+            position: new google.maps.LatLng(window.coords.latitude, window.coords.longitude),
+            map: window.googleMap,
+            content: user_location_marker_img,
+            title: 'YOUR LOCATION'
+        });
 
-    const station_marker_img = document.createElement('img');
-    station_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
-    stations.forEach(station => {
-        setStation(station, station_marker_img);
-    });
+        const station_marker_img = document.createElement('img');
+        station_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
+        stations.forEach(station => {
+            setStation(station, station_marker_img);
+        });
 
-    const { heatmapBikesData, heatmapStandsData } = setAvailabilities(availabilities);
-    window.heatmapBikes = new google.maps.visualization.HeatmapLayer({
-        data: heatmapBikesData,
-        radius: 25,
-        map: window.googleMap
-    });
-    window.heatmapStands = new google.maps.visualization.HeatmapLayer({
-        data: heatmapStandsData,
-        radius: 25,
-        map: null
-    });
+        const { heatmapBikesData, heatmapStandsData } = setAvailabilities(availabilities);
+        window.heatmapBikes = new google.maps.visualization.HeatmapLayer({
+            data: heatmapBikesData,
+            radius: 25,
+            map: window.googleMap
+        });
+        window.heatmapStands = new google.maps.visualization.HeatmapLayer({
+            data: heatmapStandsData,
+            radius: 25,
+            map: null
+        });
 
-    addLegend();
-    addRadioButtons();
+        addLegend();
+        addRadioButtons();
+    } catch (error) {
+        console.error('Error adding station markers:', error);
+        alert('Error adding station markers. Please try again later.');
+    }
 }
 
 function addLegend() {
@@ -88,36 +93,50 @@ function addRadioButtons() {
 }
 
 async function getCurrentBikes() {
-    const { stations, availabilities } = await fetch(window.CURRENT_BIKES_URL).then(response => response.json());
-    const station_marker_img = document.createElement('img');
-    station_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
+    const buttons = document.getElementsByClassName('current-bikes-button');
+    for (const button of buttons) {
+        button.classList.add('rotate-icon');
+    }
+    try {
+        const { stations, availabilities } = await fetch(window.CURRENT_BIKES_URL).then(response => response.json());
+        const station_marker_img = document.createElement('img');
+        station_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
 
-    stations.forEach(station => {
-        const { address, banking, bike_stands, name, number, position_lat, position_lng } = station;
-        if (number in window.markers) {
-            window.markers[number].infoWindow.setContent(`
-                  <div class="info-window-content">
+        stations.forEach(station => {
+            const { address, banking, bike_stands, name, number, position_lat, position_lng } = station;
+            if (number in window.markers) {
+                window.markers[number].infoWindow.setContent(`
+                <div class="info-window-content">
                     <span class="info-window-title"><strong>${name}</strong></span>
-                    <button id="current-bikes-button" title="update" onclick="getCurrentBikes()">
+                    <button class="current-bikes-button" title="update" onclick="getCurrentBikes()">
                         &#x21bb;
                     </button>
                     <br>
                     <a href="#" onclick="getStationRoute(${position_lat}, ${position_lng})">➡️Directions<br></a>
                     <!-- Banking: ${banking}<br> -->
                     <!-- Bike Stands: ${bike_stands}<br> -->
-                  </div>
-                `
-            );
-        } else {
-            setStation(station, station_marker_img);
+                </div>
+            `
+                );
+            } else {
+                setStation(station, station_marker_img);
+            }
+        });
+
+        const { heatmapBikesData, heatmapStandsData } = setAvailabilities(availabilities, true);
+        window.heatmapBikes.setData(heatmapBikesData);
+        window.heatmapStands.setData(heatmapStandsData);
+        window.alert('Current Bikes Data has been updated.');
+    } catch (error) {
+        console.error('Error updating current bikes data:', error);
+        window.alert('Error updating current bikes data. Please try again later.');
+    } finally {
+        for (const button of buttons) {
+            button.classList.remove('rotate-icon');
         }
-    });
-
-    const { heatmapBikesData, heatmapStandsData } = setAvailabilities(availabilities, true);
-
-    window.heatmapBikes.setData(heatmapBikesData);
-    window.heatmapStands.setData(heatmapStandsData);
-    window.alert('Current Bikes Data has been updated.');
+        // infoWindow will be re-rendered with new content, so no need to remove old buttons.
+        // This is to stop rotating buttons that have no current data to update.
+    }
 }
 
 function setStation(station, station_marker_img) {
@@ -136,7 +155,7 @@ function setStation(station, station_marker_img) {
         content: `
             <div class="info-window-content">
                 <span class="info-window-title"><strong>${name}</strong></span>
-                <button id="current-bikes-button" title="update" onclick="getCurrentBikes()">
+                <button class="current-bikes-button" title="update" onclick="getCurrentBikes()">
                     &#x21bb;
                 </button>
                 <br>

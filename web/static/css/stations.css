@@ -109,7 +109,7 @@
     margin: 0.5em 0;
 }
 
-#current-bikes-button {
+.current-bikes-button {
     background: none;
     border: none;
     color: #333;
@@ -119,6 +119,6 @@
     vertical-align: middle;
 }
 
-#current-bikes-button:hover {
+.current-bikes-button:hover {
     color: #007bff;
 }
