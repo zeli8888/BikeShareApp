@@ -30,56 +30,5 @@ if (storedLocation && storedLocation !== 'undefined') {
 }
 show_weather_info_container();
 
-// Function to fetch hourly data for a district and display it
-function getHourlyData(district) {
-    fetch(`/api/hourly/${district}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error('Error:', data.error);
-                // Handle error (maybe show a message to the user)
-            } else {
-                console.log('Hourly Data:', data);
-                // Now you can use this data to update the page (e.g., show it in a table)
-                displayHourlyData(data);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching hourly data:', error);
-        });
-}
-
-// Function to display the hourly data on the page
-function displayHourlyData(data) {
-    const hourlyForecastContainer = document.getElementById('hourly-forecast');
-    hourlyForecastContainer.innerHTML = ''; // Clear previous data
-
-    // Iterate through the data and create an HTML representation
-    data.forEach(hourly => {
-        const hourlyElement = document.createElement('div');
-        hourlyElement.innerHTML = `
-            <p>Time: ${hourly.future_dt}</p>
-            <p>Temperature: ${hourly.temp}°C</p>
-            <p>Weather: ${hourly.weather_description}</p>
-            <hr>
-        `;
-        hourlyForecastContainer.appendChild(hourlyElement);
-    });
-}
-
-getHourlyData();
-
-
-// Trigger hourly data fetch when the user inputs a district name
-document.getElementById('des-input').addEventListener('change', function() {
-    const district = this.value.trim(); // Get the district from the input field
-    if (district) {
-        getHourlyData(district); // Fetch hourly data for the district
-    } else {
-        console.log("Please enter a valid district.");
-    }
-});
-
-
 window.initMap = initMap;
 loadGoogleMapsApi();

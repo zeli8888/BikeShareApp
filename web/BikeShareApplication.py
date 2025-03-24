@@ -3,7 +3,6 @@ import argparse
 from flask import Flask, render_template, url_for
 from src.controller import *
 from src.config import *
-from src.controller.hourly import hourly_blueprint
 
 def main(database='LOCAL'):
     
@@ -18,7 +17,6 @@ def main(database='LOCAL'):
 
     app.register_blueprint(bikes_blueprint, url_prefix='/api')
     app.register_blueprint(weather_blueprint, url_prefix='/api')
-    app.register_blueprint(hourly_blueprint, url_prefix='/api') 
     
     @app.route("/")
     def index():
