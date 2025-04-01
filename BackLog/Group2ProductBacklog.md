@@ -192,21 +192,18 @@
 
 ------------
 
-### User Story: [Beautiful Web Interface]
+### User Story: [Responsive Website]
 - **As a:** [User]
-- **I want to:** [see a beautiful clear web page]
+- **I want to:** [see a responsive and clear web page suitable for all devices]
 - **So that I can:** [interact with the web easily and enjoy the experience]
 
 **Priority:** [High]
-**Estimated Points:** [12]
+**Estimated Points:** [8]
 **Acceptance Criteria:**
 - [The web page has a clear and consistent layout.]
 - [The font is readable and visually appealing.]
-- [The color scheme is aesthetically pleasing and accessible (e.g. sufficient contrast for users with visual impairments).]
-- [All interactive elements (e.g. buttons, forms, links) are easily identifiable and usable.]
 - [The page is optimized for various screen sizes and devices (e.g. desktop, tablet, mobile).]
 - [The page loads quickly (e.g. within 3 seconds) and is responsive.]
-- [The page is free of clutter and unnecessary elements.]
 
 -------------------------------------------------
 ### Software Necessity: [Annotation For Each Function]
@@ -232,13 +229,44 @@
 - **So that I can:** [predict occupancy based on collected data]
 
 **Priority:** [High]
-**Estimated Points:** [8]
+**Estimated Points:** [16]
 **Acceptance Criteria:**
-- [predictions are regularly updated as new occupancy data is collected]
 - [predictions are reliable and provide actionable information]
+- [predictions are made with acceptable delay]
 
 -------------------
-### User Story: [Weather Alerts]
+### Application Discussion: [Application Report]
+- **As a:** [developer]
+- **I want to:** [create a report for this application]
+- **So that I can:** [present the application to stakeholders in a clear and concise manner]
+
+**Priority:** [High]
+**Estimated Points:** [30]
+**Acceptance Criteria:**
+- [The report provides a clear and concise overview of the application.]
+- [The report accurately describes the application's architecture, design, and machine learning components.]
+- [The report includes relevant testing results and metrics.]
+- [The report is well-organized, easy to read, and free of grammatical errors.]
+- [The report is concise and within the recommended length.]
+
+---------
+### User Story: [About and Contact Page]
+- **As a:** [User]
+- **I want to:** [see about ant contact pages]
+- **So that I can:** [get more information and contact the team]
+
+**Priority:** [High]
+**Estimated Points:** [16]
+**Acceptance Criteria:**
+- [The About page provides a clear and concise description of the application's purpose, features, and team.]
+- [The About page includes relevant images, logos, and branding.]
+- [The Contact page allows users to submit their name, email, and message.]
+- [The Contact page includes a valid email address or contact form that sends messages to the team.]
+- [The About and Contact pages are easily accessible from the main navigation menu.]
+- [The pages are responsive, mobile-friendly, and follow the application's design guidelines.]
+
+------------
+<!-- ### User Story: [Weather Alerts]
 - **As a:** [User]
 - **I want to:** [be warned if there are weather alerts]
 - **So that I can:** [prepare before the trip]
@@ -251,7 +279,7 @@
 - [The system allows the user to dismiss or acknowledge the weather alerts, so that they are not repeatedly notified of the same alert]
 - [The system displays weather alerts in a clear and concise manner, using visual indicators such as icons or colors to draw attention to the alert]
 
--------------------
+------------------- -->
 <!-- -------------
 ### User Story: [Bike Occupancy data from JCDecaux]
 - **As a:** [Developer]
