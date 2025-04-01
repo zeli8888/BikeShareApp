@@ -64,13 +64,13 @@
     - Estimated Points: [3]
     - Assigned To: [Anju]
     - Description: [Create a link to fetch daily data from backend in the marker button]
-    - Finish Time: []
+    - Finish Time: [31th Mar]
 
 - **Task 3:** 
     - Estimated Points: [10]
     - Assigned To: [Anju]
     - Description: [Display the daily trends chart suitably]
-    - Finish Time: []
+    - Finish Time: [31th Mar]
 ------------
 
 ### Development Task: [Modularize the js files]
@@ -98,7 +98,7 @@
     - Estimated Points: [3]
     - Assigned To: [Sabrina]
     - Description: [check the modularized js modules]
-    - Finish Time: []
+    - Finish Time: [25th Mar]
 
 ------------
 

@@ -3,6 +3,7 @@
 @import url('./weather.css');
 @import url('./stations.css');
 @import url('./route.css');
+@import url('./bike_trend.css');
 
 /* Set a background image for the entire body */
 html {
