@@ -105,3 +105,26 @@ body {
         transform: rotate(360deg);
     }
 }
+#trend-container {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#toggle-trend {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+#toggle-trend:hover {
+    background-color: #0056b3;
+}

@@ -23,7 +23,7 @@
 
     <!-- linking the js file -->
     <script type="module" src="../static/js/index.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -56,7 +56,11 @@
                 <div id="station-info-container">
                     <div id="station-info" class="station-card"></div>
                     <div id="station-daily-trend" class="station-card">
-                        <h1>To do: add daily trend info</h1>
+                        <h2>Daily Bike Trend</h2>
+                        <button id="toggle-trend">Show Trend</button>
+                        <div id="trend-container">
+                            <canvas id="bikeTrendChart"></canvas>
+                        </div>
                     </div>
                 </div>
                 <div id="weather-info-container">
