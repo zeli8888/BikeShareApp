@@ -1,6 +1,6 @@
-async function fetchBikeTrendData() {
+async function fetchBikeTrendData(station_id) {
     try {
-        const response = await fetch(window.BIKES_ONE_DAY_URL);
+        const response = await fetch(window.BIKES_ONE_DAY_STATION_URL.replace("{}", station_id));
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -10,74 +10,89 @@ async function fetchBikeTrendData() {
         }
         return data;
     } catch (error) {
-        console.error("Error fetching bike trend data:", error);
+        console.error(`Error fetching data for station ${station_id}:`, error);
         return [];
     }
 }
 
 async function renderBikeTrendChart() {
     try {
-        const data = await fetchBikeTrendData();
+        if (window.chosenStation && window.chosenStation === window.lastShownStation) return;
+        window.lastShownStation = window.chosenStation;
+        const data = await fetchBikeTrendData(window.chosenStation);
         if (!data.length) return;
-        
-        const labels = data.map(entry => entry.last_update ? new Date(entry.last_update).toLocaleTimeString() : "N/A");
-        const values = data.map(entry => entry.available_bikes || 0);
-
-        const chartElement = document.getElementById("bikeTrendChart");
-        if (!chartElement) {
-            console.error("Chart element not found");
-            return;
-        }
-
-        const ctx = chartElement.getContext("2d");
-        if (!ctx) {
-            console.error("Failed to get 2D context");
-            return;
-        }
-
-        new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: "Available Bikes",
-                    data: values,
-                    borderColor: "blue",
-                    fill: false,
-                }]
-            }
-        });
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(() => drawChart(data));
     } catch (error) {
         console.error("Error rendering bike trend chart:", error);
     }
 }
 
-function initBikeTrendFeature() {
-    document.addEventListener("DOMContentLoaded", function () {
-        const toggleTrendButton = document.getElementById("toggle-trend");
-        if (!toggleTrendButton) {
-            console.error("Toggle trend button not found");
-            return;
-        }
-        toggleTrendButton.addEventListener("click", function () {
-            const trendContainer = document.getElementById("trend-container");
-            if (!trendContainer) {
-                console.error("Trend container not found");
-                return;
-            }
-            if (trendContainer.style.display === "none") {
-                trendContainer.style.display = "block";
-                try {
-                    renderBikeTrendChart();
-                } catch (error) {
-                    console.error("Error rendering bike trend chart:", error);
-                }
-            } else {
-                trendContainer.style.display = "none";
-            }
-        });
+function drawChart(data) {
+    const chartData = new google.visualization.DataTable();
+
+    // Define columns
+    chartData.addColumn('datetime', 'Time'); // x-axis (Date/Time)
+    chartData.addColumn('number', 'Bikes'); // y-axis (Bikes)
+    chartData.addColumn('number', 'Stands'); // y-axis (Stands)
+
+    // Populate chart rows with fetched data
+    data.forEach((entry) => {
+        chartData.addRow([
+            new Date(entry.last_update), // Convert timestamp to Date
+            entry.available_bikes,      // Bikes count
+            entry.available_bike_stands,      // Bikes stands count
+        ]);
     });
+
+    const container = document.getElementById('station-daily-trend');
+    container.innerHTML = ''; // Clear any existing chart
+    // Create the chart with responsive text size
+    const options = resizeChartText(container);
+
+    // Draw the chart in the placeholder div
+    const chart = new google.visualization.LineChart(
+        container
+    );
+
+    chart.draw(chartData, options);
 }
 
-// Export function for `index.js`
-export { initBikeTrendFeature };
+function resizeChartText(container) {
+    const containerWidth = container.offsetWidth;
+    var fontSize = containerWidth / 28; // Adjust the ratio as needed
+    fontSize = Math.max(fontSize, 10);
+
+    return {
+        title: `Daily Trend for ${window.chosenStationName}`,
+        titleTextStyle: {
+            fontSize: fontSize + 3,
+            bold: true,
+        },
+        hAxis: {
+            title: 'Time',
+            format: 'HH:mm',
+            titleTextStyle: { fontSize: fontSize }, // Set font size for x-axis title
+            textStyle: { fontSize: fontSize } // Set font size for x-axis labels
+        },
+        vAxis: {
+            title: 'Count',
+            viewWindow: {
+                min: 0
+            },
+            titleTextStyle: { fontSize: fontSize }, // Set font size for y-axis title
+            textStyle: { fontSize: fontSize } // Set font size for y-axis labels
+        },
+        series: [
+            { label: 'Bikes', color: '#008000' },
+            { label: 'Stands', color: '#0000FF' },
+        ],
+        curveType: 'function',
+        legend: { position: 'bottom', textStyle: { fontSize: fontSize } }, // Set font size for legend
+        backgroundColor: '#f5f5f5',
+        width: '100%',
+        height: '100%',
+    };
+}
+
+export { renderBikeTrendChart };

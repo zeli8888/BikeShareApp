@@ -4,7 +4,6 @@ import { calculateAndDisplayRoute, getStationRoute } from "./route.js"
 import { show_weather_info_container, toggle_sidebar_content } from "./sidebar.js";
 import { getCurrentBikes } from "./stations.js";
 import { getCurrentWeather } from "./weather.js";
-import { initBikeTrendFeature } from "./bike_trend.js";
 
 const button = document.getElementById("share-location-button");
 button.addEventListener("click", getLocation);
@@ -33,4 +32,3 @@ show_weather_info_container();
 
 window.initMap = initMap;
 loadGoogleMapsApi();
-initBikeTrendFeature();

@@ -1,5 +1,6 @@
 import { show_station_info_container } from "./sidebar.js";
 import { getWeather } from "./weather.js";
+
 async function addStationMarker(bikesUrl) {
     try {
         const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
@@ -173,8 +174,9 @@ function setStation(station, station_marker_img) {
         infoWindow.open(window.googleMap, marker);
         document.getElementById('station-info').innerHTML = infoWindow.content;
         getWeather(window.WEATHER_URL, position_lat, position_lng);
+        window.chosenStation = number; // for the use of daily trend and current information in side bar
+        window.chosenStationName = address; // for the use of daily trend in side bar
         show_station_info_container();
-        window.chosenStation = number;
     });
 
     marker.infoWindow = infoWindow;
