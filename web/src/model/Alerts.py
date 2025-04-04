@@ -1,5 +1,6 @@
 from .db import db
-
+from tzlocal import get_localzone
+from datetime import datetime
 class Alerts(db.Model):
 
     district = db.Column(db.String(32), primary_key=True)
@@ -11,6 +12,14 @@ class Alerts(db.Model):
     tags = db.Column(db.String(128))
 
     def as_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        local_tz = get_localzone()  # Automatically get the local timezone
+        return {
+            c.name: (
+                getattr(self, c.name).astimezone(local_tz).isoformat() 
+                if isinstance(getattr(self, c.name), datetime) 
+                else getattr(self, c.name)
+            ) 
+            for c in self.__table__.columns
+        }
     def __repr__(self):
         return f"Alert(district='{self.district}', sender_name='{self.sender_name}', event='{self.event}', start_time='{self.start_time}', end_time='{self.end_time}')"

@@ -1,4 +1,6 @@
 from .db import db
+from tzlocal import get_localzone
+from datetime import datetime
 class Daily(db.Model):
 
     district = db.Column(db.String(32), primary_key=True)
@@ -37,6 +39,14 @@ class Daily(db.Model):
     weather_icon = db.Column(db.String(32))
 
     def as_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        local_tz = get_localzone()  # Automatically get the local timezone
+        return {
+            c.name: (
+                getattr(self, c.name).astimezone(local_tz).isoformat() 
+                if isinstance(getattr(self, c.name), datetime) 
+                else getattr(self, c.name)
+            ) 
+            for c in self.__table__.columns
+        }
     def __repr__(self):
         return f"Daily(district='{self.district}', dt='{self.dt}', future_dt='{self.future_dt}')"
