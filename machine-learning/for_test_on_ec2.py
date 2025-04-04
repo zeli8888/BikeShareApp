@@ -1,22 +1,15 @@
 import os
 import warnings
-# Set environment variable to ignore CUDA
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Set to 3 to hide all logs, warnings, and errors
 from datetime import datetime
 import holidays
 import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_absolute_error, r2_score
-import joblib
-# Import TensorFlow after setting the environment variable
-import tensorflow as tf
-from tensorflow.keras.models import load_model
-# Ignore UserWarnings from Keras and other warnings
+import pickle
+# Ignore UserWarnings from Keras
 warnings.filterwarnings("ignore", category=UserWarning)
-warnings.filterwarnings("ignore", module="sklearn.utils.validation")
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-warnings.filterwarnings("ignore", category=FutureWarning)
+
 def train_model(station_id, visualize=False):
     # Load the data
     data = pd.read_csv(os.path.join(os.path.dirname(__file__), f'training_data/station_{station_id}.csv'))
@@ -24,8 +17,11 @@ def train_model(station_id, visualize=False):
     y = data[['available_bikes', 'available_docks']].values
 
     # Predict using the model
-    model = load_model(os.path.join(os.path.dirname(__file__), f'trained_model/station_{station_id}_model.keras'))
-    scaler = joblib.load(os.path.join(os.path.dirname(__file__), f'trained_model/scaler_station_{station_id}.joblib'))
+    with open(os.path.join(os.path.dirname(__file__), f'trained_model/station_{station_id}_model.pkl'), 'rb') as f:
+        model = pickle.load(f)
+
+    with open(os.path.join(os.path.dirname(__file__), f'trained_model/scaler_station_{station_id}.pkl'), 'rb') as f:
+        scaler = pickle.load(f)
     X_test = scaler.transform(X)
     y_pred = model.predict(X_test, verbose=visualize)
 
