@@ -12,40 +12,7 @@ import warnings
 # Ignore UserWarnings from Keras
 warnings.filterwarnings("ignore", category=UserWarning, module="keras")
 
-
-def visualize_prediction(y_test, y_pred, mae_bikes, r2_score_bikes, mae_docks, r2_score_docks, station_id):
-    # Plot results for available_bikes
-    plt.figure(figsize=(10, 6))
-    plt.plot(y_test[:, 0], label='Actual Bikes', color='green')
-    plt.plot(y_pred[:, 0], label='Predicted Bikes', color='red')
-    plt.title(f'#{station_id} Station Available Bikes Forecast (MAE: {mae_bikes:.4f}, r2_score: {r2_score_bikes:.4f})')
-    plt.xlabel('Hour Sequence')
-    plt.ylabel('Available Bikes')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-
-    # Plot results for available_docks
-    plt.figure(figsize=(10, 6))
-    plt.plot(y_test[:, 1], label='Actual Docks', color='green')
-    plt.plot(y_pred[:, 1], label='Predicted Docks', color='red')
-    plt.title(f'#{station_id} Station Available Docks Forecast (MAE: {mae_docks:.4f}, r2_score: {r2_score_docks:.4f})')
-    plt.xlabel('Hour Sequence')
-    plt.ylabel('Available Docks')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-
-def train_model(station_id, visualize=False):
-    # Load the data
-    data = pd.read_csv(f'training_data/station_{station_id}.csv')
-    X = data.drop(['available_bikes', 'available_docks'], axis=1)
-    y = data[['available_bikes', 'available_docks']]
-
-    # Split the data into training, validation, and test sets
-    X_train, X_temp, y_train, y_temp = train_test_split(X.values, y.values, test_size=0.2, random_state=42)
-    X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
-
+def try_on_EC2(station_id, visualize=False):
     # Standardize the data
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
@@ -100,4 +67,4 @@ def train_model(station_id, visualize=False):
     return mae_bikes, r2_score_bikes, mae_docks, r2_score_docks
 
 if __name__ == '__main__':
-    mae_bikes, r2_score_bikes, mae_docks, r2_score_docks = train_model(1, True)
+    mae_bikes, r2_score_bikes, mae_docks, r2_score_docks = try_on_EC2(1, True)
