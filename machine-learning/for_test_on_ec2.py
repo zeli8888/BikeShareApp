@@ -1,72 +1,103 @@
-from datetime import datetime
-import os
 import pandas as pd
-import numpy as np
-import holidays
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_absolute_error, r2_score
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.layers import TimeDistributed
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.models import load_model
-from sklearn.metrics import mean_absolute_error, r2_score
+import warnings
+# Ignore UserWarnings from Keras
+warnings.filterwarnings("ignore", category=UserWarning, module="keras")
 
-# Load dataset
-data = pd.read_csv(f'training_data/station_1.csv', parse_dates=['time'], index_col='time')
 
-# Features and target variables
-features = ['hour_sin', 'hour_cos','temperature_celsius', 'relative_humidity_percent', 'barometric_pressure_hpa', 'is_holiday', 'is_weekend']
-targets = ['available_bikes', 'available_docks']
+def visualize_prediction(y_test, y_pred, mae_bikes, r2_score_bikes, mae_docks, r2_score_docks, station_id):
+    # Plot results for available_bikes
+    plt.figure(figsize=(10, 6))
+    plt.plot(y_test[:, 0], label='Actual Bikes', color='green')
+    plt.plot(y_pred[:, 0], label='Predicted Bikes', color='red')
+    plt.title(f'#{station_id} Station Available Bikes Forecast (MAE: {mae_bikes:.4f}, r2_score: {r2_score_bikes:.4f})')
+    plt.xlabel('Hour Sequence')
+    plt.ylabel('Available Bikes')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
-# Move target columns to the last
-data = data[[col for col in data.columns if col not in targets] + targets]
+    # Plot results for available_docks
+    plt.figure(figsize=(10, 6))
+    plt.plot(y_test[:, 1], label='Actual Docks', color='green')
+    plt.plot(y_pred[:, 1], label='Predicted Docks', color='red')
+    plt.title(f'#{station_id} Station Available Docks Forecast (MAE: {mae_docks:.4f}, r2_score: {r2_score_docks:.4f})')
+    plt.xlabel('Hour Sequence')
+    plt.ylabel('Available Docks')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
-# Create sequences of data for LSTM
-def create_sequences(data, seq_length):
-    xs, ys = [], []
-    for i in range(len(data) - seq_length):
-        x = data[i:(i + seq_length), 0:-2]  # features
-        y = data[i:(i + seq_length), -2:]   # targets
-        xs.append(x)
-        ys.append(y)
-    return np.array(xs), np.array(ys)
+def train_model(station_id, visualize=False):
+    # Load the data
+    data = pd.read_csv(f'training_data/station_{station_id}.csv')
+    X = data.drop(['available_bikes', 'available_docks'], axis=1)
+    y = data[['available_bikes', 'available_docks']]
 
-# Sequence length, 24 hours, from 0:00 to 23:00
-seq_length = 24
+    # Split the data into training, validation, and test sets
+    X_train, X_temp, y_train, y_temp = train_test_split(X.values, y.values, test_size=0.2, random_state=42)
+    X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
 
-# Create sequences
-x, y = create_sequences(data.values, seq_length)
+    # Standardize the data
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_val = scaler.transform(X_val)
+    X_test = scaler.transform(X_test)
 
-# Split the data, 80% for training and 20% for testing
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, shuffle=True)
-# Split training data into training and validation sets (80% for training and 20% for validation)
-x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.2, shuffle=True)
+    # Initialize the model
+    model = Sequential()
+    model.add(Dense(64, input_dim=X_train.shape[1], activation='relu', kernel_regularizer='l2'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.2))
+    model.add(Dense(32, activation='relu', kernel_regularizer='l2'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.2))
+    model.add(Dense(16, activation='relu', kernel_regularizer='l2'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.2))
+    model.add(Dense(2, activation='linear'))  # Output layer for two targets
 
-# Predict using the model
-model = load_model(f'station_1_model.h5')
-predictions = model.predict(x_test)
+    # Compile the model
+    model.compile(optimizer=Adam(learning_rate=0.001), loss='mse')
 
-# Inverse transform the predictions and actual values
-inverse_predictions = []
-for prediction in predictions:
-    inverse_predictions.append(target_scaler.inverse_transform(prediction))
-predictions = np.array(inverse_predictions).reshape(-1,2)
-inverse_y_test = []
-for y in y_test:
-    inverse_y_test.append(target_scaler.inverse_transform(y))
-y_test = np.array(inverse_y_test).reshape(-1,2)
+    # Early stopping
+    early_stopping = EarlyStopping(monitor='val_loss', patience=100, restore_best_weights=True)
 
-# Calculate MAE and R2 score for both bikes and docks
-mae_bikes = mean_absolute_error(y_test[:, 0], predictions[:, 0])
-r2_score_bikes = r2_score(y_test[:, 0], predictions[:, 0])
-mae_docks = mean_absolute_error(y_test[:, 1], predictions[:, 1])
-r2_score_docks = r2_score(y_test[:, 1], predictions[:, 1])
+    # Fit the model
+    model.fit(X_train, y_train, epochs=800, batch_size=32, validation_data=(X_val, y_val), verbose=visualize, callbacks=[early_stopping])
 
-# UML Modelling, Use Case Diagram, and Class Diagram
-# SmartDraw (instead of Store the image, do the screen shot to avoid paying)
-# StarUML
-# DrawIO
-# PlantUML AND PlantText
+    # Save the model
+    model.save(f'trained_model/station_{station_id}_model.keras', include_optimizer=False)
+
+    # Predict using the model
+    model = load_model(f'trained_model/station_{station_id}_model.keras')
+    y_pred = model.predict(X_test, verbose=visualize)
+
+    # Evaluate each target separately
+    mae_bikes = mean_absolute_error(y_test[:, 0], y_pred[:, 0])
+    mae_docks = mean_absolute_error(y_test[:, 1], y_pred[:, 1])
+
+    r2_score_bikes = r2_score(y_test[:, 0], y_pred[:, 0])
+    r2_score_docks = r2_score(y_test[:, 1], y_pred[:, 1])
+    
+    if visualize:
+        print(f"R2 Score for available_bikes: {r2_score_bikes}")
+        print(f"R2 Score for available_docks: {r2_score_docks}")
+
+        print(f"Mean Absolute Error for available_bikes: {mae_bikes}")
+        print(f"Mean Absolute Error for available_docks: {mae_docks}")
+        
+        visualize_prediction(y_test, y_pred, mae_bikes, r2_score_bikes, mae_docks, r2_score_docks, station_id)
+        
+    return mae_bikes, r2_score_bikes, mae_docks, r2_score_docks
+
+if __name__ == '__main__':
+    mae_bikes, r2_score_bikes, mae_docks, r2_score_docks = train_model(1, True)
