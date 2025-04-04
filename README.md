@@ -91,7 +91,7 @@ Here’s how to use **BikeShareApp**:
 
 2. Initial Data Load: Run the following command to populate the database with availability trends data (only required once, after the first project run):
    ```bash
-   python database/load_data.py --database {your_database_connection}
+   python database_oneday_data/load_data.py --database {your_database_connection}
    ```
 
 3. Access the application at `http://127.0.0.1:5000`. For EC2 instance, access at `{EC2_Public_IP}:5000`.
