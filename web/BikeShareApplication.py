@@ -30,6 +30,7 @@ def main(database='LOCAL'):
                                CURRENT_WEATHER_URL=url_for('weather.get_current_weather_by_district', _external=True),
                                BIKES_ONE_DAY_URL=url_for('bikes.get_one_day_availability', _external=True),
                                BIKES_ONE_DAY_STATION_URL=url_for('bikes.get_one_day_availability', _external=True) + '/{}',
+                               PREDICTION_URL=url_for('prediction.get_prediction_by_station', _external=True, station_id=1),
                                )
     
     return app
