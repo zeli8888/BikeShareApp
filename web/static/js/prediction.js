@@ -17,10 +17,10 @@ async function fetchPredictionData(stationId, latitude, longitude) {
 
 async function renderBikePredictionChart() {
     try {
-        if (window.chosenStation && window.chosenStation === window.lastPredictionStation) return;
+        if (window.chosenStation && window.chosenStation === window.lastPredictedStation) return;
         const container = document.getElementById('station-prediction');
         container.innerHTML = 'Predicting, please wait...';
-        window.lastPredictionStation = window.chosenStation;
+        window.lastPredictedStation = window.chosenStation;
         const data = await fetchPredictionData(window.chosenStation, window.chosenStationPosition.lat, window.chosenStationPosition.lng);
         if (!data.length) {
             container.innerHTML = `Sorry, no prediction data available <br>for station ${window.chosenStationName}`;
@@ -43,10 +43,12 @@ function drawChart(data) {
 
     // Populate chart rows with fetched data
     data.forEach((entry) => {
+        const availableBikes = Math.min(Math.max(entry.available_bikes, 0), window.chosenStationBikeStands);
+        const availableStands = Math.min(Math.max(entry.available_stands, 0), window.chosenStationBikeStands);
         chartData.addRow([
             new Date(entry.future_dt),
-            entry.available_bikes,      // Bikes count
-            entry.available_stands,      // Bikes stands count
+            availableBikes,      // Bikes count
+            availableStands,      // Bikes stands count
         ]);
     });
 
