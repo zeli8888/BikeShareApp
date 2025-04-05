@@ -18,9 +18,14 @@ async function fetchPredictionData(stationId, latitude, longitude) {
 async function renderBikePredictionChart() {
     try {
         if (window.chosenStation && window.chosenStation === window.lastPredictionStation) return;
+        const container = document.getElementById('station-prediction');
+        container.innerHTML = 'Predicting, please wait...';
         window.lastPredictionStation = window.chosenStation;
         const data = await fetchPredictionData(window.chosenStation, window.chosenStationPosition.lat, window.chosenStationPosition.lng);
-        if (!data.length) return;
+        if (!data.length) {
+            container.innerHTML = `Sorry, no prediction data available <br>for station ${window.chosenStationName}`;
+            return
+        };
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(() => drawChart(data));
     } catch (error) {

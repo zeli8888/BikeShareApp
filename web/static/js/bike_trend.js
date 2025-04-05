@@ -18,9 +18,14 @@ async function fetchBikeTrendData(station_id) {
 async function renderBikeTrendChart() {
     try {
         if (window.chosenStation && window.chosenStation === window.lastShownStation) return;
+        const container = document.getElementById('station-daily-trend');
+        container.innerHTML = 'Fetching history data, please wait...';
         window.lastShownStation = window.chosenStation;
         const data = await fetchBikeTrendData(window.chosenStation);
-        if (!data.length) return;
+        if (!data.length) {
+            container.innerHTML = `Sorry, no history data available <br>for station ${window.chosenStationName}`;
+            return
+        };
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(() => drawChart(data));
     } catch (error) {
