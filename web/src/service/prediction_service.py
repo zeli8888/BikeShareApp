@@ -1,13 +1,9 @@
 import os
-import warnings
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Set to 3 to hide all logs, warnings, and errors
 import pickle
 import pandas as pd
 import numpy as np
 import holidays
 from .WeatherService import WeatherService
-# Ignore UserWarnings from Keras
-warnings.filterwarnings("ignore", category=UserWarning)
 
 class prediction_service:
     @staticmethod
