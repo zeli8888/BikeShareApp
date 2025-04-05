@@ -18,7 +18,7 @@ class prediction_service:
         if not os.path.isfile(path_for_model) or not os.path.isfile(path_for_scaler):
             return []
 
-        hourly_data = WeatherService.get_weather_by_coordinate(latitude, longitude)['hourly'][0:24]
+        hourly_data = WeatherService.get_weather_by_coordinate(latitude, longitude)['hourly'][1:25]
         df = pd.DataFrame(hourly_data)[['future_dt', 'temp', 'pressure', 'humidity']]
         df['future_dt'] = pd.to_datetime(df['future_dt'])
         df['hour'] = df['future_dt'].dt.hour

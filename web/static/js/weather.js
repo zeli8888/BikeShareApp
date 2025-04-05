@@ -57,7 +57,7 @@ async function getWeather(weatherUrl, latitude = null, longitude = null) {
         });
 
         // Display hourly forecast
-        data.hourly.slice(0, 24).forEach(hour => {
+        data.hourly.slice(1, 25).forEach(hour => {
             const hourElement = document.createElement('div');
             hourElement.className = 'forecast-item';
             hourElement.innerHTML = `

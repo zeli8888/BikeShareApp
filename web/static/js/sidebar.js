@@ -1,5 +1,6 @@
 import { getWeather } from './weather.js';
 import { renderBikeTrendChart } from "./bike_trend.js";
+import { renderBikePredictionChart } from './prediction.js';
 
 function show_weather_info_container() {
     getWeather(window.WEATHER_URL, window.coords.latitude, window.coords.longitude);
@@ -15,7 +16,10 @@ function show_station_info_container() {
     document.getElementById('route-container').style.display = 'none';
     if (document.getElementById('sidebar-toggle').textContent === 'Hide') {
         document.getElementById('sidebar-return').style.display = 'block';
-        renderBikeTrendChart(); // when the sidebar is hidden, the bike trend chart cannot be rendered because the container width is 0
+        // when the sidebar is hidden, the chart cannot be rendered 
+        // because the container width is 0, so only show when it is visible
+        renderBikePredictionChart();
+        renderBikeTrendChart();
     }
 }
 
@@ -39,6 +43,7 @@ function toggle_sidebar_content() {
         document.getElementById('sidebar-content').style.display = 'block';
         if (document.getElementById('station-info-container').style.display === 'block') {
             document.getElementById('sidebar-return').style.display = 'block';
+            renderBikePredictionChart();
             renderBikeTrendChart();
         } else if (document.getElementById('route-container').style.display === 'block') {
             document.getElementById('sidebar-return').style.display = 'block';

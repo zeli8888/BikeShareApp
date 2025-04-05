@@ -1,6 +1,6 @@
-async function fetchBikeTrendData(station_id) {
+async function fetchPredictionData(stationId, latitude, longitude) {
     try {
-        const response = await fetch(window.BIKES_ONE_DAY_STATION_URL.replace("{}", station_id));
+        const response = await fetch(window.PREDICTION_URL.slice(0, -1) + stationId + `?latitude=${latitude}&longitude=${longitude}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -10,16 +10,16 @@ async function fetchBikeTrendData(station_id) {
         }
         return data;
     } catch (error) {
-        console.error(`Error fetching data for station ${station_id}:`, error);
+        console.error(`Error fetching prediction data for station ${stationId}:`, error);
         return [];
     }
 }
 
-async function renderBikeTrendChart() {
+async function renderBikePredictionChart() {
     try {
-        if (window.chosenStation && window.chosenStation === window.lastShownStation) return;
-        window.lastShownStation = window.chosenStation;
-        const data = await fetchBikeTrendData(window.chosenStation);
+        if (window.chosenStation && window.chosenStation === window.lastPredictionStation) return;
+        window.lastPredictionStation = window.chosenStation;
+        const data = await fetchPredictionData(window.chosenStation, window.chosenStationPosition.lat, window.chosenStationPosition.lng);
         if (!data.length) return;
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(() => drawChart(data));
@@ -39,13 +39,13 @@ function drawChart(data) {
     // Populate chart rows with fetched data
     data.forEach((entry) => {
         chartData.addRow([
-            new Date(entry.last_update), // Convert timestamp to Date
+            new Date(entry.future_dt),
             entry.available_bikes,      // Bikes count
-            entry.available_bike_stands,      // Bikes stands count
+            entry.available_stands,      // Bikes stands count
         ]);
     });
 
-    const container = document.getElementById('station-daily-trend');
+    const container = document.getElementById('station-prediction');
     container.innerHTML = ''; // Clear any existing chart
     // Create the chart with responsive text size
     const options = resizeChartText(container);
@@ -64,7 +64,7 @@ function resizeChartText(container) {
     fontSize = Math.max(fontSize, 10);
 
     return {
-        title: `History Daily Trend for \n${window.chosenStationName}`,
+        title: `24 Hour Prediction for \n${window.chosenStationName}`,
         titleTextStyle: {
             fontSize: fontSize + 3,
             bold: true,
@@ -73,7 +73,8 @@ function resizeChartText(container) {
             title: 'Time',
             format: 'HH:mm',
             titleTextStyle: { fontSize: fontSize }, // Set font size for x-axis title
-            textStyle: { fontSize: fontSize } // Set font size for x-axis labels
+            textStyle: { fontSize: fontSize }, // Set font size for x-axis labels
+            ticks: () => data.map((entry) => new Date(entry.future_dt)) // Custom function to generate tick values
         },
         vAxis: {
             title: 'Count',
@@ -95,4 +96,4 @@ function resizeChartText(container) {
     };
 }
 
-export { renderBikeTrendChart };
+export { renderBikePredictionChart };

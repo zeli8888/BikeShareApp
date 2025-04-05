@@ -4,6 +4,7 @@
 @import url('./stations.css');
 @import url('./route.css');
 @import url('./bike_trend.css');
+@import url('./prediction.css');
 
 /* Set a background image for the entire body */
 html {

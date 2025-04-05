@@ -174,8 +174,9 @@ function setStation(station, station_marker_img) {
         infoWindow.open(window.googleMap, marker);
         document.getElementById('station-info').innerHTML = infoWindow.content;
         getWeather(window.WEATHER_URL, position_lat, position_lng);
-        window.chosenStation = number; // for the use of daily trend and current information in side bar
-        window.chosenStationName = address; // for the use of daily trend in side bar
+        window.chosenStation = number; // for the use of daily trend, prediction and current information in side bar
+        window.chosenStationName = address; // for the use of daily trend and prediction in side bar
+        window.chosenStationPosition = { lat: position_lat, lng: position_lng }; // for the use of prediction in side bar
         show_station_info_container();
     });
 
