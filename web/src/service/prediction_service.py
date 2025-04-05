@@ -15,7 +15,7 @@ class prediction_service:
         path_for_model = os.path.join(os.path.dirname(__file__), f'../../../machine_learning/trained_model/station_{station_id}_model.pkl')
         path_for_scaler = os.path.join(os.path.dirname(__file__), f'../../../machine_learning/trained_model/scaler_station_{station_id}.pkl')
 
-        if not os.path.exists(path_for_model) or not os.path.exists(path_for_scaler):
+        if not os.path.isfile(path_for_model) or not os.path.isfile(path_for_scaler):
             return []
 
         hourly_data = WeatherService.get_weather_by_coordinate(latitude, longitude)['hourly'][0:24]
