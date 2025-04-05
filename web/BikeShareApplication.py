@@ -2,12 +2,12 @@ import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Set to 3 to hide all logs, warnings, and errors
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
+import tensorflow as tf
+tf.config.set_soft_device_placement(True)
 import argparse
 from flask import Flask, render_template, url_for
 from src.controller import *
 from src.config import *
-import tensorflow as tf
-tf.config.set_soft_device_placement(True)
 
 def main(database='LOCAL'):
     
