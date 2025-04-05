@@ -21,12 +21,12 @@
 - **Feature 1**: Interactive Google Map Interface. 🗺️
 - **Feature 2**: Real-time Bikes Information. 🚲
 - **Feature 3**: Real-time Weather Information Based on Your Location. ☀️
-- **Feature 4**: Visualized Availability Trends for Each Bike Station. 📈
-- **Feature 5**: Visualized Availability Heat Map for Each Bike Station. 📌
-- **Feature 6**: Route Suggestions With Google Map Interface. 🛞
-- **Feature 7**: Every Fetched Bikes and Weather Data Stored in Database, Minimal External API Calls. 📦
-- **Feature 8**: Automatically Update and Remove Old Database Data with Customizable Time Interval and Asynchronous Service. 🔃
-
+- **Feature 4**: Visualized History Availability Trends for Each Bike Station. 📊
+- **Feature 5**: Visualized 24-Hour Availability Prediction for Each Bike Station. 📈
+- **Feature 6**: Visualized Availability Heat Map for Each Bike Station. 📌
+- **Feature 7**: Route Suggestions With Google Map Interface. 🛞
+- **Feature 8**: Every Fetched Bikes and Weather Data Stored in Database, Minimal External API Calls. 📦
+- **Feature 9**: Automatically Update and Remove Old Database Data with Customizable Time Interval and Asynchronous Service. 🔃
 ---
 
 ## 🚀 Getting Started
