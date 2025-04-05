@@ -138,18 +138,19 @@
 **Acceptance Criteria:**
 - [predictions are reliable and provide actionable information]
 - [predictions are made with acceptable delay]
+- [forecast the number of available bikes and stands at each station for the next 24 hours]
 
 - **Task 1:** 
     - Estimated Points: [8]
     - Assigned To: [Ze Li]
-    - Description: [develop a ML model, train with collected data, and test the model]
-    - Finish Time: []
+    - Description: [develop a ML model for each station, train with collected data, and test the model]
+    - Finish Time: [4th Apr]
 
 - **Task 2:** 
     - Estimated Points: [8]
     - Assigned To: [Ze Li]
-    - Description: [integrated the model with the application]
-    - Finish Time: []
+    - Description: [integrate trained models with web application]
+    - Finish Time: [5th Apr]
 
 -------------------
 

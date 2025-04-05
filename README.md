@@ -48,6 +48,10 @@ To get started with **BikeShareApp**, follow these steps:
    ```bash
    python -m pip install -r requirements.txt
    ```
+   For EC2 linux server:
+   ```bash
+   python -m pip install -r ec2_requirements.txt
+   ```
 
 ### ⚙️ Configuration
 - This application use Jcdecaux, OpenWeather, GoogleMap and MySQL database to offer and store data.
