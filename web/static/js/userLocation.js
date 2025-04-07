@@ -1,4 +1,11 @@
 import { showWeatherInfoContainer } from "./sidebar.js";
+/**
+ * Retrieves the user's current location and updates the map's center to the user's location.
+ * The user's location is stored in the userLocationMarker and the user's location is stored in session storage.
+ * If the user's location could not be retrieved, an error is shown to the user.
+ * @return {Promise} A promise that resolves when the user's location has been retrieved and the map has been updated.
+ * @throws {Error} If the browser does not support geolocation.
+ */
 function getLocation() {
     return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
@@ -27,6 +34,10 @@ function getLocation() {
     });
 }
 
+/**
+ * Shows a alert box with the user's location information, and resets the button back to "Share Location".
+ * @param {Object} position - The user's location information from the Geolocation API.
+ */
 function showPosition(position) {
     alert("Location Information Received: \nLatitude: " + position.coords.latitude +
         "\nLongitude: " + position.coords.longitude);
@@ -34,6 +45,11 @@ function showPosition(position) {
     button.innerHTML = "Share Location"
 }
 
+/**
+ * Shows an alert box with a message describing the error that occurred when trying to
+ * retrieve the user's location, and resets the button back to "Share Location".
+ * @param {Object} error - The error object from the Geolocation API.
+ */
 function showError(error) {
     const button = document.getElementById("share-location-button");
     button.innerHTML = "Share Location"

@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+  This is the main HTML file for the Dublin Bike Share APP.
+  It sets up the basic structure of the page, including the navigation menu,
+  header, and main container for the map and sidebar.
+-->
 
 <head>
     <meta charset="UTF-8">
@@ -11,6 +16,10 @@
 
     <!-- declare keys and backend urls -->
     <script>
+        /**
+         * Set up global variables for API keys and backend URLs.
+         * These values are replaced with actual values by the backend.
+         */
         window.GOOGLE_MAP_KEY = "{{ GOOGLE_MAP_KEY }}";
         window.GOOGLE_MAP_ID = "{{ GOOGLE_MAP_ID }}";
         window.WEATHER_URL = "{{ WEATHER_URL }}";
@@ -28,6 +37,7 @@
 </head>
 
 <body>
+    <!-- Navigation menu -->
     <div id="menu" class="navigation">
         <ul>
             <li><a href="/">Map</a></li>
@@ -36,29 +46,36 @@
         </ul>
     </div>
 
+    <!-- Header with title and share location button -->
     <div class="header">
         <h3>Dublin Bike Share APP</h3>
         <button id="share-location-button">Share Location</button>
     </div>
+
+    <!-- Input field for destination -->
     <input id="des-input" class="place-controls" type="text" placeholder="Enter your destination" />
 
-    <!-- The main container -->
+    <!-- Main container for map and sidebar -->
     <div id="container">
         <div id="map"></div>
         <div id="sidebar">
+            <!-- Sidebar navigation -->
             <div id="sidebar-navigation" class="navigation">
                 <ul>
                     <li><a id="sidebar-toggle" href="#" onclick="toggleSidebarContent()">Hide</a></li>
                     <li id="sidebar-return"><a href="#" onclick="showWeatherInfoContainer()">Return</a></li>
                 </ul>
             </div>
+            <!-- Sidebar content -->
             <div id="sidebar-content">
-                <!-- The station info container-->
+                <!-- Station info container-->
                 <div id="station-info-container">
                     <div id="station-info" class="station-card"></div>
                     <div id="station-prediction"></div>
                     <div id="station-daily-trend"></div>
                 </div>
+
+                <!-- Weather info container -->
                 <div id="weather-info-container">
                     <!-- Current Weather -->
                     <div id="current-weather" class="weather-card">
@@ -78,6 +95,8 @@
                         <div id="hourly-forecast" class="forecast-container"></div>
                     </div>
                 </div>
+
+                <!-- Route container -->
                 <div id="route-container">
                     <div id="route">
                         <div id="google-map-link"></div>

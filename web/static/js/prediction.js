@@ -1,3 +1,14 @@
+/**
+ * Fetches prediction data for a given station.
+ *
+ * Args:
+ *     stationId (number): The ID of the station.
+ *     latitude (number): The latitude of the station.
+ *     longitude (number): The longitude of the station.
+ *
+ * Returns:
+ *     Promise<Array>: A promise that resolves to an array of prediction data for the station. If an error occurs or data is invalid, it returns an empty array.
+ */
 async function fetchPredictionData(stationId, latitude, longitude) {
     try {
         const response = await fetch(window.PREDICTION_URL.slice(0, -1) + stationId + `?latitude=${latitude}&longitude=${longitude}`);
@@ -15,6 +26,14 @@ async function fetchPredictionData(stationId, latitude, longitude) {
     }
 }
 
+/**
+ * Renders a prediction chart for the selected station.
+ * 
+ * If the selected station has already been rendered, no action is taken.
+ * Otherwise, fetches prediction data for the station and displays it using Google Charts. If no data is available, displays a message indicating the lack of prediction data.
+ * 
+ * Handles errors by logging them to the console.
+ */
 async function renderBikePredictionChart() {
     try {
         if (window.chosenStation && window.chosenStation === window.lastPredictedStation) return;
@@ -32,6 +51,19 @@ async function renderBikePredictionChart() {
         console.error("Error rendering bike trend chart:", error);
     }
 }
+
+/**
+ * Draws a Google Charts line chart in the 'station-prediction' div,
+ * representing the predicted bike and stand availability for the chosen station.
+ * 
+ * Args:
+ *     data (Array): An array of objects containing the properties 'future_dt',
+ *     'available_bikes', and 'available_stands'.
+ * 
+ * The function ensures that the number of available bikes and stands
+ * does not exceed the maximum number of stands for the station.
+ * The chart is drawn with responsive text size within the container.
+ */
 
 function drawChart(data) {
     const chartData = new google.visualization.DataTable();
@@ -65,6 +97,16 @@ function drawChart(data) {
     chart.draw(chartData, options);
 }
 
+/**
+ * Returns an options object for a Google Charts line chart that scales the
+ * text size based on the width of the given container.
+ *
+ * Args:
+ *     container (Element): The container element to render the chart in.
+ *
+ * Returns:
+ *     Object: An options object for a Google Charts line chart.
+ */
 function resizeChartText(container) {
     const containerWidth = container.offsetWidth;
     var fontSize = containerWidth / 28; // Adjust the ratio as needed

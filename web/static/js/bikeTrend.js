@@ -1,3 +1,13 @@
+/**
+ * Fetches one day's bike availability data for a specific station.
+ *
+ * Args:
+ *     stationId (number): The ID of the station for which to retrieve data.
+ *
+ * Returns:
+ *     Promise<Array>: A promise that resolves to an array of availability data for the station. 
+ *     If an error occurs or data is invalid, it returns an empty array.
+ */
 async function fetchBikeTrendData(stationId) {
     try {
         const response = await fetch(window.BIKES_ONE_DAY_STATION_URL.replace("{}", stationId));
@@ -14,6 +24,17 @@ async function fetchBikeTrendData(stationId) {
         return [];
     }
 }
+
+/**
+ * Renders a bike trend chart for the selected station.
+ * 
+ * If the selected station has already been rendered, no action is taken.
+ * Otherwise, fetches one day's availability data for the station and 
+ * displays it using Google Charts. If no data is available, displays 
+ * a message indicating the lack of history data.
+ * 
+ * Handles errors by logging them to the console.
+ */
 
 async function renderBikeTrendChart() {
     try {
@@ -33,6 +54,13 @@ async function renderBikeTrendChart() {
     }
 }
 
+/**
+ * Draws a Google Charts line chart in the 'station-daily-trend' div,
+ * representing the daily bike availability trend for the chosen station.
+ * 
+ * Args:
+ *     data (Array): An array of objects containing the properties 'last_update', 'available_bikes', and 'available_bike_stands'.
+ */
 function drawChart(data) {
     const chartData = new google.visualization.DataTable();
 
@@ -63,6 +91,16 @@ function drawChart(data) {
     chart.draw(chartData, options);
 }
 
+/**
+ * Returns an options object for a Google Charts line chart that scales the
+ * text size based on the width of the given container.
+ *
+ * Args:
+ *     container (Element): The container element to render the chart in.
+ *
+ * Returns:
+ *     Object: An options object for a Google Charts line chart.
+ */
 function resizeChartText(container) {
     const containerWidth = container.offsetWidth;
     var fontSize = containerWidth / 28; // Adjust the ratio as needed

@@ -1,6 +1,15 @@
 import { showStationInfoContainer } from "./sidebar.js";
 import { getWeather } from "./weather.js";
 
+/**
+ * Fetches the list of bike stations and their availabilities from the
+ * server, and adds them to the map. Also adds a heatmap of bike
+ * availability to the map.
+ *
+ * @param {string} bikesUrl The URL of the backend to fetch the bike data from.
+ *
+ * @throws An error if there is an issue with the server request.
+ */
 async function addStationMarker(bikesUrl) {
     try {
         const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
@@ -42,6 +51,14 @@ async function addStationMarker(bikesUrl) {
     }
 }
 
+/**
+ * Adds a heatmap legend to the map.
+ *
+ * The legend is a vertical bar of colored rectangles, with
+ * corresponding labels on the right side. The colors range from
+ * blue (0 available bikes) to red (50+ available bikes). The
+ * legend is placed on the map at the default position.
+ */
 function addLegend() {
     const legend = document.createElement('div');
     legend.id = 'heatmap-legend';
@@ -62,6 +79,14 @@ function addLegend() {
     mapContainer.appendChild(legend);
 }
 
+/**
+ * Adds radio buttons to the map for selecting which heatmap to show.
+ *
+ * The radio buttons are added to the map container, and are
+ * labeled as "Bikes HeatMap", "Stands HeatMap", and "None". When
+ * the selection changes, the corresponding heatmap is shown
+ * on the map and the legend is updated accordingly.
+ */
 function addRadioButtons() {
     const radioButtons = document.createElement('div');
     radioButtons.id = 'radio-buttons-heatmap';
@@ -93,11 +118,23 @@ function addRadioButtons() {
     });
 }
 
+/**
+ * Updates the current bike availability data from the backend server and re-renders
+ * the stations on the map with the new data.
+ * 
+ * New data is guaranteed to be fetched from external api calls.
+ *
+ * Also updates the heatmap data with the new availability data.
+ *
+ * @throws An error if there is an issue with the server request.
+ */
 async function getCurrentBikes() {
+    // Get all buttons with the class 'current-bikes-button' and rotate them.
     const buttons = document.getElementsByClassName('current-bikes-button');
     for (const button of buttons) {
         button.classList.add('rotate-icon');
     }
+
     try {
         const { stations, availabilities } = await fetch(window.CURRENT_BIKES_URL).then(response => response.json());
         const stationMarkerImg = document.createElement('img');
@@ -106,6 +143,7 @@ async function getCurrentBikes() {
         stations.forEach(station => {
             const { address, banking, bike_stands, name, number, position_lat, position_lng } = station;
             if (number in window.markers) {
+                // Update the info window content for the existing marker.
                 window.markers[number].infoWindow.setContent(`
                 <div class="info-window-content">
                     <span class="info-window-title"><strong>${name}</strong></span>
@@ -120,10 +158,12 @@ async function getCurrentBikes() {
             `
                 );
             } else {
+                // Set the station marker if it doesn't exist yet.
                 setStation(station, stationMarkerImg);
             }
         });
 
+        // Set the availabilities data for the heatmaps.
         const { heatmapBikesData, heatmapStandsData } = setAvailabilities(availabilities, true);
         window.heatmapBikes.setData(heatmapBikesData);
         window.heatmapStands.setData(heatmapStandsData);
@@ -132,17 +172,29 @@ async function getCurrentBikes() {
         console.error('Error updating current bikes data:', error);
         window.alert('Error updating current bikes data. Please try again later.');
     } finally {
+        // infoWindow will be re-rendered with new content, so no need to remove old buttons.
+        // This is to stop rotating buttons that have no current data to update.
         for (let i = 0; i < buttons.length; i++) {
             const button = buttons[i];
             if (button) {
                 button.classList.remove('rotate-icon');
             }
         }
-        // infoWindow will be re-rendered with new content, so no need to remove old buttons.
-        // This is to stop rotating buttons that have no current data to update.
     }
 }
 
+/**
+ * Sets a station marker on the map.
+ *
+ * Given a station object and a station marker image, this function 
+ * creates a marker for the station on the map, and sets the content of
+ * the info window for the marker. The content includes the name of the station
+ * and a 'Directions' link for the user to get directions to the station. The
+ * marker is also added to the window.markers object for future reference.
+ *
+ * @param {Object} station - Object containing data about the station.
+ * @param {HTMLImageElement} stationMarkerImg - An image to use for the marker.
+ */
 function setStation(station, stationMarkerImg) {
     const { address, banking, bike_stands, name, number, position_lat, position_lng } = station;
     const markerImg = stationMarkerImg.cloneNode(true);
@@ -185,6 +237,21 @@ function setStation(station, stationMarkerImg) {
     window.markers[number] = marker;
 }
 
+/**
+ * Sets the current bike availability data and updates the info window content
+ * for all stations. Also sets the data for the heatmaps of bike and stand
+ * availability.
+ *
+ * @param {Array} availabilities - An array of objects containing the
+ *     properties 'available_bike_stands', 'available_bikes', 'last_update',
+ *     'number', and 'status'.
+ * @param {boolean} [updateSidebar=false] - If true, updates the sidebar content
+ *     for the currently chosen station.
+ *
+ * @returns {Object} An object containing two properties: 'heatmapBikesData' and
+ *     'heatmapStandsData', which are arrays of objects containing the location
+ *     and weight for the heatmaps.
+ */
 function setAvailabilities(availabilities, updateSidebar = false) {
     const heatmapBikesData = [];
     const heatmapStandsData = [];
@@ -199,6 +266,7 @@ function setAvailabilities(availabilities, updateSidebar = false) {
                 Last Update: ${new Date(last_update).toLocaleTimeString()}
             </div >
         `);
+        // Update the sidebar content for the currently chosen station
         if (updateSidebar && window.chosenStation === number) {
             document.getElementById('station-info').innerHTML = infoWindow.content;
         }

@@ -1,4 +1,12 @@
+/**
+ * Fetches weather data from backend and updates the current weather, daily forecast and hourly forecast elements.
+ * @param {string} weatherUrl - The URL of the backend weather data.
+ * @param {number} [latitude] - The latitude for which to retrieve the weather data.
+ * @param {number} [longitude] - The longitude for which to retrieve the weather data.
+ * @returns {Promise} A promise that resolves when all elements are updated or rejects with an error if there is a problem.
+ */
 async function getWeather(weatherUrl, latitude = null, longitude = null) {
+    // Add latitude and longitude parameters if provided
     if (latitude != null && longitude != null) {
         weatherUrl += `?latitude=${latitude}&longitude=${longitude}`;
     }
@@ -78,7 +86,20 @@ async function getWeather(weatherUrl, latitude = null, longitude = null) {
     }
 }
 
-// Define the function outside of the event listener
+/**
+ * Updates the current weather data for a given district using the
+ * current weather API endpoint. This function adds a rotating
+ * icon to the button while the request is pending, and removes it
+ * after the request is complete. If the request is successful, it
+ * shows a success alert. If the request fails, it shows an error
+ * alert.
+ * 
+ * New data is guaranteed to be fetched from external api calls.
+ * 
+ * @param {number} latitude - The latitude of the district.
+ * @param {number} longitude - The longitude of the district.
+ * @param {string} district - The name of the district.
+ */
 async function getCurrentWeather(latitude, longitude, district) {
     const button = document.getElementById('current-weather-button');
     button.classList.add('rotate-icon');
