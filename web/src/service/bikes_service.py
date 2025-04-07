@@ -7,27 +7,45 @@ from datetime import datetime, timedelta
 from threading import Thread
 from flask import current_app
 class BikesService:
+    """
+    Represents a service for managing bike data involving stations and availability.
+
+    Methods:
+        get_all_bikes(): Retrieves all stations' bikes, if it's too old, update it.
+        get_all_current_bikes(): Retrieves all stations' current bikes from external API call.
+        get_one_day_availability(): Retrieves all availability data for the specified day.
+        get_one_day_availability_for_station(station_id): Retrieves all availability data for the specified station and day.
+    """
+    
     @staticmethod
     def get_all_bikes():
         """
-        Retrieve all stations' bikes.
+        Retrieves all stations' bikes, if it's too old, update it.
+
+        Returns:
+            dict: A dictionary containing the latest availability data and station information.
         """
         availabilities = AvailabilityRepository.get_latest_availabilities()
         
+        # If data is recent enough, return it
         if availabilities and availabilities[0].last_update > (datetime.now() - timedelta(minutes=AUTO_BIKES_UPDATE_INTERVAL)):
             bikes = {}
             bikes['availabilities'] = [availability.as_dict() for availability in availabilities]
             bikes['stations'] = [station.as_dict() for station in StationRepository.get_all_stations()]
             return bikes
         else:
+            # If data is not recent enough, update it with external API call
             return BikesService.get_all_current_bikes()
 
     @staticmethod
     def get_all_current_bikes():
         """
-        Retrieve all stations' current bikes.
-        Async Service!
-        Will return data to frontend first, then store into database.
+        Retrieves all stations' current bikes from external API call.
+
+        Using Async Service, return data to frontend while starting a new thread to store data into database.
+
+        Returns:
+            dict: A dictionary containing the current availability data and station information.
         """
         r = requests.get(STATIONS_URI, params={"apiKey": JCKEY, "contract": NAME})
         stations = json.loads(r.text)
@@ -77,8 +95,23 @@ class BikesService:
     
     @staticmethod
     def get_one_day_availability():
+        """
+        Retrieves all availability data for the specified day.
+
+        Returns:
+            list[dict]: A list of dictionaries representing the availability data for the specified day.
+        """
         return [availability.as_dict() for availability in AvailabilityRepository.get_one_day_availability(DAILY_DATA_DATE)]
     
     @staticmethod
     def get_one_day_availability_for_station(station_id):
+        """
+        Retrieves all availability data for the specified station and day.
+
+        Args:
+            station_id (int): The ID of the station for which to retrieve availability data.
+
+        Returns:
+            list[dict]: A list of dictionaries representing the availability data for the specified station and day.
+        """
         return [availability.as_dict() for availability in AvailabilityRepository.get_one_day_availability_for_station(DAILY_DATA_DATE, station_id)]

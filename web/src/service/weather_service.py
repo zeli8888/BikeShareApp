@@ -9,15 +9,35 @@ from flask import current_app
 from math import radians, sin, cos, sqrt, atan2
 
 class WeatherService:
+    """
+    Represents a service for managing weather data involving current, hourly, daily, and alerts.
 
+    Methods:
+        get_weather_by_coordinate(latitude, longitude): Retrieves the weather data for the specified coordinates, if it's too old, update it.
+        get_current_weather_by_coordinate(latitude, longitude, district=None): Retrieves the current weather data for the specified coordinates from external API call.
+    """
+    
     @staticmethod
     def get_weather_by_coordinate(latitude, longitude):
+        """
+        Retrieves the weather data for the specified coordinates, if it's too old, update it.
+
+        Args:
+            latitude (float): The latitude of the location.
+            longitude (float): The longitude of the location.
+
+        Returns:
+            dict: A dictionary containing the weather data.
+        """
+        
+        # Find the nearest district, by default Dublin 1
         if latitude is None or longitude is None:
             district = 'Dublin 1'
         else:
             district = find_nearest_district((float(latitude), float(longitude)))
             
         current = CurrentRepository.get_by_district(district)
+        # If data is recent enough, return it
         if current and current.dt > (datetime.now() - timedelta(minutes=AUTO_WEATHER_UPDATE_INTERVAL)):
             weather = {}
             weather['current'] = current.as_dict()
@@ -26,11 +46,25 @@ class WeatherService:
             weather['alerts'] = [alerts.as_dict() for alerts in AlertsRepository.get_by_district(district)]
             return weather
         else:
+            # If data is not recent enough, update it with external API call
             return WeatherService.get_current_weather_by_coordinate(latitude, longitude, district)
     
     @staticmethod
     def get_current_weather_by_coordinate(latitude, longitude, district=None):
+        """
+        Retrieves the current weather data for the specified coordinates from external API call.
+
+        Args:
+            latitude (float): The latitude of the location.
+            longitude (float): The longitude of the location.
+            district (str, optional): The district of the location, superior to latitude and longitude. Defaults to None.
+
+        Returns:
+            dict: A dictionary containing the current weather data.
+        """
+        
         if district is None:
+            # If district is not provided, find the nearest district, by default Dublin 1
             if latitude is None or longitude is None:
                 district = 'Dublin 1'
             else:
@@ -69,6 +103,7 @@ class WeatherService:
                     tags=alerts_info_data.get('tags')[0] if alerts_info_data.get('tags') else None
                 )
                 
+                # Add to response
                 weather['alerts'].append(alerts_obj.as_dict())
                 alerts_data.append(alerts_obj)
                 
@@ -95,6 +130,7 @@ class WeatherService:
             weather_description=current_info.get('weather')[0].get('description') if current_info.get('weather') else None,
             weather_icon=current_info.get('weather')[0].get('icon') if current_info.get('weather') else None
         )
+        # Add to response
         weather['current'] = current_obj.as_dict()
         
         for hourly_info_data in hourly_info:
@@ -122,6 +158,7 @@ class WeatherService:
                 weather_icon=hourly_info_data.get('weather')[0].get('icon') if hourly_info_data.get('weather') else None
             )
             
+            # Add to response
             weather['hourly'].append(hourly_obj.as_dict())
             hourly_data.append(hourly_obj)
             
@@ -163,6 +200,7 @@ class WeatherService:
                 weather_icon=daily_info_data.get('weather')[0].get('icon') if daily_info_data.get('weather') else None
             )
             
+            # Add to response
             weather['daily'].append(daily_obj.as_dict())
             daily_data.append(daily_obj)
         
@@ -188,6 +226,17 @@ class WeatherService:
         return weather
     
 def get_distance(coord1, coord2):
+    """
+    Calculates the distance between two coordinates using the Haversine formula.
+
+    Args:
+        coord1 (tuple): The first coordinate.
+        coord2 (tuple): The second coordinate.
+
+    Returns:
+        float: The distance between the two coordinates in kilometers.
+    """
+    
     # Radius of the Earth in kilometers
     R = 6371.0
     
@@ -209,6 +258,16 @@ def get_distance(coord1, coord2):
     return distance
 
 def find_nearest_district(coord1):
+    """
+    Finds the nearest district to the specified coordinate.
+
+    Args:
+        coord1 (tuple): The coordinate.
+
+    Returns:
+        str: The nearest district.
+    """
+    
     min_distance = float('inf')
     nearest_district = None
 

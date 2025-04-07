@@ -1,34 +1,29 @@
 import os
 from datetime import datetime
 
-AUTO_WEATHER_UPDATE_INTERVAL = 45 # in minutes, update weather if latest data is older than 45 minutes
-AUTO_BIKES_UPDATE_INTERVAL = 5 # in minutes, update bikes if latest data is older than 5 minutes
-DAILY_DATA_DATE = datetime(2025, 2, 22) # date for daily data, should match the data loaded for the daily trend chart
+# automatically update weather data, update weather if latest data is older than this value in minutes
+AUTO_WEATHER_UPDATE_INTERVAL = 45 
+# automatically update bikes data, update bikes if latest data is older than this value in minutes
+AUTO_BIKES_UPDATE_INTERVAL = 5
+# date for history daily trend data, should match the data loaded for the daily trend chart
+DAILY_DATA_DATE = datetime(2025, 2, 22)
+
 # Jcdecaux KEY
 JCKEY = os.getenv('JCKEY')
 # Google KEY
 GOOGLE_MAP_KEY = os.getenv('GOOGLE_MAP_KEY')
 GOOGLE_MAP_ID = os.getenv('GOOGLE_MAP_ID')
-# Define OpenWeather URI
+# OpenWeather KEY
 OPEN_WEATHER_KEY = os.getenv('OPEN_WEATHER_KEY')
 
-# local database connection URL: os.getenv('LOCAL_DB_BIKES_URL')
-
-# remote database connection URL, use SSH tunnel through EC2 to connect to RDS, so this environment variable should be set on local computer
-# make sure system variable EC2_PEM is added at first, and ssh-aws-database.sh is running: os.getenv("REMOTE_DB_BIKES_URL")
-
-# remote database connection URL, this is for running on EC2 connected to RDS directly (no SSH tunnel), so this environment variable should be set on EC2
-# make sure system variable EC2_PEM is added at first, and ssh-aws-ec2.sh is running: os.getenv('EC2_DB_BIKES_URL')
-
-# Define jcdecaux URI
+# Define jcdecaux URI for dublin without API key
 NAME = "dublin"
 STATIONS_URI = "https://api.jcdecaux.com/vls/v1/stations"
 
-# Define OpenWeather URI
-# https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-OPEN_WEATHER_URI = f"https://api.openweathermap.org/data/3.0/onecall"
+# Define OpenWeather URI without API key
+OPEN_WEATHER_URI = "https://api.openweathermap.org/data/3.0/onecall"
 
-# BASED ON GOOGLE MAP
+# Define district locations for dublin based on google map, used for weather data division
 OPEN_WEATHER_DUBLIN_LOC = {
     "Dublin 1" : (53.3498006, -6.2602964),
     "Dublin 2" : (53.33989495293019, -6.254274088725324),

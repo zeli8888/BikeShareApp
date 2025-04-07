@@ -10,7 +10,18 @@ from src.controller import *
 from src.config import *
 
 def main(database='LOCAL'):
-    
+    """
+    Initialize the Flask application and configure the database.
+
+    Args:
+        database (str): The database to use (default: 'LOCAL'). Options:
+            - 'LOCAL': Use local database connection (LOCAL_DB_BIKES_URL).
+            - 'REMOTE': Use local RDS database connection using SSH tunnel through EC2 (REMOTE_DB_BIKES_URL).
+            - 'EC2': Use EC2 with RDS database connection (EC2_DB_BIKES_URL).
+
+    Returns:
+        app (Flask): The Flask application instance.
+    """
     app = Flask(__name__)
     if os.getenv(f'{database}_DB_BIKES_URL') is None:
         raise Exception(f"Invalid database choice, check your system variable for {database}_DB_BIKES_URL!")
@@ -26,6 +37,12 @@ def main(database='LOCAL'):
     
     @app.route("/")
     def index():
+        """
+        Render the index template with API URLs.
+
+        Returns:
+            render_template: The rendered index template.
+        """
         return render_template("index.html",
                                GOOGLE_MAP_ID=GOOGLE_MAP_ID, 
                                GOOGLE_MAP_KEY=GOOGLE_MAP_KEY,
@@ -41,8 +58,12 @@ def main(database='LOCAL'):
     return app
 
 if __name__ == "__main__":
-    # to run: 
-    # python BikeShareApplication.py --database 'EC2' --no_debug
+    """
+    Run the application.
+
+    To run with EC2:
+        python bike_share_application.py --database 'EC2' --no_debug
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--database', type=str, action='store', default='LOCAL')
     parser.add_argument('--no_debug', action='store_true')
