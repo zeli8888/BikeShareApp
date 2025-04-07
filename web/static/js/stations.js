@@ -44,9 +44,9 @@ async function addStationMarker(bikesUrl) {
 
 function addLegend() {
     const legend = document.createElement('div');
-    legend.id = 'heatmapLegend';
+    legend.id = 'heatmap-legend';
     legend.innerHTML = `
-    <div id="heatmapLegend-title" class="legend-title">Available Bikes</div>
+    <div id="heatmap-legend-title" class="legend-title">Available Bikes</div>
     <div class="legend-gradient"></div>
     <div class="legend-labels">
         <span>0</span>
@@ -64,7 +64,7 @@ function addLegend() {
 
 function addRadioButtons() {
     const radioButtons = document.createElement('div');
-    radioButtons.id = 'radioButtons-heatmap';
+    radioButtons.id = 'radio-buttons-heatmap';
     radioButtons.innerHTML = `
     <label><input type="radio" name="heatmap" value="bikes" checked> Bikes HeatMap</label>
     <label><input type="radio" name="heatmap" value="stands"> Stands HeatMap</label>
@@ -78,17 +78,17 @@ function addRadioButtons() {
         if (event.target.value === 'bikes') {
             window.heatmapBikes.setMap(window.googleMap);
             window.heatmapStands.setMap(null);
-            document.getElementById('heatmapLegend').style.display = 'block';
-            document.getElementById('heatmapLegend-title').innerHTML = 'Available Bikes';
+            document.getElementById('heatmap-legend').style.display = 'block';
+            document.getElementById('heatmap-legend-title').innerHTML = 'Available Bikes';
         } else if (event.target.value === 'stands') {
             window.heatmapBikes.setMap(null);
             window.heatmapStands.setMap(window.googleMap);
-            document.getElementById('heatmapLegend').style.display = 'block';
-            document.getElementById('heatmapLegend-title').innerHTML = 'Available Stands';
+            document.getElementById('heatmap-legend').style.display = 'block';
+            document.getElementById('heatmap-legend-title').innerHTML = 'Available Stands';
         } else if (event.target.value === 'none') {
             window.heatmapBikes.setMap(null);
             window.heatmapStands.setMap(null);
-            document.getElementById('heatmapLegend').style.display = 'none';
+            document.getElementById('heatmap-legend').style.display = 'none';
         }
     });
 }

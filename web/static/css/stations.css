@@ -52,7 +52,7 @@
     padding-left: 5%;
 }
 
-#heatmapLegend {
+#heatmap-legend {
     position: absolute;
     bottom: 2em;
     left: 1em;
@@ -84,7 +84,7 @@
     justify-content: space-between;
 }
 
-#radioButtons-heatmap {
+#radio-buttons-heatmap {
     position: absolute;
     right: 20%;
     transform: translate(-50%, -50%);
@@ -98,13 +98,14 @@
     font-family: Roboto;
     font-size: 0.9em;
     font-weight: 300;
-    padding: 0 0.8em 0 1em;
+    padding: 0em 0.8em 1em 1em;
+    width: fit-content;
     text-overflow: ellipsis;
     margin: 0 auto;
     margin-top: 2em;
 }
 
-#radioButtons-heatmap label {
+#radio-buttons-heatmap label {
     display: inline-block;
     margin: 0.5em 0;
 }

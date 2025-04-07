@@ -41,7 +41,12 @@ function getStationRoute(lat, lng) {
 
 function addPlaceControls() {
     const des = document.getElementById("des-input");
-    window.googleMap.controls[google.maps.ControlPosition.TOP_LEFT].push(des);
+    var screenWidth = window.innerWidth;
+    if (screenWidth < 800) { // mobile phones
+        window.googleMap.controls[google.maps.ControlPosition.LEFT_TOP].push(des);
+    } else {
+        window.googleMap.controls[google.maps.ControlPosition.TOP_LEFT].push(des);
+    }
     const des_autocomplete = new google.maps.places.Autocomplete(des, {
         fields: ["place_id", "geometry", "formatted_address", "name"],
     });

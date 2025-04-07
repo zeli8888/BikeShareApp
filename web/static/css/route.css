@@ -62,10 +62,8 @@
 
 #map .place-controls {
     margin-left: 1.5em;
-    margin-bottom: 0;
     display: block;
     height: 2.5em;
-    width: 30%;
 }
 
 #route-container .place-controls {
@@ -73,5 +71,4 @@
     margin-top: 0.8em;
     margin-bottom: 0.8em;
     height: 2em;
-    width: 70%;
 }

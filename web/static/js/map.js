@@ -9,6 +9,10 @@ function initMap() {
         mapId: window.GOOGLE_MAP_ID,
         center: location,
         zoom: 13,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.COMPACT,
+            position: google.maps.ControlPosition.TOP_LEFT
+        }
     });
 
     window.googleMap = map;

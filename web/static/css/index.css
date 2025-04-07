@@ -107,3 +107,95 @@ body {
         transform: rotate(360deg);
     }
 }
+
+/* For small mobile phones: */
+html,
+body {
+    font-size: 75%;
+}
+
+#map .place-controls {
+    margin-top: 2%;
+    width: 35%;
+}
+
+#route-container .place-controls {
+    width: 70%;
+}
+
+#radio-buttons-heatmap {
+    display: none;
+}
+
+#map #sidebar {
+    font-size: small;
+}
+
+@media only screen and (min-width: 800px) {
+    /* For small tablets: */
+
+    html,
+    body {
+        font-size: 80%;
+    }
+
+    #map .place-controls {
+        margin-top: 2%;
+        width: 22%;
+    }
+
+    #route-container .place-controls {
+        width: 70%;
+    }
+
+    #radio-buttons-heatmap {
+        display: block;
+        padding: 0em 0.8em 3em 1em;
+        margin-top: 2.5em;
+        bottom: 0.5%;
+        left: 10%;
+    }
+
+    #map #sidebar {
+        font-size: medium;
+    }
+}
+
+
+@media only screen and (min-width: 1000px) {
+    /* For large tablets: */
+
+    html,
+    body {
+        font-size: 90%;
+    }
+
+    #map .place-controls {
+        margin-top: 1.5%;
+    }
+
+    #radio-buttons-heatmap {
+        padding: 0em 0.8em 2.5em 1em;
+        left: 5%;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    /* For desktop: */
+
+    html,
+    body {
+        font-size: 100%;
+    }
+
+    #map .place-controls {
+        margin-top: 0.8%;
+    }
+
+    #radio-buttons-heatmap {
+        padding: 0em 0.8em 1em 1em;
+        margin-top: 2em;
+        bottom: auto;
+        left: auto;
+    }
+}
