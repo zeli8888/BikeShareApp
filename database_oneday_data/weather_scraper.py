@@ -12,6 +12,16 @@ import simplejson as json
 import datetime
 
 def database_initialization(engine):
+    """
+    Initialize the database by creating the necessary tables.
+
+    Args:
+        engine: The database engine to use.
+
+    Returns:
+        None
+    """
+    
     sql = '''
     CREATE TABLE IF NOT EXISTS current(
     district VARCHAR(32),
@@ -124,6 +134,16 @@ def database_initialization(engine):
     commit_sql(engine, sql)
 
 def weather_data_scraper(engine):
+    """
+    Scrape weather data from the API and insert it into the database.
+
+    Args:
+        engine: The database engine to use.
+
+    Returns:
+        None
+    """
+    
     for district in OPEN_WEATHER_DUBLIN_LOC:
         params = {
             "lat": OPEN_WEATHER_DUBLIN_LOC[district][0],
@@ -360,6 +380,21 @@ def weather_data_scraper(engine):
     
 
 def main(database="LOCAL", no_echo=True, loop=False, scraper_interval=60*60):
+    """
+    Initialize the database connection and start the weather data scraper.
+
+    Args:
+        database (str): The database to use (default: 'LOCAL'). Options:
+            - 'LOCAL': Use local database connection (LOCAL_DB_BIKES_URL).
+            - 'REMOTE': Use local RDS database connection using SSH tunnel through EC2 (REMOTE_DB_BIKES_URL).
+            - 'EC2': Use EC2 with RDS database connection (EC2_DB_BIKES_URL).
+        no_echo (bool): Suppress SQL echo output (default: True).
+        loop (bool): Continuously scrape data in a loop (default: False).
+        scraper_interval (int): Interval between scrapes in seconds (default: 3600).
+
+    Returns:
+        None
+    """
     engine = get_mysql_engine(database, no_echo)
     database_initialization(engine)
     
@@ -372,8 +407,12 @@ def main(database="LOCAL", no_echo=True, loop=False, scraper_interval=60*60):
         print(traceback.format_exc())
         
 if __name__ == "__main__":
-    # to run: 
-    # python database/weather_scraper.py --database 'REMOTE' --scraper_interval 3600 --no_echo --loop
+    """
+    Run the weather data scraper.
+
+    To run with SSH tunnel through EC2:
+        python database_oneday_data/weather_scraper.py --database 'REMOTE' --scraper_interval 3600 --no_echo --loop
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--database', type=str, action='store', default='LOCAL')
     parser.add_argument('--scraper_interval', type=int, action='store', default=60*60)

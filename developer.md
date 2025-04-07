@@ -10,40 +10,40 @@ This file is for the usage of developers, it records some useful commands for re
     export OPEN_WEATHER_KEY=your-open-weather-key
 
 - ## Locally
-        nohup python -u database/weather_scraper.py --no_echo --loop > database/weather_scraper.log 2>&1 &
-        nohup python -u database/bike_scraper.py --no_echo --loop > database/bike_scraper.log 2>&1 &
+        nohup python -u database_oneday_data/weather_scraper.py --no_echo --loop > database_oneday_data/weather_scraper.log 2>&1 &
+        nohup python -u database_oneday_data/bike_scraper.py --no_echo --loop > database_oneday_data/bike_scraper.log 2>&1 &
 - ## Remotely 
-        nohup python -u database/weather_scraper.py --database 'REMOTE' --no_echo --loop > database/weather_scraper.log 2>&1 &
-        nohup python -u database/bike_scraper.py --database 'REMOTE' --no_echo --loop > database/bike_scraper.log 2>&1 &
+        nohup python -u database_oneday_data/weather_scraper.py --database 'REMOTE' --no_echo --loop > database_oneday_data/weather_scraper.log 2>&1 &
+        nohup python -u database_oneday_data/bike_scraper.py --database 'REMOTE' --no_echo --loop > database_oneday_data/bike_scraper.log 2>&1 &
 # Save Database Data To CSV
 - ## Locally
-        python database/save_data.py
+        python database_oneday_data/save_data.py
 - ## Remotely
-        python database/save_data.py --database 'REMOTE'
+        python database_oneday_data/save_data.py --database 'REMOTE'
 # Load CSV Data To Database
 - ## Locally
-        python database/load_data.py
+        python database_oneday_data/load_data.py
 - ## Remotely
-        python database/load_data.py --database 'REMOTE'
+        python database_oneday_data/load_data.py --database 'REMOTE'
 
 # Docs
 - ## BackLog
     product backlog and sprint backlog are defined in 
 
-        ./BackLog/Group2ProductBacklog.md 
+        ./backlog/Group2ProductBacklog.md 
     and
 
-        ./BackLog/Group2SprintBacklog{date_range}.md
+        ./backlog/Group2SprintBacklog{date_range}.md
 
 - ## Burn Down Chart
     Please make sure the Group2SprintBacklog{date_range}.md file is written in consistent format.
     Then run (replace date_range):
 
-        python ./BackLog/burndown_generator.py --file_path ./BackLog/Group2SprintBacklog{date_range}.md --save_file ./BackLog/BurnDown{date_range}.png
+        python ./backlog/burndown_generator.py --file_path ./backlog/Group2SprintBacklog{date_range}.md --save_file ./backlog/BurnDown{date_range}.png
 
     The burn down chart will be saved as
 
-        ./BackLog/BurnDown{date_range}.png
+        ./backlog/BurnDown{date_range}.png
 
 # GitHub
     git checkout -b feature_name
@@ -58,9 +58,9 @@ This file is for the usage of developers, it records some useful commands for re
     git push origin --delete feature_name
 
 # Description
-- BackLog: files related to product backlog and sprint backlog including burn down chart
+- backlog: files related to product backlog and sprint backlog including burn down chart
 - labs: files from course example
-- database: scraper files related to database
+- database_oneday_data: scraper files related to database
 - web: files related to the web application
     - src: files relate to backend
         - controller: files handle requests from frontend

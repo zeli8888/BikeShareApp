@@ -6,8 +6,18 @@ import argparse
 from datetime import datetime, timedelta
 import seaborn as sns
 
-# Function to parse the markdown file and extract user story points
 def parse_markdown(file_path):
+    """
+    Parses a markdown file and extracts user story points.
+
+    Args:
+        file_path (str): The path to the markdown file.
+
+    Returns:
+        time_interval (list): A list of datetime objects representing the start and end dates of the sprint.
+        subtasks (pd.DataFrame): A DataFrame containing the user story points, assigned to, description, and finish time.
+    """
+    
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
@@ -27,9 +37,18 @@ def parse_markdown(file_path):
     time_interval = pd.date_range(start=time_interval[0], end=time_interval[1])[:-1].to_pydatetime()
     return time_interval, subtasks
 
-# Function to generate burndown chart
 def generate_burndown_chart(time_interval, subtasks, save_file):
+    """
+    Generates a burndown chart based on the user story points and time interval.
 
+    Args:
+        time_interval (list): A list of datetime objects representing the start and end dates of the sprint.
+        subtasks (pd.DataFrame): A DataFrame containing the user story points, assigned to, description, and finish time.
+        save_file (str): The path to save the burndown chart.
+
+    Returns:
+        None
+    """
     start_date = time_interval[0]
     total_points = subtasks["Points"].sum()
     remaining_points = np.array([total_points for i in range(len(time_interval)+1)])
@@ -42,19 +61,6 @@ def generate_burndown_chart(time_interval, subtasks, save_file):
     # Create a DataFrame for the burndown chart
     burndown_df = pd.DataFrame({'Date': day_interval, 'Remaining Points': remaining_points})
 
-    # Plot the burndown chart
-    # plt.figure(figsize=(10, 5))
-    # plt.plot(burndown_df['Date'], burndown_df['Remaining Points'], marker='o', linestyle='-')
-    # plt.title('Sprint Burndown Chart')
-    # plt.xlabel('Date')
-    # plt.ylabel('Remaining Points')
-    # plt.grid(True)
-    # plt.xticks(rotation=45)
-    # plt.tight_layout()
-    # plt.savefig(save_file)
-    # Set the style and palette for Seaborn
-    
-    # Thank for the power of AI :)
     sns.set(style="whitegrid", palette="pastel")
     # Create the plot
     plt.figure(figsize=(12, 6))
@@ -98,12 +104,26 @@ def generate_burndown_chart(time_interval, subtasks, save_file):
 
 # Main function to run the script
 def main(file_path, save_file):
+    """
+    Main function to run the script.
+
+    Args:
+        file_path (str): The path to the markdown file.
+        save_file (str): The path to save the burndown chart.
+
+    Returns:
+        None
+    """
     time_interval, subtasks = parse_markdown(file_path)
     generate_burndown_chart(time_interval, subtasks, save_file)
 
 if __name__ == "__main__":
-    # to run:
-    # python ./BackLog/burndown_generator.py --file_path ./BackLog/Group2SprintBacklogFeb4-Feb18.md --save_file ./BackLog/BurnDownFeb4-Feb18.png
+    """
+    Entry point for the script.
+
+    example to run:
+        python ./BackLog/burndown_generator.py --file_path ./BackLog/Group2SprintBacklogFeb4-Feb18.md --save_file ./BackLog/BurnDownFeb4-Feb18.png
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--file_path', type=str, action='store', default='./BackLog/Group2SprintBacklogFeb4-Feb18.md')
     parser.add_argument('--save_file', type=str, action='store', default='./BackLog/BurnDownFeb4-Feb18.png')

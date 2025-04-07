@@ -12,6 +12,16 @@ import simplejson as json
 import datetime
 
 def database_initialization(engine):
+    """
+    Initialize the database by creating the necessary tables.
+
+    Args:
+        engine: The database engine to use.
+
+    Returns:
+        None
+    """
+    
     sql = '''
     CREATE TABLE IF NOT EXISTS station (
     number INTEGER NOT NULL, 
@@ -24,7 +34,6 @@ def database_initialization(engine):
     PRIMARY KEY (number)
     );
     '''
-    # bonus INTEGER
     commit_sql(engine, sql)
     
     sql = """
@@ -42,6 +51,17 @@ def database_initialization(engine):
     
 
 def bike_data_scraper(engine, non_static=True):
+    """
+    Scrape bike data from the API and insert it into the database.
+
+    Args:
+        engine: The database engine to use.
+        non_static (bool): Whether to insert static station data (default: True).
+
+    Returns:
+        None
+    """
+    
     r = requests.get(STATIONS_URI, params={"apiKey": JCKEY, "contract": NAME})
     stations = json.loads(r.text)
     for station in stations:
@@ -86,6 +106,22 @@ def bike_data_scraper(engine, non_static=True):
         commit_sql(engine, sql, vals)
 
 def main(database="LOCAL", no_echo=True, loop=False, scraper_interval=5*60):
+    """
+    Initialize the database connection and start the bike data scraper.
+
+    Args:
+        database (str): The database to use (default: 'LOCAL'). Options:
+            - 'LOCAL': Use local database connection (LOCAL_DB_BIKES_URL).
+            - 'REMOTE': Use local RDS database connection using SSH tunnel through EC2 (REMOTE_DB_BIKES_URL).
+            - 'EC2': Use EC2 with RDS database connection (EC2_DB_BIKES_URL).
+        no_echo (bool): Suppress SQL echo output (default: True).
+        loop (bool): Continuously scrape data in a loop (default: False).
+        scraper_interval (int): Interval between scrapes in seconds (default: 300).
+
+    Returns:
+        None
+    """
+    
     engine = get_mysql_engine(database, no_echo)
     database_initialization(engine)
 
@@ -98,8 +134,12 @@ def main(database="LOCAL", no_echo=True, loop=False, scraper_interval=5*60):
         print(traceback.format_exc())
         
 if __name__ == "__main__":
-    # to run: 
-    # python database/bike_scraper.py --database 'REMOTE' --scraper_interval 300 --no_echo --loop
+    """
+    Run the bike data scraper.
+
+    To run with SSH tunnel through EC2:
+        python database_oneday_data/bike_scraper.py --database 'REMOTE' --scraper_interval 300 --no_echo --loop
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--database', type=str, action='store', default='LOCAL')
     parser.add_argument('--scraper_interval', type=int, action='store', default=5*60)

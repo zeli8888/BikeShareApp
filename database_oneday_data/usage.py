@@ -1,13 +1,28 @@
 from sqlalchemy import text
 from sqlalchemy import create_engine
 import traceback
-# This is import from project directory, so any file import this should have project directory in its system path
 from web.src.config import *
 from math import radians, sin, cos, sqrt, atan2
 
 
 def get_mysql_engine(database="LOCAL", no_echo=False):
+    """
+    Creates a MySQL engine instance based on the provided database name and echo option.
 
+    Args:
+        database (str): The database to use (default: 'LOCAL'). Options:
+            - 'LOCAL': Use local database connection (LOCAL_DB_BIKES_URL).
+            - 'REMOTE': Use local RDS database connection using SSH tunnel through EC2 (REMOTE_DB_BIKES_URL).
+            - 'EC2': Use EC2 with RDS database connection (EC2_DB_BIKES_URL).
+        no_echo (bool): Whether to suppress SQL echoing (default: False).
+
+    Returns:
+        engine: A SQLAlchemy engine instance.
+
+    Raises:
+        Exception: If the database choice is invalid or the echo option is not a boolean.
+    """
+    
     if os.getenv(f'{database}_DB_BIKES_URL') is None:
         raise Exception(f"Invalid database choice, check your system variable for {database}_DB_BIKES_URL!")
     if no_echo != True and no_echo != False:
@@ -21,6 +36,21 @@ def get_mysql_engine(database="LOCAL", no_echo=False):
     return engine
 
 def commit_sql(engine, sql, val=None):
+    """
+    Commits a SQL query to the database using the provided engine.
+
+    Args:
+        engine: A SQLAlchemy engine instance.
+        sql (str): The SQL query to execute.
+        val (tuple, optional): Values to bind to the SQL query (default: None).
+
+    Returns:
+        result: The result of the SQL query execution.
+
+    Raises:
+        Exception: If the SQL query execution fails.
+    """
+    
     if val is None:
         with engine.connect() as connection:
             try:
@@ -41,24 +71,3 @@ def commit_sql(engine, sql, val=None):
             except Exception as e:
                 traceback.print_exc()
                 connection.rollback()
-                
-def get_distance(coord1, coord2):
-    # Radius of the Earth in kilometers
-    R = 6371.0
-    
-    # Convert latitude and longitude from degrees to radians
-    lat1, lon1 = map(radians, coord1)
-    lat2, lon2 = map(radians, coord2)
-    
-    # Difference between coordinates
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    
-    # Haversine formula
-    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
-    
-    # Distance in kilometers
-    distance = R * c
-    
-    return distance
