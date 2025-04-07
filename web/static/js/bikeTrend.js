@@ -1,6 +1,6 @@
-async function fetchBikeTrendData(station_id) {
+async function fetchBikeTrendData(stationId) {
     try {
-        const response = await fetch(window.BIKES_ONE_DAY_STATION_URL.replace("{}", station_id));
+        const response = await fetch(window.BIKES_ONE_DAY_STATION_URL.replace("{}", stationId));
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -10,7 +10,7 @@ async function fetchBikeTrendData(station_id) {
         }
         return data;
     } catch (error) {
-        console.error(`Error fetching data for station ${station_id}:`, error);
+        console.error(`Error fetching data for station ${stationId}:`, error);
         return [];
     }
 }

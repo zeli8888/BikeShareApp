@@ -1,4 +1,4 @@
-import { show_station_info_container } from "./sidebar.js";
+import { showStationInfoContainer } from "./sidebar.js";
 import { getWeather } from "./weather.js";
 
 async function addStationMarker(bikesUrl) {
@@ -7,19 +7,19 @@ async function addStationMarker(bikesUrl) {
         window.markers = {};
 
         // Create AdvancedMarkerElement For User Location
-        const user_location_marker_img = document.createElement('img');
-        user_location_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
-        window.user_location_marker = new google.maps.marker.AdvancedMarkerElement({
+        const userLocationMarkerImg = document.createElement('img');
+        userLocationMarkerImg.src = "https://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
+        window.userLocationMarker = new google.maps.marker.AdvancedMarkerElement({
             position: new google.maps.LatLng(window.coords.latitude, window.coords.longitude),
             map: window.googleMap,
-            content: user_location_marker_img,
+            content: userLocationMarkerImg,
             title: 'YOUR LOCATION'
         });
 
-        const station_marker_img = document.createElement('img');
-        station_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
+        const stationMarkerImg = document.createElement('img');
+        stationMarkerImg.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
         stations.forEach(station => {
-            setStation(station, station_marker_img);
+            setStation(station, stationMarkerImg);
         });
 
         const { heatmapBikesData, heatmapStandsData } = setAvailabilities(availabilities);
@@ -100,8 +100,8 @@ async function getCurrentBikes() {
     }
     try {
         const { stations, availabilities } = await fetch(window.CURRENT_BIKES_URL).then(response => response.json());
-        const station_marker_img = document.createElement('img');
-        station_marker_img.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
+        const stationMarkerImg = document.createElement('img');
+        stationMarkerImg.src = "https://maps.google.com/mapfiles/ms/micons/red-dot.png";
 
         stations.forEach(station => {
             const { address, banking, bike_stands, name, number, position_lat, position_lng } = station;
@@ -120,7 +120,7 @@ async function getCurrentBikes() {
             `
                 );
             } else {
-                setStation(station, station_marker_img);
+                setStation(station, stationMarkerImg);
             }
         });
 
@@ -143,14 +143,14 @@ async function getCurrentBikes() {
     }
 }
 
-function setStation(station, station_marker_img) {
+function setStation(station, stationMarkerImg) {
     const { address, banking, bike_stands, name, number, position_lat, position_lng } = station;
-    const marker_img = station_marker_img.cloneNode(true);
+    const markerImg = stationMarkerImg.cloneNode(true);
     // Create AdvancedMarkerElement
     const marker = new google.maps.marker.AdvancedMarkerElement({
         position: new google.maps.LatLng(position_lat, position_lng),
         map: window.googleMap,
-        content: marker_img,
+        content: markerImg,
         title: name,  // Tooltip for marker
         ariaLabel: name // Accessible name for screen readers
     });
@@ -178,7 +178,7 @@ function setStation(station, station_marker_img) {
         window.chosenStationName = address; // for the use of daily trend and prediction in side bar
         window.chosenStationPosition = { lat: position_lat, lng: position_lng }; // for the use of prediction in side bar
         window.chosenStationBikeStands = bike_stands; // for the use of prediction in side bar
-        show_station_info_container();
+        showStationInfoContainer();
     });
 
     marker.infoWindow = infoWindow;

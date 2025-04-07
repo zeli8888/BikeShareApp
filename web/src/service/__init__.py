@@ -1,4 +1,4 @@
 from ..repository import db
-from .WeatherService import WeatherService
-from .BikesService import BikesService
+from .weather_service import WeatherService
+from .bikes_service import BikesService
 from .prediction_service import prediction_service

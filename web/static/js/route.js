@@ -1,4 +1,4 @@
-import { show_route_container } from "./sidebar.js";
+import { showRouteContainer } from "./sidebar.js";
 function initDirectionsService() {
     window.directionsRenderer = new google.maps.DirectionsRenderer();
     window.directionsService = new google.maps.DirectionsService();
@@ -6,33 +6,33 @@ function initDirectionsService() {
     window.directionsRenderer.setPanel(document.getElementById("route"));
 }
 
-function calculateAndDisplayRoute(end_lat, end_lng, selectedMode, start_lat = null, start_lng = null) {
+function calculateAndDisplayRoute(endLat, endLng, selectedMode, startLat = null, startLng = null) {
     if (!window.directionsService) {
         initDirectionsService();
     }
-    if (start_lat == null || start_lng == null) {
-        start_lat = window.coords.latitude;
-        start_lng = window.coords.longitude;
+    if (startLat == null || startLng == null) {
+        startLat = window.coords.latitude;
+        startLng = window.coords.longitude;
     }
     document.getElementById('google-map-link').innerHTML = `<br>
-    <a href="https://www.google.com/maps/dir/?api=1&origin=${start_lat},${start_lng}&destination=${end_lat},${end_lng}&mode=${selectedMode}" target="_blank">🗺️ Open Google Map</a>
+    <a href="https://www.google.com/maps/dir/?api=1&origin=${startLat},${startLng}&destination=${endLat},${endLng}&mode=${selectedMode}" target="_blank">🗺️ Open Google Map</a>
     `
-    show_route_container();
+    showRouteContainer();
 
     window.directionsService
         .route({
-            origin: new google.maps.LatLng(start_lat, start_lng),
-            destination: new google.maps.LatLng(end_lat, end_lng),
+            origin: new google.maps.LatLng(startLat, startLng),
+            destination: new google.maps.LatLng(endLat, endLng),
             travelMode: google.maps.TravelMode[selectedMode],
         })
         .then((response) => {
             window.directionsRenderer.setDirections(response);
         })
         .catch((e) => window.alert("Directions request failed, Please try again"));
-    window.target_lat = end_lat;
-    window.target_lng = end_lng;
-    window.start_lat = start_lat;
-    window.start_lng = start_lng;
+    window.targetLat = endLat;
+    window.targetLng = endLng;
+    window.startLat = startLat;
+    window.startLng = startLng;
 }
 
 function getStationRoute(lat, lng) {
@@ -47,15 +47,15 @@ function addPlaceControls() {
     } else {
         window.googleMap.controls[google.maps.ControlPosition.TOP_LEFT].push(des);
     }
-    const des_autocomplete = new google.maps.places.Autocomplete(des, {
+    const desAutocomplete = new google.maps.places.Autocomplete(des, {
         fields: ["place_id", "geometry", "formatted_address", "name"],
     });
 
-    des_autocomplete.bindTo("bounds", window.googleMap);
+    desAutocomplete.bindTo("bounds", window.googleMap);
 
-    des_autocomplete.addListener("place_changed", () => {
+    desAutocomplete.addListener("place_changed", () => {
 
-        const place = des_autocomplete.getPlace();
+        const place = desAutocomplete.getPlace();
         if (!place.geometry || !place.geometry.location) {
             return;
         }
@@ -63,19 +63,19 @@ function addPlaceControls() {
     });
 
     const start = document.getElementById("start-input");
-    const start_autocomplete = new google.maps.places.Autocomplete(start, {
+    const startAutocomplete = new google.maps.places.Autocomplete(start, {
         fields: ["place_id", "geometry", "formatted_address", "name"],
     });
 
-    start_autocomplete.bindTo("bounds", window.googleMap);
+    startAutocomplete.bindTo("bounds", window.googleMap);
 
-    start_autocomplete.addListener("place_changed", () => {
+    startAutocomplete.addListener("place_changed", () => {
 
-        const place = start_autocomplete.getPlace();
+        const place = startAutocomplete.getPlace();
         if (!place.geometry || !place.geometry.location) {
             return;
         }
-        calculateAndDisplayRoute(window.target_lat, window.target_lng, document.getElementById("travel-mode").value, place.geometry.location.lat(), place.geometry.location.lng());
+        calculateAndDisplayRoute(window.targetLat, window.targetLng, document.getElementById("travel-mode").value, place.geometry.location.lat(), place.geometry.location.lng());
     });
 }
 

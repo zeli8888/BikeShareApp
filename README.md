@@ -27,6 +27,7 @@
 - **Feature 7**: Route Suggestions With Google Map Interface. 🛞
 - **Feature 8**: Every Fetched Bikes and Weather Data Stored in Database, Minimal External API Calls. 📦
 - **Feature 9**: Automatically Update and Remove Old Database Data with Customizable Time Interval and Asynchronous Service. 🔃
+- **Feature 10**: Responsive Website suitable for different size of mobile phones, tablets and desktop computers. 📱
 ---
 
 ## 🚀 Getting Started
@@ -88,7 +89,7 @@ Here’s how to use **BikeShareApp**:
 
 1. Run the project:
    ```bash
-   python web/BikeShareApplication.py --database {your_database_connection}
+   python web/bike_share_application.py --database {your_database_connection}
    ```
     - your_database_connection is LOCAL, REMOTE, EC2 based on your DB_BIKES_URL configuration, default is LOCAL
     - For REMOTE and EC2 database connection, make sure the RDS and EC2 instance is running and SSH tunnel is established.

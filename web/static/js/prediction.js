@@ -81,7 +81,6 @@ function resizeChartText(container) {
             format: 'HH:mm',
             titleTextStyle: { fontSize: fontSize }, // Set font size for x-axis title
             textStyle: { fontSize: fontSize }, // Set font size for x-axis labels
-            ticks: () => data.map((entry) => new Date(entry.future_dt)) // Custom function to generate tick values
         },
         vAxis: {
             title: 'Count',

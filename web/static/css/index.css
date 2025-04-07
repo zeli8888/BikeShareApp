@@ -3,7 +3,7 @@
 @import url('./weather.css');
 @import url('./stations.css');
 @import url('./route.css');
-@import url('./bike_trend.css');
+@import url('./bike-trend.css');
 @import url('./prediction.css');
 
 /* Set a background image for the entire body */
@@ -189,7 +189,7 @@ body {
     }
 
     #map .place-controls {
-        margin-top: 0.8%;
+        margin-top: 0.7%;
     }
 
     #radio-buttons-heatmap {

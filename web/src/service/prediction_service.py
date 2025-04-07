@@ -3,7 +3,7 @@ import pickle
 import pandas as pd
 import numpy as np
 import holidays
-from .WeatherService import WeatherService
+from .weather_service import WeatherService
 
 class prediction_service:
     @staticmethod

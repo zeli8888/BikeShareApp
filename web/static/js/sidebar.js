@@ -1,8 +1,8 @@
 import { getWeather } from './weather.js';
-import { renderBikeTrendChart } from "./bike_trend.js";
+import { renderBikeTrendChart } from "./bikeTrend.js";
 import { renderBikePredictionChart } from './prediction.js';
 
-function show_weather_info_container() {
+function showWeatherInfoContainer() {
     getWeather(window.WEATHER_URL, window.coords.latitude, window.coords.longitude);
     document.getElementById('station-info-container').style.display = 'none';
     document.getElementById('weather-info-container').style.display = 'block';
@@ -10,7 +10,7 @@ function show_weather_info_container() {
     document.getElementById('sidebar-return').style.display = 'none';
 }
 
-function show_station_info_container() {
+function showStationInfoContainer() {
     document.getElementById('station-info-container').style.display = 'block';
     document.getElementById('weather-info-container').style.display = 'block';
     document.getElementById('route-container').style.display = 'none';
@@ -23,7 +23,7 @@ function show_station_info_container() {
     }
 }
 
-function show_route_container() {
+function showRouteContainer() {
     document.getElementById('station-info-container').style.display = 'none';
     document.getElementById('weather-info-container').style.display = 'none';
     document.getElementById('route-container').style.display = 'block';
@@ -32,7 +32,7 @@ function show_route_container() {
     }
 }
 
-function toggle_sidebar_content() {
+function toggleSidebarContent() {
     const toggle_button = document.getElementById('sidebar-toggle');
     if (toggle_button.textContent === 'Hide') {
         toggle_button.textContent = 'Show';
@@ -51,4 +51,4 @@ function toggle_sidebar_content() {
     }
 }
 
-export { show_weather_info_container, show_station_info_container, show_route_container, toggle_sidebar_content };
+export { showWeatherInfoContainer, showStationInfoContainer, showRouteContainer, toggleSidebarContent };
