@@ -102,7 +102,7 @@
     - Estimated Points: [8]
     - Assigned To: [Ze Li]
     - Description: [make the website responsive]
-    - Finish Time: []
+    - Finish Time: [7th Apr]
 
 -------------------------------------------------
 ### Software Necessity: [Annotation For Each Function]
@@ -125,7 +125,7 @@
     - Estimated Points: [8]
     - Assigned To: [Ze Li]
     - Description: [add annotations to each function]
-    - Finish Time: []
+    - Finish Time: [8th Apr]
 
 -------------
 ### Software Necessity: [ML model]

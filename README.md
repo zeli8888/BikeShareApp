@@ -1,6 +1,6 @@
 # 🚲 BikeShareApp
 
-**BikeShareApp** is a web application designed to help you get the shared bikes information in dublin. You can get real-time updates on bike station availability and current weather conditions based on your location, see visualized availability trends and heat map for each bike station, and plan your routes easily using this app with minimal external API calls. 🎉
+**BikeShareApp** is a responsive web application designed to help you get the shared bikes information in dublin. You can get real-time updates on bike station availability and current weather conditions based on your location, see visualized availability prediction, history trends and heat map for each bike station, and plan your routes easily using this app with minimal external API calls. 🎉
 
 ---
 
@@ -11,6 +11,7 @@
   - [⚙️ Configuration](#️-configuration)
 - [💻 Usage](#-usage)
 - [🐛 Common Bugs](#-common-bugs)
+- [📂 Project Structure](#-project-structure)
 - [🤝 Contributing](#-contributing)
 - [📝 License](#-license)
 - [📧 Contact](#-contact)
@@ -129,6 +130,64 @@ Here’s how to use **BikeShareApp**:
     - notice that EC2 uses dynamic public ip address, which means you need to update the url in your exception list when restarting EC2 instance.
 
 
+---
+
+## 📂 Project Structure
+- backlog: files related to product backlog and sprint backlog including burn down chart
+- database_oneday_data: scraper files related to database including history daily trend data
+- machine_learning: files related to train machine learning models for availability prediction in each station.
+- web: follow a typical Model-View-Controller (MVC) pattern.
+    - [bike_share_application.py](web/bike_share_application.py): The main application file.
+    - src: Source code directory.
+        - [config.py](web/src/config.py): Configuration file.
+        - model: Directory for data model classes, represents the data structure in database.
+            - [alerts.py](web/src/model/alerts.py): Model for alerts.
+            - [availability.py](web/src/model/availability.py): Model for bike availability.
+            - [current.py](web/src/model/current.py): Model for current weather.
+            - [daily.py](web/src/model/daily.py): Model for daily weather.
+            - [db.py](web/src/model/db.py): SQLAlchemy database instance
+            - [hourly.py](web/src/model/hourly.py): Model for hourly weather.
+            - [station.py](web/src/model/station.py): Model for bike stations.
+        - repository: Directory for data repository classes, used to manipulate data models.
+            - [alerts_repository.py](web/src/repository/alerts_repository.py): Repository for alerts.
+            - [availability_repository.py](web/src/repository/availability_repository.py): Repository for bike availability.
+            - [current_repository.py](web/src/repository/current_repository.py): Repository for current weather.
+            - [daily_repository.py](web/src/repository/daily_repository.py): Repository for daily weather.
+            - [hourly_repository.py](web/src/repository/hourly_repository.py): Repository for hourly weather.
+            - [station_repository.py](web/src/repository/station_repository.py): Repository for bike stations.
+        - service: Directory for service classes, used to perform complex operations for business logic.
+            - [bikes_service.py](web/src/service/bikes_service.py): Service for bike-related logic.
+            - [prediction_service.py](web/src/service/prediction_service.py): Service for prediction-related logic.
+            - [weather_service.py](web/src/service/weather_service.py): Service for weather-related logic.
+        - controller: Directory for controller, used to handle incoming requests.
+            - [bikes_controller.py](web/src/controller/bikes_controller.py): Controller for bike-related logic.
+            - [prediction_controller.py](web/src/controller/prediction_controller.py): Controller for prediction-related logic.
+            - [weather_controller.py](web/src/controller/weather_controller.py): Controller for weather-related logic.
+    - static: Static assets directory.
+        - css: Directory for CSS files.
+            - [index.css](web/static/css/index.css): Styles for the index page.
+            - [map.css](web/static/css/map.css): Styles for map-related pages.
+            - [sidebar.css](web/static/css/sidebar.css): Styles for the sidebar.
+            - [bike-trend.css](web/static/css/bike-trend.css): Styles for bike trend-related pages.
+            - [prediction.css](web/static/css/prediction.css): Styles for prediction-related pages.
+            - [route.css](web/static/css/route.css): Styles for route-related pages.
+            - [stations.css](web/static/css/stations.css): Styles for station-related pages.
+            - [weather.css](web/static/css/weather.css): Styles for weather-related pages.
+        - js: Directory for JavaScript files.
+            - [index.js](web/static/js/index.js): JavaScript code for the index page.
+            - [map.js](web/static/js/map.js): JavaScript code for map-related pages.
+            - [sidebar.js](web/static/js/sidebar.js): JavaScript code for the sidebar.
+            - [bikeTrend.js](web/static/js/bikeTrend.js): JavaScript code for bike trend-related pages.
+            - [prediction.js](web/static/js/prediction.js): JavaScript code for prediction-related pages.
+            - [route.js](web/static/js/route.js): JavaScript code for route-related pages.
+            - [stations.js](web/static/js/stations.js): JavaScript code for station-related pages.
+            - [userLocation.js](web/static/js/userLocation.js): JavaScript code for user location-related functionality.
+            - [weather.js](web/static/js/weather.js): JavaScript code for weather-related pages.
+        - resources: Directory for static resources.
+            - [beste-e-bike-app-von-powunity-1536x864.webp](web/static/resources/beste-e-bike-app-von-powunity-1536x864.webp): A static image file used as a background image.
+    - templates: HTML template directory.
+        - [index.html](web/templates/index.html): The main index page template.
+        
 ---
 
 ## 🤝 Contributing
