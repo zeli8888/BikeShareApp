@@ -67,7 +67,7 @@ class BikesService:
             
             availability_obj = Availability(
                 number=station.get('number'),
-                last_update=datetime.fromtimestamp(station.get('last_update')/1000),
+                last_update=datetime.fromtimestamp(station.get('last_update')/1000) if 'last_update' in station else None,
                 available_bikes=station.get('available_bikes'),
                 available_bike_stands=station.get('available_bike_stands'),
                 status=station.get('status')
@@ -82,11 +82,17 @@ class BikesService:
         # Create background task for database updates
         app = current_app._get_current_object()
         def update_database():
-            with app.app_context():
-                for station_obj, availability_obj in zip(stations_data, availabilities_data):
-                    StationRepository.update_station(station_obj)
-                    AvailabilityRepository.update_availability(availability_obj)
-                AvailabilityRepository.delete_old_availabilities(DAILY_DATA_DATE)
+            try:
+                with app.app_context():
+                    for station_obj, availability_obj in zip(stations_data, availabilities_data):
+                        StationRepository.update_station(station_obj)
+                        AvailabilityRepository.update_availability(availability_obj)
+                    AvailabilityRepository.delete_old_availabilities(DAILY_DATA_DATE)
+            except Exception as e:
+                # with cases of multiple users, the database may already be updated.
+                # in that case, the exception will happen due to the primary key constraint.
+                # we can safely return because database is already updated by other process.
+                return
 
         # Start the background thread
         Thread(target=update_database).start()

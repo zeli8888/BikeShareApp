@@ -1,5 +1,7 @@
 import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Set to 3 to hide all logs, warnings, and errors
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = '2'
+import logging
+logging.getLogger('tensorflow').setLevel(logging.ERROR)
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 import tensorflow as tf

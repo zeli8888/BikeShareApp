@@ -97,8 +97,8 @@ class WeatherService:
                     district=district,
                     sender_name=alerts_info_data.get('sender_name'),
                     event=alerts_info_data.get('event'),
-                    start_time=datetime.fromtimestamp(alerts_info_data.get('start')),
-                    end_time=datetime.fromtimestamp(alerts_info_data.get('end')),
+                    start_time=datetime.fromtimestamp(alerts_info_data.get('start')) if 'start' in alerts_info_data else None,
+                    end_time=datetime.fromtimestamp(alerts_info_data.get('end')) if 'end' in alerts_info_data else None,
                     description=alerts_info_data.get('description'),
                     tags=alerts_info_data.get('tags')[0] if alerts_info_data.get('tags') else None
                 )
@@ -109,9 +109,9 @@ class WeatherService:
                 
         current_obj = Current(
             district=district,
-            dt=datetime.fromtimestamp(current_info.get('dt')),
-            sunrise=datetime.fromtimestamp(current_info.get('sunrise')),
-            sunset=datetime.fromtimestamp(current_info.get('sunset')),
+            dt=datetime.fromtimestamp(current_info.get('dt')) if 'dt' in current_info else None,
+            sunrise=datetime.fromtimestamp(current_info.get('sunrise')) if 'sunrise' in current_info else None,
+            sunset=datetime.fromtimestamp(current_info.get('sunset')) if 'sunset' in current_info else None,
             temp=current_info.get('temp'),
             feels_like=current_info.get('feels_like'),
             pressure=current_info.get('pressure'),
@@ -136,8 +136,8 @@ class WeatherService:
         for hourly_info_data in hourly_info:
             hourly_obj = Hourly(
                 district=district,
-                dt=datetime.fromtimestamp(current_info.get('dt')),
-                future_dt=datetime.fromtimestamp(hourly_info_data.get('dt')),
+                dt=datetime.fromtimestamp(current_info.get('dt')) if 'dt' in current_info else None,
+                future_dt=datetime.fromtimestamp(hourly_info_data.get('dt')) if 'dt' in hourly_info_data else None,
                 temp=hourly_info_data.get('temp'),
                 feels_like=hourly_info_data.get('feels_like'),
                 pressure=hourly_info_data.get('pressure'),
@@ -165,12 +165,12 @@ class WeatherService:
         for daily_info_data in daily_info:
             daily_obj = Daily(
                 district=district,
-                dt=datetime.fromtimestamp(current_info.get('dt')),
-                future_dt=datetime.fromtimestamp(daily_info_data.get('dt')),
-                sunrise=datetime.fromtimestamp(daily_info_data.get('sunrise')),
-                sunset=datetime.fromtimestamp(daily_info_data.get('sunset')),
-                moonrise=datetime.fromtimestamp(daily_info_data.get('moonrise')),
-                moonset=datetime.fromtimestamp(daily_info_data.get('moonset')),
+                dt=datetime.fromtimestamp(current_info.get('dt')) if 'dt' in current_info else None,
+                future_dt=datetime.fromtimestamp(daily_info_data.get('dt')) if 'dt' in daily_info_data else None,
+                sunrise=datetime.fromtimestamp(daily_info_data.get('sunrise')) if 'sunrise' in daily_info_data else None,
+                sunset=datetime.fromtimestamp(daily_info_data.get('sunset')) if 'sunset' in daily_info_data else None,
+                moonrise=datetime.fromtimestamp(daily_info_data.get('moonrise')) if 'moonrise' in daily_info_data else None,
+                moonset=datetime.fromtimestamp(daily_info_data.get('moonset')) if 'moonset' in daily_info_data else None,
                 moon_phase=daily_info_data.get('moon_phase'),
                 summary=daily_info_data.get('summary'),
                 temp_morn=daily_info_data.get('temp', {}).get('morn'),
@@ -207,18 +207,24 @@ class WeatherService:
         # Create background task for database updates
         app = current_app._get_current_object()
         def update_database():
-            with app.app_context():
-                CurrentRepository.update_current(current_obj)
-                for alerts_obj in alerts_data:
-                    AlertsRepository.update_alerts(alerts_obj)
-                for hourly_obj in hourly_data:
-                    HourlyRepository.update_hourly(hourly_obj)
-                for daily_obj in daily_data:
-                    DailyRepository.update_daily(daily_obj)
-                CurrentRepository.delete_old_current()
-                AlertsRepository.delete_old_alerts()
-                HourlyRepository.delete_old_hourly()
-                DailyRepository.delete_old_daily()
+            try:
+                with app.app_context():
+                    CurrentRepository.update_current(current_obj)
+                    for alerts_obj in alerts_data:
+                        AlertsRepository.update_alerts(alerts_obj)
+                    for hourly_obj in hourly_data:
+                        HourlyRepository.update_hourly(hourly_obj)
+                    for daily_obj in daily_data:
+                        DailyRepository.update_daily(daily_obj)
+                    CurrentRepository.delete_old_current()
+                    AlertsRepository.delete_old_alerts()
+                    HourlyRepository.delete_old_hourly()
+                    DailyRepository.delete_old_daily()
+            except Exception as e:
+                # with cases of multiple users, the database may already be updated.
+                # in that case, the exception will happen due to the primary key constraint.
+                # we can safely return because database is already updated by other process.
+                return
 
         # Start the background thread
         Thread(target=update_database).start()
