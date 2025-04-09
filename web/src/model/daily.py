@@ -92,14 +92,17 @@ class Daily(db.Model):
             dict: A dictionary representation of the Daily object.
         """
         local_tz = get_localzone()  # Automatically get the local timezone
-        return {
-            c.name: (
-                getattr(self, c.name).astimezone(local_tz).isoformat() 
-                if isinstance(getattr(self, c.name), datetime) 
-                else getattr(self, c.name)
-            ) 
-            for c in self.__table__.columns
-        }
+        result = {}
+        for c in self.__table__.columns:
+            value = getattr(self, c.name)
+            if isinstance(value, datetime):
+                try:
+                    result[c.name] = value.astimezone(local_tz).isoformat()
+                except Exception: # avoid 1970-01-01 timestamp causing errors
+                    result[c.name] = value
+            else:
+                result[c.name] = value
+        return result
     def __repr__(self):
         """
         Returns a string representation of the Daily object.
