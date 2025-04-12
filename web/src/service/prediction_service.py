@@ -5,7 +5,7 @@ import numpy as np
 import holidays
 from .weather_service import WeatherService
 
-class prediction_service:
+class PredictionService:
     """
     Represents a service for making predictions about bike availability.
 

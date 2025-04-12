@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from ..service import prediction_service
+from ..service import PredictionService
 
 """
 Blueprint for handling prediction-related API endpoints.
@@ -25,5 +25,5 @@ def get_prediction_by_station(station_id):
     """
     latitude = request.args.get('latitude')
     longitude = request.args.get('longitude')
-    prediction = prediction_service.get_prediction_by_station_id(station_id, latitude, longitude)
+    prediction = PredictionService.get_prediction_by_station_id(station_id, latitude, longitude)
     return prediction.to_json(orient='records'), 200
