@@ -46,7 +46,7 @@ To get started with **BikeShareApp**, follow these steps:
    cd BikeShareApp
    ```
 
-3. Install the dependencies (make sure using a python virtual environment):
+3. Install the dependencies (make sure using a python virtual environment with python=3.11):
    ```bash
    python -m pip install -r requirements.txt
    ```
