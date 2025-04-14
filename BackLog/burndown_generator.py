@@ -122,10 +122,10 @@ if __name__ == "__main__":
     Entry point for the script.
 
     example to run:
-        python ./BackLog/burndown_generator.py --file_path ./BackLog/Group2SprintBacklogFeb4-Feb18.md --save_file ./BackLog/BurnDownFeb4-Feb18.png
+        python ./BackLog/burndown_generator.py --file_path ./BackLog/Group2SprintBacklogApr1-Apr15.md --save_file ./BackLog/BurnDownApr1-Apr15.png
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file_path', type=str, action='store', default='./BackLog/Group2SprintBacklogFeb4-Feb18.md')
-    parser.add_argument('--save_file', type=str, action='store', default='./BackLog/BurnDownFeb4-Feb18.png')
+    parser.add_argument('--file_path', type=str, action='store', default='./BackLog/Group2SprintBacklogApr1-Apr15.md')
+    parser.add_argument('--save_file', type=str, action='store', default='./BackLog/BurnDownApr1-Apr15.png')
     args = parser.parse_args()
     main(args.file_path, args.save_file)

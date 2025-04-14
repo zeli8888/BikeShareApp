@@ -1,5 +1,5 @@
-# Group2 Sprint Backlog
-# [Apr1 - Apr 15]
+# Group2 Sprint Backlog (Sprint 4)
+# [Apr 1 - Apr 15]
 ------------
 
 ### Application Discussion: [Application Report]
@@ -22,67 +22,86 @@
     - Estimated Points: [5]
     - Assigned To: [Anju]
     - Description: [Project Overview Part]
-    - Finish Time: []
+    - Finish Time: [4th Apr]
 
 - **Task 2:** 
     - Estimated Points: [5]
     - Assigned To: [Anju]
     - Description: [Architecture Part]
-    - Finish Time: []
+    - Finish Time: [7th Apr]
 
 - **Task 3:** 
     - Estimated Points: [5]
     - Assigned To: [Anju]
     - Description: [Design Part]
-    - Finish Time: []
+    - Finish Time: [8th Apr]
 
 - **Task 4:** 
     - Estimated Points: [5]
     - Assigned To: [Sabrina]
     - Description: [Machine Learning Part]
-    - Finish Time: []
+    - Finish Time: [4th Apr]
 
 - **Task 5:** 
     - Estimated Points: [5]
     - Assigned To: [Sabrina]
     - Description: [Testing Part]
-    - Finish Time: []
+    - Finish Time: [12th Apr]
 
 - **Task 6:** 
     - Estimated Points: [5]
     - Assigned To: [Sabrina]
     - Description: [Conclusion Part]
-    - Finish Time: []
+    - Finish Time: [14th Apr]
 
 ---------
-### User Story: [About and Contact Page]
-- **As a:** [User]
-- **I want to:** [see about ant contact pages]
-- **So that I can:** [get more information and contact the team]
+### User Story: [Acceptance Testing]
+- **As a:** [Developer]
+- **I want to:** [test the the application]
+- **So that I can:** [check if the application aligns with the acceptance criteria]
 
 **Priority:** [High]
 **Estimated Points:** [16]
 **Acceptance Criteria:**
-- [The About page provides a clear and concise description of the application's purpose, features, and team.]
-- [The About page includes relevant images, logos, and branding.]
-- [The Contact page allows users to submit their name, email, and message.]
-- [The Contact page includes a valid email address or contact form that sends messages to the team.]
-- [The About and Contact pages are easily accessible from the main navigation menu.]
-- [The pages are responsive, mobile-friendly, and follow the application's design guidelines.]
+- [It is conducted to verify that a productmeets all the agreed-upon specifications before it's released to the end user.]
+- [Ensures that the final product aligns with the business goals.]
+- [Ensures that the final product aligns with tthe user goals.]
+
 
 **SubTasks:**
 
 - **Task 1:** 
     - Estimated Points: [8]
-    - Assigned To: [Anju]
-    - Description: [implement the contact page]
-    - Finish Time: []
+    - Assigned To: [Sabrina]
+    - Description: [Conduct the acceptance testing]
+    - Finish Time: [11th Apr]
 
-- **Task 2:** 
+---------
+### User Story: [Usability Testing]
+- **As a:** [Developer]
+- **I want to:** [test the the application]
+- **So that I can:** [check if the application aligns with the usability testing]
+
+**Priority:** [High]
+**Estimated Points:** [16]
+**Acceptance Criteria:**
+- [To evaluate how easy and intuitive a product is to use, identifying potential problems and areas for improvement before, during, and after development.]
+- [Ensures a product aligns with user needs and expectations.]
+
+
+
+**SubTasks:**
+
+- **Task 1:** 
     - Estimated Points: [8]
     - Assigned To: [Sabrina]
-    - Description: [implement the about page]
-    - Finish Time: []
+    - Description: [Conduct the usability testing]
+    - Finish Time: [10th Apr]
+- **Task 1:** 
+    - Estimated Points: [8]
+    - Assigned To: [Anju]
+    - Description: [Conduct the usability testing]
+    - Finish Time: [11th Apr]
 ------------
 
 ### User Story: [Responsive Website]
