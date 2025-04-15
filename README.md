@@ -134,6 +134,7 @@ Here’s how to use **BikeShareApp**:
 
 ## 📂 Project Structure
 - backlog: files related to product backlog and sprint backlog including burn down chart
+- report: files related to the report and introduction video
 - database_oneday_data: scraper files related to database including history daily trend data
 - machine_learning: files related to train machine learning models for availability prediction in each station.
 - web: follow a typical Model-View-Controller (MVC) pattern.
