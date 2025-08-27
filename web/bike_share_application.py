@@ -10,7 +10,7 @@ import argparse
 from flask import Flask, render_template, url_for
 from web.src.controller import *
 from web.src.config import *
-
+from werkzeug.middleware.proxy_fix import ProxyFix
 def main(database='LOCAL'):
     """
     Initialize the Flask application and configure the database.
@@ -25,6 +25,11 @@ def main(database='LOCAL'):
         app (Flask): The Flask application instance.
     """
     app = Flask(__name__)
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app,
+        x_proto=1,       # trust X-Forwarded-Proto
+        x_prefix=1       # trust X-Script-Name
+    )
     if os.getenv(f'{database}_DB_BIKES_URL') is None:
         raise Exception(f"Invalid database choice, check your system variable for {database}_DB_BIKES_URL!")
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(f'{database}_DB_BIKES_URL')
