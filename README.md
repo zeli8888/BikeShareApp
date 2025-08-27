@@ -1,11 +1,12 @@
 # 🚲 BikeShareApp
 
-**BikeShareApp** is a responsive web application designed to help you get the shared bikes information in dublin. You can get real-time updates on bike station availability and current weather conditions based on your location, see visualized availability prediction, history trends and heat map for each bike station, and plan your routes easily using this app with minimal external API calls. 🎉
+**[BikeShareApp](https://zeli8888.ddns.net/BikeShareApp/)** is a responsive web application designed to help you get the shared bikes information in dublin. You can get real-time updates on bike station availability and current weather conditions based on your location, see visualized availability prediction, history trends and heat map for each bike station, and plan your routes easily using this app with minimal external API calls. 🎉
 
 ---
 
 ## 📋 Table of Contents
 - [✨ Features](#-features)
+- [🎈 Demos](#-demos)
 - [🚀 Getting Started](#-getting-started)
   - [🔧 Installation](#-installation)
   - [⚙️ Configuration](#️-configuration)
@@ -29,6 +30,12 @@
 - **Feature 8**: Every Fetched Bikes and Weather Data Stored in Database, Minimal External API Calls. 📦
 - **Feature 9**: Automatically Update and Remove Old Database Data with Customizable Time Interval and Asynchronous Service. 🔃
 - **Feature 10**: Responsive Website suitable for different size of mobile phones, tablets and desktop computers. 📱
+---
+
+## 🎈 Demos
+![demo1](demo/project-bikeshareapp-1.png) 
+![demo2](demo/project-bikeshareapp-2.png) 
+![demo3](demo/project-bikeshareapp-3.png) 
 ---
 
 ## 🚀 Getting Started
