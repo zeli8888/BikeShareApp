@@ -1,0 +1,19 @@
+services:
+  bikeshareapp:
+    image: zeli8888/bikeshareapp:${version}
+    container_name: bikeshareapp
+    environment:
+      - GUNICORN_WORKERS=${GUNICORN_WORKERS:-3}
+      - OPEN_WEATHER_KEY=${OPEN_WEATHER_KEY}
+      - GOOGLE_MAP_KEY=${GOOGLE_MAP_KEY}
+      - GOOGLE_MAP_ID=${GOOGLE_MAP_ID}
+      - JCKEY=${JCKEY}
+      - EC2_DB_BIKES_URL=${EC2_DB_BIKES_URL}
+    ports:
+      - 5000:5000
+    networks:
+      - bikeshareapp-network
+
+networks:
+  bikeshareapp-network:
+    driver: bridge

@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mysql:8.0.36
+    container_name: bikeshareapp-mysql
+    ports:
+      - 3308:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # initialize database
+    networks:
+      - bikeshareapp-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+
+networks:
+  bikeshareapp-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${BIKESHAREAPP_MYSQL_VOLUME}
+      o: bind

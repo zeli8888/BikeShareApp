@@ -90,7 +90,7 @@ Here’s how to use **BikeShareApp**:
 
 1. Run the project:
    ```bash
-   python web/bike_share_application.py --database {your_database_connection}
+   python -m web.bike_share_application --database {your_database_connection}
    ```
     - your_database_connection is LOCAL, REMOTE, EC2 based on your DB_BIKES_URL configuration, default is LOCAL
     - For REMOTE and EC2 database connection, make sure the RDS and EC2 instance is running and SSH tunnel is established.
@@ -102,6 +102,32 @@ Here’s how to use **BikeShareApp**:
 
 3. Access the application at `http://127.0.0.1:5000`. For EC2 instance, access at `{EC2_Public_IP}:5000`.
 
+Or, you can run the project using Docker:
+1. Configure Docker Env:
+    ```env
+    DB_PASSWORD=your_database_password
+    BIKESHAREAPP_MYSQL_VOLUME=your_mysql_container_volume
+    EC2_DB_BIKES_URL=your_database_url
+    ```
+
+2. Run MySQL container:
+
+    ```bash
+    docker compose -p bikeshareapp -f mysql.yaml up -d --force-recreate
+    ```
+
+3. Build Docker Image:
+    ```bash
+    docker build -t bikeshareapp:${version_you_like} .
+    docker tag bikeshareapp:${version_you_like} zeli8888/bikeshareapp:${version_you_like}
+    ```
+
+4. Run BikeShareApp container:
+    ```bash
+    export version=${version_you_like} && docker compose -p bikeshareapp -f bikeshareapp.yaml up -d --force-recreate
+    ```
+
+5. (Optional) replace zeli8888 in [Jenkinsfile](Jenkinsfile) and [storage-management-api.yaml](bikeshareapp.yaml) to your docker account for deploy
 ---
 
 ## 🐛 Common Bugs
@@ -114,21 +140,19 @@ Here’s how to use **BikeShareApp**:
     - running the project will create tables with primary key in database if tables don't exist.
     - loading data first will result in tables creation without primary key.
     - you can delete the tables and run the project again to fix the problem.
+    - or use docker container to avoid this.
 
 - EC2 Security Setting:
     - make sure your EC2 instance allow the incoming traffic from your local machine (custom ip address).
 
 - Google Map Key Restrictions:
     - make sure your google map key allow the url of this application: `http://127.0.0.1:5000` or `{EC2_Public_IP}:5000` running on EC2.
-    - notice that EC2 uses dynamic public ip address, which means you need to update the url in your google map key when restarting EC2 instance.
 
 - Domain Not Secure in Browser With EC2:
-    - since this application doesn't run on https, the browser will recognize it as not secure and forbid its location access by default when it runs on EC2.
+    - if this application doesn't run on https, the browser will recognize it as not secure and forbid its location access by default when it runs on EC2.
     - you can bypass this by adding `{EC2_Public_IP}:5000` to the exception list of your browser.
         - For edge, access `edge://flags/#unsafely-treat-insecure-origin-as-secure`
         - For chrome, access `chrome://flags/#unsafely-treat-insecure-origin-as-secure`
-    - notice that EC2 uses dynamic public ip address, which means you need to update the url in your exception list when restarting EC2 instance.
-
 
 ---
 

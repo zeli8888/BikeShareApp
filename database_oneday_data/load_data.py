@@ -19,7 +19,7 @@ def load_table_data(engine, table):
     Returns:
         None
     """
-    df = pd.read_csv(f'./database/{table}.csv')
+    df = pd.read_csv(f'./database_oneday_data/{table}.csv')
     df.to_sql(f'{table}', engine, if_exists='append', index=False, method='multi', chunksize=1000)
     
 def main(database="LOCAL"):

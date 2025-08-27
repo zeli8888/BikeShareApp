@@ -8,8 +8,8 @@ import tensorflow as tf
 tf.config.set_soft_device_placement(True)
 import argparse
 from flask import Flask, render_template, url_for
-from src.controller import *
-from src.config import *
+from web.src.controller import *
+from web.src.config import *
 
 def main(database='LOCAL'):
     """
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     Run the application.
 
     To run with EC2:
-        python bike_share_application.py --database 'EC2' --no_debug
+        python -m web.bike_share_application --database 'EC2' --no_debug
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--database', type=str, action='store', default='LOCAL')
