@@ -2,8 +2,18 @@ import { showStationInfoContainer } from "./sidebar.js";
 import { getWeather } from "./weather.js";
 
 /**
+ * Returns a color on a red-to-green gradient based on availability count.
+ * 0 = red (hue 0), 30+ = green (hue 120).
+ */
+function getAvailabilityColor(count) {
+    const ratio = Math.min(count, 30) / 30;
+    const hue = ratio * 120;
+    return `hsl(${hue}, 90%, 55%)`;
+}
+
+/**
  * Fetches the list of bike stations and their availabilities from the
- * server, and adds them to the map. Also adds a heatmap of bike
+ * server, and adds them to the map. Also adds circle overlays of bike
  * availability to the map.
  *
  * @param {string} bikesUrl The URL of the backend to fetch the bike data from.
@@ -14,6 +24,8 @@ async function addStationMarker(bikesUrl) {
     try {
         const { stations, availabilities } = await fetch(bikesUrl).then(response => response.json());
         window.markers = {};
+        window.bikesCircles = {};
+        window.standsCircles = {};
 
         // Create AdvancedMarkerElement For User Location
         const userLocationMarkerImg = document.createElement('img');
@@ -31,17 +43,7 @@ async function addStationMarker(bikesUrl) {
             setStation(station, stationMarkerImg);
         });
 
-        const { heatmapBikesData, heatmapStandsData } = setAvailabilities(availabilities);
-        window.heatmapBikes = new google.maps.visualization.HeatmapLayer({
-            data: heatmapBikesData,
-            radius: 25,
-            map: window.googleMap
-        });
-        window.heatmapStands = new google.maps.visualization.HeatmapLayer({
-            data: heatmapStandsData,
-            radius: 25,
-            map: null
-        });
+        setAvailabilities(availabilities);
 
         addLegend();
         addRadioButtons();
@@ -56,7 +58,7 @@ async function addStationMarker(bikesUrl) {
  *
  * The legend is a vertical bar of colored rectangles, with
  * corresponding labels on the right side. The colors range from
- * blue (0 available bikes) to red (50+ available bikes). The
+ * red (0 available bikes) to green (50+ available bikes). The
  * legend is placed on the map at the default position.
  */
 function addLegend() {
@@ -67,11 +69,11 @@ function addLegend() {
     <div class="legend-gradient"></div>
     <div class="legend-labels">
         <span>0</span>
-        <span>10</span>
-        <span>20</span>
-        <span>30</span>
-        <span>40</span>
-        <span>50+</span>
+        <span>6</span>
+        <span>12</span>
+        <span>18</span>
+        <span>24</span>
+        <span>30+</span>
     </div>
     `;
 
@@ -101,18 +103,18 @@ function addRadioButtons() {
 
     radioButtons.addEventListener('change', (event) => {
         if (event.target.value === 'bikes') {
-            window.heatmapBikes.setMap(window.googleMap);
-            window.heatmapStands.setMap(null);
+            Object.values(window.bikesCircles).forEach(c => c.setMap(window.googleMap));
+            Object.values(window.standsCircles).forEach(c => c.setMap(null));
             document.getElementById('heatmap-legend').style.display = 'block';
             document.getElementById('heatmap-legend-title').innerHTML = 'Available Bikes';
         } else if (event.target.value === 'stands') {
-            window.heatmapBikes.setMap(null);
-            window.heatmapStands.setMap(window.googleMap);
+            Object.values(window.bikesCircles).forEach(c => c.setMap(null));
+            Object.values(window.standsCircles).forEach(c => c.setMap(window.googleMap));
             document.getElementById('heatmap-legend').style.display = 'block';
             document.getElementById('heatmap-legend-title').innerHTML = 'Available Stands';
         } else if (event.target.value === 'none') {
-            window.heatmapBikes.setMap(null);
-            window.heatmapStands.setMap(null);
+            Object.values(window.bikesCircles).forEach(c => c.setMap(null));
+            Object.values(window.standsCircles).forEach(c => c.setMap(null));
             document.getElementById('heatmap-legend').style.display = 'none';
         }
     });
@@ -121,7 +123,7 @@ function addRadioButtons() {
 /**
  * Updates the current bike availability data from the backend server and re-renders
  * the stations on the map with the new data.
- * 
+ *
  * New data is guaranteed to be fetched from external api calls.
  *
  * Also updates the heatmap data with the new availability data.
@@ -163,10 +165,8 @@ async function getCurrentBikes() {
             }
         });
 
-        // Set the availabilities data for the heatmaps.
-        const { heatmapBikesData, heatmapStandsData } = setAvailabilities(availabilities, true);
-        window.heatmapBikes.setData(heatmapBikesData);
-        window.heatmapStands.setData(heatmapStandsData);
+        // Set the availabilities data for the circle overlays.
+        setAvailabilities(availabilities, true);
         window.alert('Current Bikes Data has been updated.');
     } catch (error) {
         console.error('Error updating current bikes data:', error);
@@ -186,7 +186,7 @@ async function getCurrentBikes() {
 /**
  * Sets a station marker on the map.
  *
- * Given a station object and a station marker image, this function 
+ * Given a station object and a station marker image, this function
  * creates a marker for the station on the map, and sets the content of
  * the info window for the marker. The content includes the name of the station
  * and a 'Directions' link for the user to get directions to the station. The
@@ -239,22 +239,20 @@ function setStation(station, stationMarkerImg) {
 
 /**
  * Sets the current bike availability data and updates the info window content
- * for all stations. Also sets the data for the heatmaps of bike and stand
- * availability.
+ * for all stations. Also creates or updates circle overlays for bike and stand
+ * availability on the map.
  *
  * @param {Array} availabilities - An array of objects containing the
  *     properties 'available_bike_stands', 'available_bikes', 'last_update',
  *     'number', and 'status'.
  * @param {boolean} [updateSidebar=false] - If true, updates the sidebar content
  *     for the currently chosen station.
- *
- * @returns {Object} An object containing two properties: 'heatmapBikesData' and
- *     'heatmapStandsData', which are arrays of objects containing the location
- *     and weight for the heatmaps.
  */
 function setAvailabilities(availabilities, updateSidebar = false) {
-    const heatmapBikesData = [];
-    const heatmapStandsData = [];
+    const activeRadio = document.querySelector('input[name="heatmap"]:checked');
+    const showBikes = !activeRadio || activeRadio.value === 'bikes';
+    const showStands = activeRadio && activeRadio.value === 'stands';
+
     availabilities.forEach(availability => {
         const { available_bike_stands, available_bikes, last_update, number, status } = availability;
         const infoWindow = window.markers[number].infoWindow;
@@ -270,20 +268,39 @@ function setAvailabilities(availabilities, updateSidebar = false) {
         if (updateSidebar && window.chosenStation === number) {
             document.getElementById('station-info').innerHTML = infoWindow.content;
         }
-        const location = new window.google.maps.LatLng(window.markers[number].position.lat, window.markers[number].position.lng);
-        heatmapBikesData.push({
-            location: location,
-            weight: available_bikes
-        });
-        heatmapStandsData.push({
-            location: location,
-            weight: available_bike_stands
-        });
+
+        const position = window.markers[number].position;
+        const bikesColor = getAvailabilityColor(available_bikes);
+        const standsColor = getAvailabilityColor(available_bike_stands);
+
+        if (window.bikesCircles[number]) {
+            window.bikesCircles[number].setOptions({ fillColor: bikesColor, strokeColor: bikesColor });
+            window.standsCircles[number].setOptions({ fillColor: standsColor, strokeColor: standsColor });
+        } else {
+            window.bikesCircles[number] = new google.maps.Circle({
+                center: position,
+                radius: 80,
+                fillColor: bikesColor,
+                fillOpacity: 0.4,
+                strokeWeight: 1,
+                strokeColor: bikesColor,
+                strokeOpacity: 0.8,
+                map: showBikes ? window.googleMap : null,
+                clickable: false,
+            });
+            window.standsCircles[number] = new google.maps.Circle({
+                center: position,
+                radius: 80,
+                fillColor: standsColor,
+                fillOpacity: 0.4,
+                strokeWeight: 1,
+                strokeColor: standsColor,
+                strokeOpacity: 0.8,
+                map: showStands ? window.googleMap : null,
+                clickable: false,
+            });
+        }
     });
-    return {
-        heatmapBikesData: heatmapBikesData,
-        heatmapStandsData: heatmapStandsData
-    };
 }
 
 export { addStationMarker, getCurrentBikes }
